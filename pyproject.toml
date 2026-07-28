@@ -1,15 +1,17 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 
 [project]
 name = "laborlaw-rag-ir"
 version = "0.1.0"
-description = "Persian Legal RAG Chatbot for Iranian Labor Law"
-readme = "README.md"
-requires-python = ">=3.11"
-license = {file = "LICENSE"}
+description = "Persian RAG system for Iranian Labor Law"
+requires-python = ">=3.10"
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
 
 
 [tool.setuptools.packages.find]
