@@ -1,0 +1,54 @@
+[
+  {
+    "record_id": "article-1",
+    "source_id": "iran-labor-law",
+    "law_title": "قانون کار",
+    "type": "article",
+    "article_number": 1,
+    "article_reference": "ماده 1",
+    "chapter_title": "فصل اول - کلیات",
+    "section_title": "مبحث اول - تعاریف",
+    "text": "کارگر شخصی است که کار می‌کند.\nاین جمله ادامه ماده نخست است.",
+    "source_url": "https://example.test/law"
+  },
+  {
+    "record_id": "article-1-subarticle-1",
+    "source_id": "iran-labor-law",
+    "law_title": "قانون کار",
+    "type": "subarticle",
+    "article_number": 1,
+    "article_reference": "ماده 1",
+    "subarticle_number": 1,
+    "subarticle_reference": "تبصره 1 ماده 1",
+    "chapter_title": "فصل اول - کلیات",
+    "section_title": "مبحث اول - تعاریف",
+    "text": "نخستین تبصره بدون شماره است.\nادامه متن تبصره نخست.",
+    "source_url": "https://example.test/law"
+  },
+  {
+    "record_id": "article-1-subarticle-2",
+    "source_id": "iran-labor-law",
+    "law_title": "قانون کار",
+    "type": "subarticle",
+    "article_number": 1,
+    "article_reference": "ماده 1",
+    "subarticle_number": 2,
+    "subarticle_reference": "تبصره 2 ماده 1",
+    "chapter_title": "فصل اول - کلیات",
+    "section_title": "مبحث اول - تعاریف",
+    "text": "دومین تبصره شماره دارد.",
+    "source_url": "https://example.test/law"
+  },
+  {
+    "record_id": "article-2",
+    "source_id": "iran-labor-law",
+    "law_title": "قانون کار",
+    "type": "article",
+    "article_number": 2,
+    "article_reference": "ماده 2",
+    "chapter_title": "فصل اول - کلیات",
+    "section_title": "مبحث اول - تعاریف",
+    "text": "کارفرما می‌تواند شخص حقیقی یا حقوقی باشد.",
+    "source_url": "https://example.test/law"
+  }
+]
