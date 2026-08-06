@@ -1,0 +1,11 @@
+{
+  "schema_version": 2,
+  "embedding_model": "jina-embeddings-v3",
+  "embedding_task": "retrieval.passage",
+  "query_embedding_task": "retrieval.query",
+  "vector_count": 204,
+  "dimension": 1024,
+  "metric": "l2",
+  "chunks_sha256": "9218b43a25b095469cec996ba4882d8437d3cf3b3ebac6e9e4cc88c2587f3855",
+  "chunks_order_sha256": "99087128b07ff45c81ca35ad852efe1104d2108d3a8e6f401b858ddfad417056"
+}
