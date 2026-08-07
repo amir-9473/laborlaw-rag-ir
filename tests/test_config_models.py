@@ -138,4 +138,5 @@ def test_result_to_dict_has_json_ready_enums_sequences_and_provenance() -> None:
     assert payload["status"] == "answer"
     assert payload["retrieval_queries"] == ["سوال"]
     assert payload["citations"][0]["source_id"] == "iran-labor-law"
+    assert payload["model_name"] == "unknown"
     assert payload["warnings"] == ["warning"]

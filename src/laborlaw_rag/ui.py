@@ -291,6 +291,16 @@ def page_css() -> str:
         font-size: .86rem;
         line-height: 1.9;
     }}
+    [data-testid="stChatMessage"] [data-testid="stCaptionContainer"] {{
+        display: inline-flex;
+        margin-top: .7rem;
+        padding: .3rem .65rem;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #f8faf9;
+        font-size: .74rem;
+    }}
     [data-testid="stMarkdownContainer"] ul,
     [data-testid="stMarkdownContainer"] ol {{
         padding-right: 1.5rem;

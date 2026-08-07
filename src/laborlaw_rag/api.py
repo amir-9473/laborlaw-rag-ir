@@ -58,6 +58,7 @@ class AskResponse(BaseModel):
     citations: list[CitationResponse]
     final_output: str
     timings_ms: dict[str, float]
+    model_name: str
     warnings: list[str] = Field(default_factory=list)
 
 

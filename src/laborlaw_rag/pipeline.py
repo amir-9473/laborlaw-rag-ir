@@ -25,10 +25,20 @@ INSUFFICIENT_MESSAGE = (
     "پرسش شما به حوزهٔ قانون کار مرتبط است، اما در منابع موجود اطلاعات کافی "
     "و صریحی برای ارائهٔ پاسخ مستند پیدا نشد."
 )
+INTRODUCTION_MESSAGE = (
+    "من دستیار هوشمند قانون کار ایران هستم. وظیفه‌ام پاسخ‌گویی به پرسش‌های مرتبط "
+    "با روابط کار بر پایهٔ مواد و تبصره‌های موجود در منابع این پروژه است. پاسخ‌های "
+    "حقوقی را همراه با سایتیشن و فهرست منابع ارائه می‌کنم، برای موضوعات خارج از این "
+    "حوزه پاسخی نمی‌سازم و جایگزین مشاورهٔ تخصصی حقوقی نیستم."
+)
 _SOURCE_TAG = re.compile(r"\[SOURCE_(\d+)\]")
 _CLAIM_BOUNDARY = re.compile(r"(?<=[.!؟؛])\s+|\n+")
 _CITED_CLAIM = re.compile(r"(?P<claim>.*?)(?P<tags>(?:\s*\[SOURCE_\d+\])+)(?=\s+|$)", re.DOTALL)
 _OTHER_LAW = re.compile(r"قانون\s+(?:مدنی|مجازات|اساسی|تجارت|آیین\s+دادرسی)")
+_IDENTITY_QUERY = re.compile(
+    r"(?:خود(?:ت|تان)?(?:و|\s+را)?\s+معرفی|معرفی\s+خود(?:ت|تان)?|"
+    r"(?:تو|شما)\s+(?:کی|چه\s+کسی)\s+(?:هستی|هستید)|درباره\s+خود(?:ت|تان)?\s+بگو)"
+)
 _LABOR_TERMS = {
     "کارگر",
     "کارفرما",
@@ -146,8 +156,30 @@ class RAGPipeline:
     def ask(self, question: str, use_query_transformation: bool | None = None) -> RAGResult:
         """Return a validated answer contract with numbered sources at the bottom."""
         started = perf_counter()
+        validated_question = self._validate_question(question)
+        initial_query = normalize_query(validated_question)
+        if _IDENTITY_QUERY.search(initial_query):
+            elapsed = round((perf_counter() - started) * 1000, 2)
+            return RAGResult(
+                status=AnswerStatus.ANSWER,
+                question=validated_question,
+                normalized_query=initial_query,
+                retrieval_queries=(),
+                used_query_transformation=False,
+                answer=INTRODUCTION_MESSAGE,
+                citations=(),
+                final_output=INTRODUCTION_MESSAGE,
+                timings_ms={
+                    "query_preparation": elapsed,
+                    "retrieval": 0.0,
+                    "generation": 0.0,
+                    "postprocessing": 0.0,
+                    "total": elapsed,
+                },
+                model_name="internal",
+            )
         normalized, queries, warnings, used_transformation = self.prepare_queries(
-            question, use_query_transformation
+            validated_question, use_query_transformation
         )
         prepared = perf_counter()
         hits = self.retriever.retrieve(queries, rerank_query(normalized))
@@ -179,6 +211,7 @@ class RAGPipeline:
                 "postprocessing": round((finished - generated) * 1000, 2),
                 "total": round((finished - started) * 1000, 2),
             },
+            model_name=getattr(self.llm, "model_name", "unknown"),
             warnings=tuple(warnings),
         )
 

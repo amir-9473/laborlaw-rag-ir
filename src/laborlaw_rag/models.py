@@ -112,6 +112,7 @@ class RAGResult:
     citations: tuple[Citation, ...]
     final_output: str
     timings_ms: dict[str, float]
+    model_name: str = "unknown"
     warnings: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:

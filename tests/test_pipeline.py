@@ -28,6 +28,7 @@ class StubLLM:
         variants: list[str] | None = None,
         transform_error: bool = False,
     ) -> None:
+        self.model_name = "test-model"
         self.draft = draft
         self.variants = variants or []
         self.transform_error = transform_error
@@ -96,6 +97,28 @@ def test_colloquial_nonpayment_is_canonicalized_before_retrieval_and_generation(
     assert retriever.calls == [([*result.retrieval_queries], focused)]
     assert llm.generate_calls[0][0] == expected
     assert result.used_query_transformation is False
+
+
+def test_identity_question_returns_internal_bio_without_provider_calls(legal_chunks) -> None:
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(
+        DraftAnswer(AnswerStatus.ANSWER, "نباید استفاده شود. [SOURCE_1]", ("SOURCE_1",)),
+        variants=["نباید استفاده شود"],
+    )
+
+    result = RAGPipeline(retriever, llm).ask("لطفاً خودتو معرفی کن", use_query_transformation=True)
+
+    assert result.status is AnswerStatus.ANSWER
+    assert result.model_name == "internal"
+    assert "دستیار هوشمند قانون کار ایران" in result.answer
+    assert "سایتیشن" in result.answer
+    assert result.citations == ()
+    assert result.retrieval_queries == ()
+    assert result.timings_ms["retrieval"] == 0
+    assert result.timings_ms["generation"] == 0
+    assert retriever.calls == []
+    assert llm.transform_calls == []
+    assert llm.generate_calls == []
 
 
 def test_transformed_queries_are_renormalized_and_deduplicated(legal_chunks) -> None:

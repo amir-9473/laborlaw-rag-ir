@@ -49,6 +49,7 @@ def _result() -> RAGResult:
         citations=(citation,),
         final_output="پاسخ [1]\n\n### منابع\n[1] قانون کار — ماده 1",
         timings_ms={"total": 1.0},
+        model_name="test-model",
     )
 
 
@@ -72,6 +73,7 @@ def test_api_dependency_override_forwards_request_and_serializes_result() -> Non
     assert response.json()["status"] == "answer"
     assert response.json()["citations"][0]["source_id"] == "iran-labor-law"
     assert response.json()["citations"][0]["article_reference"] == "ماده 1"
+    assert response.json()["model_name"] == "test-model"
     assert fake.calls == [("کارگر کیست؟", True)]
 
 
@@ -226,6 +228,8 @@ def test_streamlit_source_is_valid_and_pipeline_loading_is_lazy() -> None:
     assert "from laborlaw_rag.pipeline import RAGPipeline" in source
     assert "history_html(st.session_state.messages)" in source
     assert "_split_answer_sources" in source
+    assert "پاک‌کردن تاریخچه گفتگو" in source
+    assert 'st.session_state.pop("request_count"' not in source
     assert source.index("def get_pipeline") < source.index(
         "from laborlaw_rag.pipeline import RAGPipeline"
     )
@@ -257,6 +261,7 @@ def test_streamlit_renders_history_and_each_source_on_a_separate_row() -> None:
                 "[۱] قانون کار — ماده ۷\n\n"
                 "[۲] قانون کار — تبصره ۱ ماده ۷"
             ),
+            "metadata": {"model_name": "test-model", "latency_ms": 1234},
         },
     ]
     app.run(timeout=10)
@@ -268,3 +273,20 @@ def test_streamlit_renders_history_and_each_source_on_a_separate_row() -> None:
     assert "[۲] قانون کار — تبصره ۱ ماده ۷" in markdown_values
     assert any("۱ پرسش" in value for value in markdown_values)
     assert any("ماده ۷ چیست؟" in value for value in markdown_values)
+    captions = [item.value for item in app.caption]
+    assert any("test-model" in value and "۱٫۲۳" in value for value in captions)
+
+
+def test_streamlit_clear_history_button_preserves_request_quota() -> None:
+    from streamlit.testing.v1 import AppTest
+
+    app = AppTest.from_file(str(PROJECT_ROOT / "streamlit_app.py"))
+    app.session_state["messages"] = [{"role": "user", "content": "پرسش"}]
+    app.session_state["request_count"] = 4
+    app.run(timeout=10)
+
+    clear_button = next(button for button in app.button if "پاک‌کردن تاریخچه" in button.label)
+    clear_button.click().run(timeout=10)
+
+    assert app.session_state["messages"] == []
+    assert app.session_state["request_count"] == 4

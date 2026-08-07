@@ -62,12 +62,12 @@ def _friendly_error(exc: Exception) -> str:
     return "پردازش پرسش با خطا روبه‌رو شد. لطفاً کمی بعد دوباره تلاش کنید."
 
 
-def _render_message(role: str, content: str) -> None:
+def _render_message(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
     """Render trusted UI chrome and model Markdown separately."""
 
     avatar = "👤" if role == "user" else "⚖️"
     with st.chat_message(role, avatar=avatar):
-        _render_content(role, content)
+        _render_content(role, content, metadata)
 
 
 def _split_answer_sources(content: str) -> tuple[str, list[str]]:
@@ -87,7 +87,7 @@ def _split_answer_sources(content: str) -> tuple[str, list[str]]:
     return answer, references
 
 
-def _render_content(role: str, content: str) -> None:
+def _render_content(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
     """Render each citation in its own visual row while keeping Markdown safe."""
 
     if role != "assistant":
@@ -100,6 +100,12 @@ def _render_content(role: str, content: str) -> None:
         for reference in references:
             with st.container(border=True):
                 st.markdown(reference)
+    if metadata:
+        model_name = str(metadata.get("model_name") or "unknown")
+        model_label = "پاسخ داخلی بدون فراخوانی مدل" if model_name == "internal" else model_name
+        latency_ms = max(float(metadata.get("latency_ms") or 0), 0)
+        latency = to_persian_digits(f"{latency_ms / 1_000:.2f}").replace(".", "٫")
+        st.caption(f"مدل پاسخ‌گو: {model_label}  •  زمان کل پاسخ: {latency} ثانیه")
 
 
 def _enforce_demo_access() -> None:
@@ -160,10 +166,8 @@ with st.sidebar:
         st.caption("برای پاسخ سریع‌تر، این گزینه را خاموش نگه دارید.")
 
     history_slot = st.empty()
-    if st.button("＋ شروع گفتگوی جدید", use_container_width=True):
-        st.session_state.pop("messages", None)
-        st.session_state.pop("request_count", None)
-        st.session_state.pop("last_request_at", None)
+    if st.button("🗑 پاک‌کردن تاریخچه گفتگو", use_container_width=True):
+        st.session_state.messages = []
         st.rerun()
 
     st.markdown(
@@ -184,7 +188,7 @@ if not st.session_state.messages:
     st.info("برای شروع، پرسش خود را دربارهٔ قانون کار در کادر پایین بنویسید.", icon="💬")
 
 for message in st.session_state.messages:
-    _render_message(message["role"], message["content"])
+    _render_message(message["role"], message["content"], message.get("metadata"))
 
 if question := st.chat_input("پرسش خود را دربارهٔ قانون کار بنویسید…"):
     question = question.strip()
@@ -193,6 +197,7 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
         _render_message("user", question)
 
         with st.chat_message("assistant", avatar="⚖️"):
+            response_metadata = None
             limit_message = _request_limit_message()
             if limit_message:
                 output = limit_message
@@ -200,20 +205,28 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
             else:
                 with st.spinner("در حال بررسی منابع قانون کار…"):
                     try:
+                        request_started = monotonic()
                         result = get_pipeline().ask(
                             question,
                             use_query_transformation=use_query_transformation,
                         )
                         output = result.final_output
+                        response_metadata = {
+                            "model_name": result.model_name,
+                            "latency_ms": round((monotonic() - request_started) * 1_000, 2),
+                        }
                     except Exception as exc:
                         logger.exception("Streamlit RAG request failed.")
                         output = _friendly_error(exc)
                         st.error(output)
                     else:
                         # final_output keeps numbered citations below the answer.
-                        _render_content("assistant", output)
+                        _render_content("assistant", output, response_metadata)
 
-        st.session_state.messages.append({"role": "assistant", "content": output})
+        assistant_message = {"role": "assistant", "content": output}
+        if response_metadata:
+            assistant_message["metadata"] = response_metadata
+        st.session_state.messages.append(assistant_message)
 
 question_count = sum(message.get("role") == "user" for message in st.session_state.messages)
 with history_slot.container():

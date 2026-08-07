@@ -20,7 +20,9 @@ The response contract distinguishes three states:
 - Source adapters for HTML/text and optional PDF input; new adapters implement the same `SourceAdapter` contract.
 - FastAPI interface plus a single-process Streamlit Community Cloud demo.
 - Fully RTL Persian UI with the bundled Vazirmatn font.
-- 106 offline tests and a separately gated live canary.
+- Per-answer model and end-to-end latency metadata, plus clearable session history.
+- A zero-provider-call assistant introduction for identity questions.
+- 108 offline tests and a separately gated live canary.
 
 ## Architecture
 

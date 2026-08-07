@@ -157,6 +157,12 @@ class OpenRouterClient:
         self.session = session or _session()
         self._lock = Lock()
 
+    @property
+    def model_name(self) -> str:
+        """Return the configured response model for result metadata."""
+
+        return self.settings.llm_model
+
     def complete(
         self,
         system_prompt: str,
