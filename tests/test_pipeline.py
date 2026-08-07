@@ -76,6 +76,28 @@ def test_transformation_can_be_disabled_and_normalized_query_reaches_every_compo
     assert llm.generate_calls[0][0] == "کارگر های 123؟"
 
 
+def test_colloquial_nonpayment_is_canonicalized_before_retrieval_and_generation(
+    legal_chunks,
+) -> None:
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT, "", ()))
+    pipeline = RAGPipeline(retriever, llm)
+
+    result = pipeline.ask("اگر کارفرما حقوق کارگر رو نده چی میشه؟")
+
+    expected = "اگر کارفرما حقوق کارگر را پرداخت نکند چه می شود؟"
+    focused = "زمان و نحوه پرداخت مزد و حقوق کارگر و مراجع حل اختلاف در صورت عدم پرداخت کارفرما"
+    assert result.normalized_query == expected
+    assert result.retrieval_queries == (
+        expected,
+        "زمان و نحوه پرداخت مزد و حقوق کارگر",
+        focused,
+    )
+    assert retriever.calls == [([*result.retrieval_queries], focused)]
+    assert llm.generate_calls[0][0] == expected
+    assert result.used_query_transformation is False
+
+
 def test_transformed_queries_are_renormalized_and_deduplicated(legal_chunks) -> None:
     retriever = SpyRetriever(_hits(legal_chunks))
     llm = StubLLM(
@@ -209,6 +231,36 @@ def test_citations_are_validated_renumbered_and_rendered_below_answer(
     assert "\n\n[۲] قانون کار — ماده ۱" in result.final_output
     assert "https://example.test/labor-law#7" in result.final_output
     assert result.final_output.startswith(f"{result.answer}\n\n### منابع")
+
+
+def test_each_sentence_gets_its_citation_before_the_reference_list(legal_chunks) -> None:
+    draft = DraftAnswer(
+        AnswerStatus.ANSWER,
+        (
+            "کارگر در برابر دریافت حق السعی کار می کند. "
+            "حق السعی در برابر کار کارگر دریافت می شود. [SOURCE_1]"
+        ),
+        ("SOURCE_1",),
+        (("SOURCE_1", "در برابر کار، کارگر حق السعی دریافت می کند."),),
+    )
+    result = RAGPipeline(SpyRetriever([SearchHit(legal_chunks[0], 0.8, 0.95)]), StubLLM(draft)).ask(
+        "حق السعی کارگر چیست؟"
+    )
+
+    answer_lines = result.answer.splitlines()
+    assert result.status is AnswerStatus.ANSWER
+    assert len(answer_lines) == 2
+    assert all(line.endswith("[۱]") for line in answer_lines)
+    assert result.answer.count("[۱]") == 2
+    assert result.final_output.count("### منابع") == 1
+
+
+def test_sentence_citation_repair_preserves_specific_source_mapping() -> None:
+    answer = "حکم نخست. [SOURCE_1] حکم دوم. [SOURCE_2]"
+
+    assert RAGPipeline._ensure_sentence_citations(answer) == (
+        "حکم نخست. [SOURCE_1]\nحکم دوم. [SOURCE_2]"
+    )
 
 
 @pytest.mark.parametrize(

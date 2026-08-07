@@ -12,8 +12,11 @@ from laborlaw_rag.search import (
     FaissStore,
     HybridRetriever,
     build_vector_index,
+    expand_legal_query,
     normalize_persian,
+    normalize_query,
     reciprocal_rank_fusion,
+    rerank_query,
     tokenize_persian,
 )
 
@@ -44,6 +47,25 @@ def test_persian_normalization_unifies_letters_digits_spacing_and_marks() -> Non
 
     assert normalized == "کارگر های 123، قرارداد کار؟"
     assert tokenize_persian(raw) == ["کارگر", "های", "123", "قرارداد", "کار"]
+
+
+def test_query_normalization_canonicalizes_colloquial_labor_wording() -> None:
+    assert normalize_query("کارفرما حقوق کارگر رو نده چی میشه؟") == (
+        "کارفرما حقوق کارگر را پرداخت نکند چه می شود؟"
+    )
+    assert normalize_query("ماده ۳۷ و تبصره‌هاش رو بنویس") == ("ماده 37 و تبصره های آن را بنویس")
+
+
+def test_nonpayment_expansion_is_deterministic_and_does_not_use_an_llm() -> None:
+    normalized = normalize_query("کارفرما حقوق کارگر رو نده چی میشه؟")
+    queries = expand_legal_query(normalized)
+
+    assert queries == [
+        "کارفرما حقوق کارگر را پرداخت نکند چه می شود؟",
+        "زمان و نحوه پرداخت مزد و حقوق کارگر",
+        "زمان و نحوه پرداخت مزد و حقوق کارگر و مراجع حل اختلاف در صورت عدم پرداخت کارفرما",
+    ]
+    assert rerank_query(normalized) == queries[-1]
 
 
 @pytest.mark.parametrize("bad", [None, 12, ["text"]])

@@ -208,6 +208,9 @@ def test_generation_maps_all_three_answer_states(
     assert draft.source_ids == ("SOURCE_1",)
     expected_evidence = (("SOURCE_1", "ماده 1"),) if raw_status == "answer" else ()
     assert draft.evidence == expected_evidence
+    system_prompt = session.posts[0]["json"]["messages"][0]["content"]
+    assert "پرسش محاوره‌ای" in system_prompt
+    assert "پس از هر جملهٔ حقوقی" in system_prompt
 
 
 @pytest.mark.parametrize(

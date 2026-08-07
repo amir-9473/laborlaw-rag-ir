@@ -12,15 +12,15 @@ The response contract distinguishes three states:
 
 ## Features
 
-- Mandatory Persian normalization for the BM25 corpus, retrieval queries, reranker, and final LLM.
+- Mandatory Persian and colloquial-query normalization for BM25, reranking, and the final LLM.
 - Hybrid dense + BM25 retrieval with Reciprocal Rank Fusion.
 - Optional LLM query transformation, disabled by default to reduce latency.
 - Direct FAISS loading with a model/hash manifest; no LangChain or unsafe pickle loading.
-- Grounded structured generation, validated source IDs, contiguous citations, and references at the bottom.
+- Grounded generation with a citation after every legal sentence and references at the bottom.
 - Source adapters for HTML/text and optional PDF input; new adapters implement the same `SourceAdapter` contract.
 - FastAPI interface plus a single-process Streamlit Community Cloud demo.
 - Fully RTL Persian UI with the bundled Vazirmatn font.
-- 98 offline tests, 93% package coverage, and a separately gated live canary.
+- 106 offline tests and a separately gated live canary.
 
 ## Architecture
 

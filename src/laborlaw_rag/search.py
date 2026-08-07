@@ -39,6 +39,27 @@ _TOKEN = re.compile(
     r"[A-Za-z]+|\d+|[\u0621-\u063A\u0641-\u064A\u066E-\u066F\u0671-\u06D3\u06FA-\u06FF]+"
 )
 _ARTICLE = re.compile(r"(?:ماده|مواد)\s*(\d+)")
+_COLLOQUIAL_QUERY_RULES = (
+    (re.compile(r"\bرو\b"), "را"),
+    (re.compile(r"\bچیه\b"), "چیست"),
+    (re.compile(r"\bچی\b"), "چه"),
+    (re.compile(r"\bمیشه\b|\bمی\s+شه\b"), "می شود"),
+    (re.compile(r"\bنمیشه\b|\bنمی\s+شه\b"), "نمی شود"),
+    (re.compile(r"\bکنه\b"), "کند"),
+    (re.compile(r"\bنکنه\b"), "نکند"),
+    (re.compile(r"\bتبصره\s+هاش\b"), "تبصره های آن"),
+    (re.compile(r"\bماده\s+هاش\b"), "ماده های آن"),
+)
+_PAYMENT_TOPIC = re.compile(r"(?:حقوق|حق\s*السعی|مزد|دستمزد|مزایا|سنوات|عیدی|پاداش|مطالبات)")
+_INFORMAL_NONPAYMENT = re.compile(
+    r"(?:\bنده\b|\bنمی\s*ده(?:د)?\b|\bنداد(?:ه)?\b|"
+    r"\bنپرداز(?:د|ه)\b|\bپرداخت\s+نکن(?:د|ه)\b)"
+)
+_CANONICAL_NONPAYMENT = re.compile(r"(?:عدم\s+پرداخت|پرداخت\s+نکند|پرداخت\s+نمی\s+کند)")
+_WAGE_PAYMENT_QUERY = "زمان و نحوه پرداخت مزد و حقوق کارگر"
+_WAGE_DISPUTE_QUERY = (
+    "زمان و نحوه پرداخت مزد و حقوق کارگر و مراجع حل اختلاف در صورت عدم پرداخت کارفرما"
+)
 
 
 def normalize_persian(text: str) -> str:
@@ -51,6 +72,33 @@ def normalize_persian(text: str) -> str:
     value = re.sub(r"\s+", " ", value)
     value = re.sub(r"\s*([،؛:؟!?])\s*", r"\1 ", value)
     return value.strip()
+
+
+def normalize_query(text: str) -> str:
+    """Normalize common Persian chat wording without using an LLM."""
+
+    value = normalize_persian(text)
+    for pattern, replacement in _COLLOQUIAL_QUERY_RULES:
+        value = pattern.sub(replacement, value)
+    if _PAYMENT_TOPIC.search(value):
+        value = _INFORMAL_NONPAYMENT.sub("پرداخت نکند", value)
+    return normalize_persian(value)
+
+
+def expand_legal_query(normalized_query: str) -> list[str]:
+    """Add deterministic legal terminology for known colloquial concepts."""
+
+    query = normalize_query(normalized_query)
+    variants = [query]
+    if _PAYMENT_TOPIC.search(query) and _CANONICAL_NONPAYMENT.search(query):
+        variants.extend((_WAGE_PAYMENT_QUERY, _WAGE_DISPUTE_QUERY))
+    return list(dict.fromkeys(variants))
+
+
+def rerank_query(normalized_query: str) -> str:
+    """Use the most explicit deterministic variant for semantic reranking."""
+
+    return expand_legal_query(normalized_query)[-1]
 
 
 def tokenize_persian(text: str) -> list[str]:

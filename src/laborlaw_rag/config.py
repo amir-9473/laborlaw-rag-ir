@@ -72,15 +72,15 @@ class Settings:
 class RAGConfig:
     """Retrieval and generation controls."""
 
-    dense_k: int = 10
-    sparse_k: int = 10
-    candidate_k: int = 12
-    final_k: int = 5
+    dense_k: int = 15
+    sparse_k: int = 15
+    candidate_k: int = 24
+    final_k: int = 8
     rrf_k: int = 60
     use_query_transformation: bool = False
     max_transformed_queries: int = 3
     use_reranker: bool = True
-    min_rerank_score: float = 0.1
+    min_rerank_score: float = 0.05
     min_fusion_score: float = 0.02
     max_context_chars: int = 16_000
     temperature: float = 0.0
@@ -90,15 +90,15 @@ class RAGConfig:
     def from_env(cls) -> RAGConfig:
         """Read optional tuning values from environment variables."""
         return cls(
-            dense_k=int(os.getenv("RAG_DENSE_K", "10")),
-            sparse_k=int(os.getenv("RAG_SPARSE_K", "10")),
-            candidate_k=int(os.getenv("RAG_CANDIDATE_K", "12")),
-            final_k=int(os.getenv("RAG_FINAL_K", "5")),
+            dense_k=int(os.getenv("RAG_DENSE_K", "15")),
+            sparse_k=int(os.getenv("RAG_SPARSE_K", "15")),
+            candidate_k=int(os.getenv("RAG_CANDIDATE_K", "24")),
+            final_k=int(os.getenv("RAG_FINAL_K", "8")),
             rrf_k=int(os.getenv("RAG_RRF_K", "60")),
             use_query_transformation=_env_bool("RAG_QUERY_TRANSFORMATION", False),
             max_transformed_queries=int(os.getenv("RAG_MAX_TRANSFORMED_QUERIES", "3")),
             use_reranker=_env_bool("RAG_RERANKER", True),
-            min_rerank_score=float(os.getenv("RAG_MIN_RERANK_SCORE", "0.1")),
+            min_rerank_score=float(os.getenv("RAG_MIN_RERANK_SCORE", "0.05")),
             min_fusion_score=float(os.getenv("RAG_MIN_FUSION_SCORE", "0.02")),
             max_context_chars=int(os.getenv("RAG_MAX_CONTEXT_CHARS", "16000")),
             temperature=float(os.getenv("LLM_TEMPERATURE", "0")),
