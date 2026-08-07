@@ -1,145 +1,149 @@
-# Iranian Labor Law RAG
+# Iranian Labor Law Assistant
 
-[فارسی](README.fa.md)
+[فارسی](README.fa.md) · [Live demo](https://laborlaw-rag.streamlit.app/)
 
-A compact Persian retrieval-augmented generation system for the Iranian Labor Law. It combines normalized BM25 and Jina embeddings, fuses their rankings, reranks the candidates, and asks an OpenRouter model to answer only from the retrieved articles and notes.
+A Persian retrieval-augmented generation application for grounded questions and answers about Iranian labor law. It normalizes the user's question, retrieves relevant articles and notes through hybrid search, and returns a cited answer with a numbered reference list.
 
-The response contract distinguishes three states:
+## Live demo
 
-- `answer`: the corpus contains enough evidence; every answer includes inline numbers and a source list.
-- `insufficient`: the question concerns labor law, but the bundled corpus does not support an answer.
-- `out_of_scope`: the question is unrelated to labor law and is politely declined.
+Try the web application at:
+
+**[Open the Iranian Labor Law Assistant](https://laborlaw-rag.streamlit.app/)**
 
 ## Features
 
-- Mandatory Persian and colloquial-query normalization for BM25, reranking, and the final LLM.
-- Hybrid dense + BM25 retrieval with Reciprocal Rank Fusion.
-- Optional LLM query transformation, disabled by default to reduce latency.
-- Direct FAISS loading with a model/hash manifest; no LangChain or unsafe pickle loading.
-- Grounded generation with a citation after every legal sentence and references at the bottom.
-- Source adapters for HTML/text and optional PDF input; new adapters implement the same `SourceAdapter` contract.
-- FastAPI interface plus a single-process Streamlit Community Cloud demo.
-- Fully RTL Persian UI with the bundled Vazirmatn font.
-- Per-answer model and end-to-end latency metadata, plus clearable session history.
-- A zero-provider-call assistant introduction for identity questions.
-- 109 offline tests and a separately gated live canary.
+- Persian answers grounded in the articles and notes available in the corpus
+- Hybrid retrieval combining semantic and lexical search
+- Mandatory Persian query normalization with support for conversational phrasing
+- Optional query transformation for complex or ambiguous questions
+- Numbered citations after legal claims and a reference list at the end of each answer
+- Separate handling for unrelated questions and relevant questions with insufficient evidence
+- Guardrails against unsupported legal answers
+- RTL Persian interface with the Vazirmatn font, conversation history, and history clearing
+- Model name and end-to-end latency displayed with every answer
+- Streamlit web interface and FastAPI service
+- Extensible ingestion for HTML, text, and PDF sources
 
-## Architecture
+## Response flow
 
 ```text
-question
+user question
   -> Persian normalization
-  -> optional LLM query variants
-  -> Jina dense search + normalized BM25
-  -> Reciprocal Rank Fusion
-  -> Jina reranking
-  -> grounded three-state generation
-  -> citation validation and formatting
+  -> optional query transformation
+  -> hybrid retrieval
+  -> result fusion and reranking
+  -> evidence-grounded generation
+  -> citation validation and final formatting
 ```
 
-The runtime package is intentionally flat:
+The application returns one of three result states:
 
-```text
-src/laborlaw_rag/
-  config.py       # settings and RAG controls
-  data.py         # source adapters, parsing, chunking, artifact I/O
-  models.py       # public domain/result models
-  services.py     # one Jina client and one OpenRouter client
-  search.py       # normalization, FAISS, BM25, RRF, reranking
-  pipeline.py     # end-to-end orchestration and grounding
-  api.py          # FastAPI boundary
-  ui.py           # shared RTL/Vazirmatn styles
-streamlit_app.py  # local and cloud web demo
-```
+- `answer`: the retrieved sources contain enough evidence for a cited response.
+- `insufficient`: the question is related to labor law, but the available sources do not provide enough explicit evidence.
+- `out_of_scope`: the question is outside the labor-law domain.
 
-## Run locally
+## Local setup
 
 Python 3.12 through 3.14 is supported.
 
 ```powershell
+git clone https://github.com/amir-9473/laborlaw-rag-ir.git
+cd laborlaw-rag-ir
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Set `JINA_API_KEY` and `OPENROUTER_API_KEY` in `.env`, then start either interface:
+Add the required credentials to `.env`:
 
-```powershell
-.\run_app.bat       # http://localhost:8501
-.\run_api.bat       # http://127.0.0.1:8000/docs
+```dotenv
+JINA_API_KEY=your-jina-api-key
+OPENROUTER_API_KEY=your-openrouter-api-key
+LLM_MODEL=qwen/qwen3-8b
 ```
 
-Platform-neutral equivalents are `python -m streamlit run streamlit_app.py` and `python -m uvicorn laborlaw_rag.api:app`. Run them from the repository checkout; runtime data and font assets intentionally live at the project root.
+Start the web interface or API:
 
-The repository includes the small processed corpus, direct FAISS index, and compatibility manifest, so normal startup does not rebuild embeddings.
+```powershell
+.\run_app.bat
+.\run_api.bat
+```
 
-## API
+- Web interface: `http://localhost:8501`
+- Interactive API documentation: `http://127.0.0.1:8000/docs`
+- Liveness endpoint: `GET /health`
+- Readiness endpoint: `GET /ready`
 
-```http
-POST /v1/ask
-Content-Type: application/json
+On other operating systems, use:
 
+```bash
+python -m streamlit run streamlit_app.py
+python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
+```
+
+## API usage
+
+Send a `POST` request to `/v1/ask`:
+
+```json
 {
   "question": "شرایط فسخ قرارداد کار چیست؟",
   "use_query_transformation": false
 }
 ```
 
-`GET /health` is a lightweight liveness check. `GET /ready` validates credentials and loads the bundled artifacts.
+The API response includes the result state, normalized query, final answer, citations, model metadata, and processing timings.
 
-## Notebooks
+## Configuration
 
-The six notebooks are presentation layers only. All reusable classes and functions live in `src/laborlaw_rag`.
+| Variable | Purpose | Default |
+|---|---|---|
+| `JINA_API_KEY` | Access to embedding and reranking services | Required |
+| `OPENROUTER_API_KEY` | Access to the language model | Required |
+| `LLM_MODEL` | Answer-generation model | `qwen/qwen3-8b` |
+| `RAG_QUERY_TRANSFORMATION` | Enables query transformation at configuration level | `false` |
+| `REQUEST_TIMEOUT` | External request timeout in seconds | `90` |
+| `DEMO_ACCESS_CODE` | Optional access code for the web demo | Empty |
+| `DEMO_MIN_REQUEST_INTERVAL` | Minimum interval between questions per session | `3` |
+| `DEMO_MAX_QUESTIONS` | Maximum number of questions per session | `20` |
 
-1. ingestion and parsing
-2. legal units and chunking
-3. embedding/index verification with opt-in rebuild
-4. normalized and optional transformed queries
-5. hybrid retrieval and reranking
-6. interactive end-to-end prompt and cited answer
+The `.env` and `.streamlit/secrets.toml` files contain secrets and must not be committed to Git.
 
-Notebook 03 defaults to `REBUILD_INDEX = False`; rebuilding consumes Jina embedding requests. Notebook 06 prompts with `input()` and exposes the transformation toggle.
+## Project structure
 
-Changing `EMBEDDING_MODEL`, `EMBEDDING_DOCUMENT_TASK`, or `EMBEDDING_QUERY_TASK` requires rebuilding the FAISS index in notebook 03; the manifest deliberately rejects incompatible vectors.
+```text
+laborlaw-rag-ir/
+├── src/laborlaw_rag/   # data, retrieval, services, pipeline, and API
+├── data/               # raw data, processed corpus, and search index
+├── tests/              # unit and integration tests
+├── assets/             # fonts and interface assets
+├── streamlit_app.py    # web interface
+└── pyproject.toml      # dependencies and project configuration
+```
 
-## Add another source
+## Adding data sources
 
-Implement `SourceAdapter.read()` so it returns a `RawSource`, then reuse `fetch_source()`, `parse_source()`, `create_chunks()`, and `build_vector_index()`. `FileSource` already supports local HTML/text and PDF; PDF extraction is installed through the optional `pdf` dependency group. Keep a unique `source_id` and source URL/path so citations remain unambiguous.
+Data acquisition and processing are separated from the question-answering pipeline. A new website, text file, or PDF can be exposed through the project's shared source interface and then passed through the existing parsing, chunking, indexing, and citation workflow.
 
-## Test
+## Testing and quality checks
 
-Install the development extras before running the test suite:
+Install the development dependencies and run the project checks:
 
 ```powershell
 .venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-```
-
-```powershell
 .venv\Scripts\python.exe -m ruff check src tests notebooks streamlit_app.py
 .venv\Scripts\python.exe -m ruff format --check src tests notebooks streamlit_app.py
 .venv\Scripts\python.exe -m pytest -m "not live"
-.venv\Scripts\python.exe -m pytest -m "not live" --cov=laborlaw_rag --cov-report=term-missing
 ```
 
-The external canary is deliberately opt-in:
+The default test suite runs without external provider calls. API-connected tests are separately gated and require explicit activation, keeping provider usage controlled.
 
-```powershell
-$env:RUN_LIVE_TESTS = "1"
-.venv\Scripts\python.exe -m pytest -m live --maxfail=1
-Remove-Item Env:RUN_LIVE_TESTS
-```
+## Data source
 
-## Streamlit Community Cloud
+The primary corpus is derived from the [Iranian Labor Law page on Solh](https://www.solh.ir/regulation/1/66). The ingestion layer can also combine it with additional authoritative sources.
 
-1. Push this repository to GitHub.
-2. In [Streamlit Community Cloud](https://share.streamlit.io/), create an app from the repository and select `streamlit_app.py` as the entrypoint.
-3. Add `JINA_API_KEY`, `OPENROUTER_API_KEY`, and optionally `LLM_MODEL` in the app's Secrets panel. For quota protection, also set `DEMO_ACCESS_CODE`; per-session throttling is configurable with `DEMO_MIN_REQUEST_INTERVAL` and `DEMO_MAX_QUESTIONS`.
-4. Use the generated `https://<app-name>.streamlit.app` URL as the external demo link.
+## Legal notice
 
-`requirements.txt` installs the local package and runtime dependencies. `.streamlit/secrets.toml` and `.env` are ignored and must never be committed.
+This application is intended to improve access to general labor-law information. It is not a substitute for professional legal advice. Important legal decisions should be based on current official legislation and guidance from a qualified professional.
 
-## Data and license
-
-The bundled corpus was collected from the [Solh Iranian Labor Law page](https://www.solh.ir/regulation/1/66). Review the source site's redistribution terms before publishing a public mirror. No project software license has been selected yet; the previous `LICENSE` file was empty.
-
-> This project provides general legal information and is not a substitute for professional legal advice.
+No software license has been assigned to this repository yet.
