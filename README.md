@@ -22,7 +22,7 @@ The response contract distinguishes three states:
 - Fully RTL Persian UI with the bundled Vazirmatn font.
 - Per-answer model and end-to-end latency metadata, plus clearable session history.
 - A zero-provider-call assistant introduction for identity questions.
-- 108 offline tests and a separately gated live canary.
+- 109 offline tests and a separately gated live canary.
 
 ## Architecture
 
