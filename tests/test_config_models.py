@@ -7,7 +7,18 @@ from dataclasses import replace
 import pytest
 
 from laborlaw_rag.config import RAGConfig, Settings
-from laborlaw_rag.models import AnswerStatus, Citation, LegalChunk, RAGResult
+from laborlaw_rag.models import (
+    AnswerStatus,
+    Citation,
+    LegalChunk,
+    RAGResult,
+    to_persian_digits,
+)
+
+
+def test_display_digits_are_localized_without_touching_other_text() -> None:
+    assert to_persian_digits("ماده 7 و تبصره ١٢") == "ماده ۷ و تبصره ۱۲"
+    assert to_persian_digits(203) == "۲۰۳"
 
 
 def test_settings_read_service_configuration_from_one_environment_boundary(

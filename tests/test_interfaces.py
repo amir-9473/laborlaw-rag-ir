@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from laborlaw_rag.models import AnswerStatus, Citation, RAGResult
-from laborlaw_rag.ui import page_css
+from laborlaw_rag.ui import history_html, page_css
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -189,6 +189,26 @@ def test_rtl_css_embeds_vazirmatn_and_right_alignment() -> None:
     assert "data:font/ttf;base64," in css
     assert "direction: rtl" in css
     assert "text-align: right" in css
+    assert 'font-family: "Material Symbols Rounded"' in css
+    assert ".history-list" in css
+    assert ".source-heading" in css
+    assert '[class*="st-"]' not in css
+
+
+def test_sidebar_history_is_newest_first_localized_and_html_escaped() -> None:
+    html = history_html(
+        [
+            {"role": "user", "content": "ماده 7 چیست؟"},
+            {"role": "assistant", "content": "پاسخ"},
+            {"role": "user", "content": "<script>تبصره 12</script>"},
+        ]
+    )
+
+    assert "پرسش ۲" in html
+    assert "ماده ۷ چیست؟" in html
+    assert "&lt;script&gt;تبصره ۱۲&lt;/script&gt;" in html
+    assert "<script>" not in html
+    assert html.index("پرسش ۲") < html.index("پرسش ۱")
 
 
 def test_streamlit_source_is_valid_and_pipeline_loading_is_lazy() -> None:
@@ -204,6 +224,8 @@ def test_streamlit_source_is_valid_and_pipeline_loading_is_lazy() -> None:
     )
     # The heavy pipeline import remains inside the cached function.
     assert "from laborlaw_rag.pipeline import RAGPipeline" in source
+    assert "history_html(st.session_state.messages)" in source
+    assert "_split_answer_sources" in source
     assert source.index("def get_pipeline") < source.index(
         "from laborlaw_rag.pipeline import RAGPipeline"
     )
@@ -217,3 +239,32 @@ def test_streamlit_initial_render_smoke() -> None:
     assert not app.exception
     assert len(app.chat_input) == 1
     assert len(app.toggle) == 1
+    markdown_values = [item.value for item in app.markdown]
+    assert any("تاریخچه گفتگو" in value for value in markdown_values)
+    assert any("هنوز پرسشی" in value for value in markdown_values)
+
+
+def test_streamlit_renders_history_and_each_source_on_a_separate_row() -> None:
+    from streamlit.testing.v1 import AppTest
+
+    app = AppTest.from_file(str(PROJECT_ROOT / "streamlit_app.py"))
+    app.session_state["messages"] = [
+        {"role": "user", "content": "ماده 7 چیست؟"},
+        {
+            "role": "assistant",
+            "content": (
+                "پاسخ مستند [۱]\n\n### منابع\n\n"
+                "[۱] قانون کار — ماده ۷\n\n"
+                "[۲] قانون کار — تبصره ۱ ماده ۷"
+            ),
+        },
+    ]
+    app.run(timeout=10)
+
+    assert not app.exception
+    assert len(app.chat_message) == 2
+    markdown_values = [item.value for item in app.markdown]
+    assert "[۱] قانون کار — ماده ۷" in markdown_values
+    assert "[۲] قانون کار — تبصره ۱ ماده ۷" in markdown_values
+    assert any("۱ پرسش" in value for value in markdown_values)
+    assert any("ماده ۷ چیست؟" in value for value in markdown_values)

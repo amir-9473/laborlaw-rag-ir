@@ -7,7 +7,7 @@ from time import perf_counter
 
 from .config import RAGConfig, Settings
 from .data import load_chunks
-from .models import AnswerStatus, Citation, RAGResult, SearchHit
+from .models import AnswerStatus, Citation, RAGResult, SearchHit, to_persian_digits
 from .search import HybridRetriever, normalize_persian, tokenize_persian
 from .services import DraftAnswer, ExternalServiceError, JinaClient, OpenRouterClient
 
@@ -238,9 +238,13 @@ class RAGPipeline:
 
         def replace_tag(match: re.Match[str]) -> str:
             source_id = f"SOURCE_{match.group(1)}"
-            return f"[{numbering[source_id]}]" if source_id in numbering else ""
+            if source_id not in numbering:
+                return ""
+            number = to_persian_digits(numbering[source_id])
+            return f"[{number}]"
 
         answer = re.sub(r"\s+([،.;؛:؟])", r"\1", _SOURCE_TAG.sub(replace_tag, draft.text))
+        answer = to_persian_digits(answer)
         citations = [
             self._citation(numbering[source_id], hits[int(source_id.split("_")[1]) - 1])
             for source_id in ordered_ids
@@ -315,7 +319,7 @@ class RAGPipeline:
     def _format_output(answer: str, citations: list[Citation]) -> str:
         if not citations:
             return answer
-        lines = [answer, "", "### منابع"]
+        lines = [answer, "", "### منابع", ""]
         for citation in citations:
             reference = citation.article_reference or (
                 f"ماده {citation.article_number}"
@@ -329,8 +333,10 @@ class RAGPipeline:
                 details.append(citation.section_title)
             if citation.chapter_title:
                 details.append(citation.chapter_title)
-            line = f"[{citation.number}] " + " — ".join(details)
+            localized_details = [to_persian_digits(detail) for detail in details]
+            number = to_persian_digits(citation.number)
+            line = f"[{number}] " + " — ".join(localized_details)
             if citation.source_url:
                 line += f" — [مشاهده منبع]({citation.source_url})"
-            lines.append(line)
-        return "\n".join(lines)
+            lines.extend((line, ""))
+        return "\n".join(lines).rstrip()

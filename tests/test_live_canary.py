@@ -29,5 +29,5 @@ def test_live_end_to_end_canary() -> None:
     assert result.normalized_query
     assert result.citations
     assert result.citations[0].article_number == 7
-    assert "[1]" in result.answer
+    assert "[۱]" in result.answer
     assert "### منابع" in result.final_output

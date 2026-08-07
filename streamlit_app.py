@@ -4,13 +4,15 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 from hmac import compare_digest
 from time import monotonic
 from typing import Any
 
 import streamlit as st
 
-from laborlaw_rag.ui import page_css
+from laborlaw_rag.models import to_persian_digits
+from laborlaw_rag.ui import history_html, page_css
 
 logger = logging.getLogger(__name__)
 SECRET_KEYS = (
@@ -65,7 +67,39 @@ def _render_message(role: str, content: str) -> None:
 
     avatar = "👤" if role == "user" else "⚖️"
     with st.chat_message(role, avatar=avatar):
+        _render_content(role, content)
+
+
+def _split_answer_sources(content: str) -> tuple[str, list[str]]:
+    """Split the stable pipeline output into answer and individual references."""
+
+    match = re.search(r"\n\s*###\s+منابع\s*\n", content)
+    if not match:
+        return content, []
+    answer = content[: match.start()].strip()
+    references = [
+        item.strip()
+        for item in re.split(r"\n\s*\n", content[match.end() :].strip())
+        if item.strip()
+    ]
+    if len(references) == 1 and "\n" in references[0]:
+        references = [line.strip() for line in references[0].splitlines() if line.strip()]
+    return answer, references
+
+
+def _render_content(role: str, content: str) -> None:
+    """Render each citation in its own visual row while keeping Markdown safe."""
+
+    if role != "assistant":
         st.markdown(content)
+        return
+    answer, references = _split_answer_sources(content)
+    st.markdown(answer)
+    if references:
+        st.markdown('<div class="source-heading">منابع مورد استفاده</div>', unsafe_allow_html=True)
+        for reference in references:
+            with st.container(border=True):
+                st.markdown(reference)
 
 
 def _enforce_demo_access() -> None:
@@ -107,19 +141,29 @@ st.markdown(page_css(), unsafe_allow_html=True)
 _configure_cloud_secrets()
 _enforce_demo_access()
 
-st.markdown('<div class="app-kicker">پرسش و پاسخ مستند</div>', unsafe_allow_html=True)
-st.title("دستیار هوشمند قانون کار ایران")
-st.caption("پاسخ‌های فارسی مبتنی بر مواد و تبصره‌های موجود در مجموعهٔ قانون کار")
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
 with st.sidebar:
-    st.header("تنظیمات")
-    use_query_transformation = st.toggle(
-        "بازنویسی هوشمند پرسش",
-        value=False,
-        help=("ممکن است بازیابی را بهتر کند، اما یک فراخوانی مدل و زمان بیشتری نیاز دارد."),
+    st.markdown(
+        '<div class="sidebar-brand"><strong>⚖️ دستیار قانون کار</strong>'
+        "<span>پاسخ مستند بر پایهٔ مواد و تبصره‌های قانون کار ایران</span></div>",
+        unsafe_allow_html=True,
     )
-    if st.button("پاک‌کردن گفتگو", use_container_width=True):
+    st.markdown('<div class="sidebar-section-title">تنظیمات پاسخ</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        use_query_transformation = st.toggle(
+            "بازنویسی هوشمند پرسش",
+            value=False,
+            help=("ممکن است بازیابی را بهتر کند، اما یک فراخوانی مدل و زمان بیشتری نیاز دارد."),
+        )
+        st.caption("برای پاسخ سریع‌تر، این گزینه را خاموش نگه دارید.")
+
+    history_slot = st.empty()
+    if st.button("＋ شروع گفتگوی جدید", use_container_width=True):
         st.session_state.pop("messages", None)
+        st.session_state.pop("request_count", None)
+        st.session_state.pop("last_request_at", None)
         st.rerun()
 
     st.markdown(
@@ -128,11 +172,16 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+st.markdown(
+    '<section class="hero-card"><span class="hero-badge">پرسش و پاسخ مستند</span>'
+    "<h1>دستیار هوشمند قانون کار ایران</h1>"
+    "<p>پرسش خود را مطرح کنید تا پاسخ فقط بر پایهٔ مواد، تبصره‌ها و منابع موجود "
+    "ارائه شود.</p></section>",
+    unsafe_allow_html=True,
+)
 
 if not st.session_state.messages:
-    st.info("برای شروع، پرسش خود را دربارهٔ قانون کار در کادر پایین بنویسید.")
+    st.info("برای شروع، پرسش خود را دربارهٔ قانون کار در کادر پایین بنویسید.", icon="💬")
 
 for message in st.session_state.messages:
     _render_message(message["role"], message["content"])
@@ -162,6 +211,16 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                         st.error(output)
                     else:
                         # final_output keeps numbered citations below the answer.
-                        st.markdown(output)
+                        _render_content("assistant", output)
 
         st.session_state.messages.append({"role": "assistant", "content": output})
+
+question_count = sum(message.get("role") == "user" for message in st.session_state.messages)
+with history_slot.container():
+    count_label = to_persian_digits(question_count)
+    st.markdown(
+        '<div class="sidebar-section-title"><span>تاریخچه گفتگو</span>'
+        f"<span>{count_label} پرسش</span></div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(history_html(st.session_state.messages), unsafe_allow_html=True)

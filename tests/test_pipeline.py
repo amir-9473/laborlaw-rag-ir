@@ -195,8 +195,8 @@ def test_citations_are_validated_renumbered_and_rendered_below_answer(
     result = RAGPipeline(SpyRetriever(hits), llm).ask("قرارداد کار چیست؟")
 
     assert result.status is AnswerStatus.ANSWER
-    assert result.answer.endswith("[2]")
-    assert "[1]" in result.answer
+    assert result.answer.endswith("[۲]")
+    assert "[۱]" in result.answer
     assert [citation.number for citation in result.citations] == [1, 2]
     assert [citation.chunk_id for citation in result.citations] == [
         legal_chunks[2].chunk_id,
@@ -205,7 +205,8 @@ def test_citations_are_validated_renumbered_and_rendered_below_answer(
     assert {citation.source_id for citation in result.citations} == {"iran-labor-law"}
     assert result.final_output.startswith(result.answer)
     assert "### منابع" in result.final_output
-    assert "ماده 7" in result.final_output
+    assert "[۱] قانون کار — ماده ۷" in result.final_output
+    assert "\n\n[۲] قانون کار — ماده ۱" in result.final_output
     assert "https://example.test/labor-law#7" in result.final_output
     assert result.final_output.startswith(f"{result.answer}\n\n### منابع")
 

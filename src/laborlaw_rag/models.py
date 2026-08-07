@@ -6,6 +6,17 @@ from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from typing import Any
 
+_PERSIAN_DIGITS = str.maketrans(
+    "0123456789٠١٢٣٤٥٦٧٨٩",
+    "۰۱۲۳۴۵۶۷۸۹۰۱۲۳۴۵۶۷۸۹",
+)
+
+
+def to_persian_digits(value: str | int) -> str:
+    """Localize display-only numbers without changing stored identifiers."""
+
+    return str(value).translate(_PERSIAN_DIGITS)
+
 
 class AnswerStatus(StrEnum):
     """Supported response states."""
