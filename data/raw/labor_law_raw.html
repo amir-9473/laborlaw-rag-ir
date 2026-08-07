@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>قانون کار</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-105584324-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-105584324-3');
+    </script>
+
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+
+    <link rel="apple-touch-icon" href="/assets/img/icons/icon-128x128.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/img/icons/icon-128x128.png" type="image/x-icon">
+    <meta name="theme-color" content="#ec0000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-title" content="solh">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="shortcut icon" sizes="57x57" href="/assets/img/icons/icon-72x72.png">
+    <link rel="shortcut icon" sizes="72x72" href="/assets/img/icons/icon-96x96.png">
+    <link rel="shortcut icon" sizes="114x114" href="/assets/img/icons/icon-128x128.png">
+    <link rel="shortcut icon" sizes="128x128" href="/assets/img/icons/icon-144x144.png">
+    <link rel="shortcut icon" sizes="192x192" href="/assets/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/icons/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/icons/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/assets/img/icons/icon-512x512.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" type="image/x-icon" href="/assets/img/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/assets/img/icons/icon-192x192.png">
+    <link href="/assets/css/libraries-min.css" rel="stylesheet">
+    <link href="/assets/style.min.css?v1" rel="stylesheet">
+    <style>
+        #logout-submit:before {
+            content: '\e984';
+            font-family: 'icons';
+            margin-left: 3px;
+            font-size: 20px;
+            font-weight: 400;
+            vertical-align: middle;
+            line-height: 0;
+            position: relative;
+            top: -1px;
+            transition: 300ms;
+        }
+        .cut160 {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 160px;
+            white-space: nowrap;
+        }
+        #office-main-details .main-details-wrapper ul .value,.office .content .responsible, .expert .content .responsible, .book .content .responsible ,.office.small .content .title, .small.expert .content .title, .small.book .content .title{
+            height: auto !important;
+            overflow: inherit;
+            margin-bottom:10px
+        }
+
+
+        @media only screen and (max-width:490px) {
+            .office .content .opt-title .icons, .expert .content .opt-title .icons, .book .content .opt-title .icons {
+                display: none !important;
+            }
+
+            .details .item {
+                margin-bottom: 15px
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <header id="main-header">
+        <div class="main-header-wrapper">
+            <div class="top-header" id="top-header">
+                <div class="container">
+                    <div class="top-menu">
+                        <ul>
+                            <li><a href="/help">راهنما</a></li>
+                        </ul>
+
+
+    <div class="login-btn">
+        <a class="btn" title="درخواست ویرایش/ثبت نام" href="/request-profile">درخواست ویرایش/ثبت نام</a>
+        <a class="btn active" title="ورود" href="/Account/Login">ورود</a>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <h1 id="logo"><a href="/"><img src="/assets/img/logo.png" alt="صلح؛ مرجع حقوقی ایران"></a></h1>
+                </div>
+                <div class="header-wrapper">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="collapse navbar-collapse" id="navbrHeader">
+                            <ul class="navbar-nav navbar-menu">
+                                <li id="activeHome"><a href="/"><span class="icons icon-home-lg-alt"></span>خانه</a></li>
+                                <li id="activePost"><a href="/post">مطالب آموزشی</a></li>
+                                <li id="activeNews"><a href="/news">اخبار</a></li>
+                                <li id="activeDocument" class="has-submenu">
+                                    <a href="#">اسناد و قرارداد ها</a>
+                                    <ul>
+                                        <li><a href="/contract-search?category=100">قراردادها</a></li>
+                                        <li><a href="/power-of-attorney-search?category=100">وکالت نامه ها</a></li>
+                                        <li><a href="/confirmation-search?category=100">گواهی و اقرار نامه ها</a></li>
+                                        <li><a href="/declaration-search?category=100">اظهار نامه ها</a></li>
+                                        <li><a href="/petition-search?category=100">دادخواست ها</a></li>
+                                        <li><a href="/complaint-search?category=100">شکایت / شکوائیه</a></li>
+                                        <li><a href="/company-statute-search?category=100">اساسنامه و صورتجلسات</a></li>
+                                    </ul>
+                                <li id="activeLaw" class="has-submenu">
+                                    <a href="#">قوانین</a>
+                                    <ul>
+                                        <li><a href="/regulation-search?category=1">قوانین پرکاربرد</a></li>
+                                        <li><a href="/regulation-search?category=3">آرای دیوان عالی کشور</a></li>
+                                        <li><a href="/regulation-search?category=4">آرای دیوان عدالت اداری</a></li>
+                                        <li><a href="/regulation-search?category=5">تصویب نامه ها</a></li>
+                                        <li><a href="/regulation-search?category=6">اساسنامه ها</a></li>
+                                        <li><a href="/regulation-search?category=7">آیین نامه ها</a></li>
+                                    </ul>
+                                </li>
+                                <li id="activeBook" class="has-submenu">
+                                    <a href="#">کتاب ها</a>
+                                    <ul>
+                                        <li><a href="/newbook">تازه های نشر حقوقی</a></li>
+                                        <li><a href="/bookreview">معرفی و بررسی کتب حقوقی</a></li>
+                                        <li><a href="/exambook">منابع آزمون های حقوقی</a></li>
+                                        <li><a href="/bookstore-search">انتشارات و کتابفروشی ها</a></li>
+                                        <li><a href="/book-search">فهرست کامل کتب حقوقی</a></li>
+                                    </ul>
+                                </li>
+                                <li id="activePerson" class="has-submenu">
+                                    <a href="#">متخصصین</a>
+                                    <ul>
+                                        <li><a href="/lawyer-search">وکلای دادگستری و قوه قضاییه</a></li>
+                                        <li><a href="/expert-search">کارشناسان رسمی</a></li>
+                                        <li><a href="/cti-search">مترجمان رسمی</a></li>
+                                        <li><a href="/advisor-search">مشاوران قوه قضاییه</a></li>
+                                    </ul>
+                                </li>
+                                <li id="activeOffice" class="has-submenu">
+                                    <a href="#">دفاتر</a>
+                                    <ul>
+                                        <li><a href="/notary-search">دفاتر اسناد رسمی</a></li>
+                                        <li><a href="/marriage-search">دفاتر ازدواج و طلاق</a></li>
+                                        <li><a href="/public-services-office-search">دفاتر پیشخوان دولت</a></li>
+                                        <li><a href="/cti-office-search">دفاتر ترجمه رسمی</a></li>
+                                        <li><a href="/police10-search">دفاتر خدمات الکترونیک انتظامی (پلیس + 10)</a></li>
+                                        <li><a href="/city-electronic-service-search">دفاتر خدمات الکترونیک شهر</a></li>
+                                        <li><a href="/social-security-brokers-search">دفاتر کارگزاری های بیمه تأمین اجتماعی</a></li>
+                                        <li><a href="/judicial-service-search">دفاتر خدمات الکترونیک قضایی</a></li>
+                                        <li><a href="/institutions-search">موسسات حقوقی</a></li>
+                                    </ul>
+                                </li>
+                                <li id="activeJud" class="has-submenu">
+                                    <a href="#">مراجع</a>
+                                    <ul>
+                                        <li><a href="/policestation-search">کلانتری ها و پاسگاه ها</a></li>
+                                    </ul>
+                                </li>
+                                <li id="activeQuestion" class="has-submenu">
+                                    <a href="#">مشاوره</a>
+                                    <ul>
+                                        <li><a href="/question-search">آرشیو مشاوره های حقوقی</a></li>
+                                        <li><a href="/question-form">درخواست مشاوره حقوقی رایگان</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header id="mobile-header">
+        <div class="top-header" id="mobile-top-header">
+            <div class="container">
+                <div class="top-menu">
+                    <ul>
+                        <li><a href="/help">راهنما</a></li>
+                    </ul>
+
+
+    <div class="login-btn">
+        <a class="btn" title="درخواست ویرایش/ثبت نام" href="/request-profile">درخواست ویرایش/ثبت نام</a>
+        <a class="btn active" title="ورود" href="/Account/Login">ورود</a>
+    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center" id="logo-bars">
+            <div>
+                <button class="hamburger hamburger--squeeze" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button><a href="/"><img class="logo" src="/assets/img/logo.png" alt="صلح؛ مرجع حقوقی ایران"></a>
+            </div>
+        </div>
+        <div id="mobile-menu">
+            <div id="menu-content">
+                <img class="menu-logo" src="/assets/img/logo.png" alt="صلح؛ مرجع حقوقی ایران">
+                <ul>
+                    <li class="active"><a href="/"> خانه</a></li>
+                    <li><a href="/post">مطالب آموزشی</a></li>
+                    <li><a href="/news">اخبار</a></li>
+                    <li class="has-submenu">
+                        <a href="#">اسناد و قرارداد ها</a>
+                        <ul>
+                            <li><a href="/contract-search?category=100">قراردادها</a></li>
+                            <li><a href="/power-of-attorney-search?category=100">وکالت نامه ها</a></li>
+                            <li><a href="/confirmation-search?category=100">گواهی و اقرار نامه ها</a></li>
+                            <li><a href="/declaration-search?category=100">اظهار نامه ها</a></li>
+                            <li><a href="/petition-search?category=100">دادخواست ها</a></li>
+                            <li><a href="/complaint-search?category=100">شکایت / شکوائیه</a></li>
+                            <li><a href="/company-statute-search?category=100">اساسنامه و صورتجلسات</a></li>
+                        </ul>
+                    <li class="has-submenu">
+                        <a href="#">قوانین</a>
+                        <ul>
+                            <li><a href="/regulation-search?category=1">قوانین پرکاربرد</a></li>
+                            <li><a href="/regulation-search?category=3">آرای دیوان عالی کشور</a></li>
+                            <li><a href="/regulation-search?category=4">آرای دیوان عدالت اداری</a></li>
+                            <li><a href="/regulation-search?category=5">تصویب نامه ها</a></li>
+                            <li><a href="/regulation-search?category=6">اساسنامه ها</a></li>
+                            <li><a href="/regulation-search?category=7">آیین نامه ها</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">کتاب ها</a>
+                        <ul>
+                            <li><a href="/newbook">تازه های نشر حقوقی</a></li>
+                            <li><a href="/bookreview">معرفی و بررسی کتب حقوقی</a></li>
+                            <li><a href="/exambook">منابع آزمون های حقوقی</a></li>
+                            <li><a href="/bookstore-search">انتشارات و کتابفروشی ها</a></li>
+                            <li><a href="/book-search">فهرست کامل کتب حقوقی</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">متخصصین</a>
+                        <ul>
+                            <li><a href="/lawyer-search">وکلای دادگستری و قوه قضاییه</a></li>
+                            <li><a href="/expert-search">کارشناسان رسمی</a></li>
+                            <li><a href="/cti-search">مترجمان رسمی</a></li>
+                            <li><a href="/advisor-search">مشاوران قوه قضاییه</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">دفاتر</a>
+                        <ul>
+                            <li><a href="/notary-search">دفاتر اسناد رسمی</a></li>
+                            <li><a href="/marriage-search">دفاتر ازدواج و طلاق</a></li>
+                            <li><a href="/public-services-office-search">دفاتر پیشخوان دولت</a></li>
+                            <li><a href="/cti-office-search">دفاتر ترجمه رسمی</a></li>
+                            <li><a href="/police10-search">دفاتر خدمات الکترونیک انتظامی (پلیس + 10)</a></li>
+                            <li><a href="/city-electronic-service-search">دفاتر خدمات الکترونیک شهر</a></li>
+                            <li><a href="/social-security-brokers-search">دفاتر کارگزاری های بیمه تأمین اجتماعی</a></li>
+                            <li><a href="/judicial-service-search">دفاتر خدمات الکترونیک قضایی</a></li>
+                            <li><a href="/institutions-search">موسسات حقوقی</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">مراجع</a>
+                        <ul>
+                            <li><a href="/policestation-search">کلانتری ها و پاسگاه ها</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">مشاوره</a>
+                        <ul>
+                            <li><a href="/question-search">آرشیو مشاوره های حقوقی</a></li>
+                            <li><a href="/question-form">درخواست مشاوره حقوقی رایگان</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="dashboard-menu-wrapper">
+
+
+
+        </div>
+    </header>
+
+    <nav id="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a title="خانه" href="/">خانه</a></li>
+                <li class="breadcrumb-item"><a href="/regulation-search" title="قوانین">قوانین</a></li>
+                <li class="breadcrumb-item active">قانون کار</li>
+            </ol>
+        </div>
+    </nav>
+    <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+        {
+        "@type": "ListItem",
+        "position": 1,
+        "item": "https://www.solh.ir",
+        "name": "خانه"
+        },
+        {
+        "@type": "ListItem",
+        "position": 2,
+        "item": "https://www.solh.ir/regulation-search",
+        "name": "قوانین"
+        },
+        {
+        "@type": "ListItem",
+        "position": 2,
+        "item": "https://www.solh.ir/regulation/1/66",
+        "name": "قانون کار"
+        }
+        ]
+        }
+    </script>
+
+    <main id="main">
+
+
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8AaM5qlNqfdKj1a0wAWCMNWm-obHH7ELBo-tb9hTRviapnbXUARR2ZMS-M7OR0qwVmGIK_uhP2djmODDxjDKW8VZ6G57sP4DlUtBKEf7ShoKab4tZ42u_MK6EmnncsQy0mD-lIsw38iknhjPmOpVIkU" />
+<section class="container">
+    <div class="row">
+        <div class="col-sm-8 col-12">
+            <section class="section" id="rule">
+                <header class="simple-section-header">
+                    <h1 class="simple-section-title">قانون کار</h1>
+                </header>
+                <div class="paragraph">
+
+                <p><span Style='font-weight:bold;'>قانون کار<br>مصوب 1369,08,29با اصلاحات و الحاقات بعدی<br></span></p><p><span Style='font-weight:bold;'>فصل اول </span>- تعاریف کلی و اصول</p><p><span Style='font-weight:bold;'>ماده 1</span>- کلیه کارفرمایان، کارگران، کارگاهها، مؤسسات تولیدی، صنعتی، خدماتی و کشاورزی مکلف به تبعیت از این قانون می‌ باشند.</p><p><span Style='font-weight:bold;'>ماده 2</span>- کارگر از لحاظ این قانون کسی است که به هر عنوان در مقابل دریافت حق‌ السعی اعم از مزد، حقوق، سهم سود و سایر مزایا به درخواست کارفرما کار می‌ کند.</p><p><span Style='font-weight:bold;'>ماده 3</span>- کارفرما شخصی است حقیقی یا حقوقی که کارگر به درخواست و به حساب او در مقابل دریافت حق‌ السعی کار می ‌کند. مدیران و مسئولان و به طور عموم کلیه کسانیکه عهده‌ دار اداره کارگاه هستند نماینده کارفرما محسوب می‌ شوند و کارفرما مسئول کلیه تعهداتی است که نمایندگان مذکور در قبال کارگر به عهده می‌ گیرند. در صورتیکه نماینده کارفرما خارج از اختیارات خود تعهدی بنماید و کارفرما آن را نپذیرد در مقابل کارفرما ضامن است.</p><p><span Style='font-weight:bold;'>ماده 4</span>- کارگاه محلی است که کارگر به درخواست کارفرما یا نماینده او در آنجا کار می‌ کند، از قبیل مؤسسات صنعتی، کشاورزی، معدنی، ساختمانی، ترابری، مسافربری، خدماتی، تجاری، تولیدی، اماکن عمومی و امثال آنها.<br>کلیه تأسیساتی که به اقتضای کار متعلق به کارگاه‌اند، از قبیل نمازخانه، ناهارخوری، تعاونیها، شیرخوارگاه، مهدکودک، درمانگاه، حمام، آموزشگاه حرفه‌ای، قرائت‌خانه، کلاسهای سوادآموزی و سایر مراکز آموزشی و اماکن مربوط به شورا و انجمن اسلامی و بسیج کارگران، ورزشگاه و وسایل ایاب و ذهاب و نظایر آنها جزء کارگاه می‌ باشند.</p><p><span Style='font-weight:bold;'>ماده 5</span>- کلیه کارگران، کارفرمایان، نمایندگان آنان و کارآموزان و نیز کارگاهها مشمول مقررات این قانون می ‌باشند.</p><p><span Style='font-weight:bold;'>ماده 6</span>- براساس بند چهار اصل چهل و سوم و بند شش اصل دوم و اصول نوزدهم، بیستم و بیست و هشتم قانون اساسی جمهوری اسلامی ایران، اجبار افراد به کار معین و بهره‌ کشی از دیگری ممنوع و مردم ایران از هر قوم و قبیله که باشند از حقوق مساوی برخوردارند و رنگ، نژاد، زبان و مانند اینها سبب امتیاز نخواهد بود و همه افراد اعم از زن و مرد یکسان در حمایت قانون قرار دارند و هر کس حق دارد شغلی را که به آن مایل است و مخالف اسلام و مصالح عمومی و حقوق دیگران نیست برگزیند.</p><p><span Style='font-weight:bold;'>فصل دوم </span>- قرارداد کار</p><p><span Style='font-weight:bold;'>مبحث اول</span>- تعریف قرارداد کار و شرایط اساسی انعقاد آن</p><p><span Style='font-weight:bold;'>ماده 7</span>- قرارداد کار عبارتست از قرارداد کتبی یا شفاهی که به موجب آن کارگر در قبال دریافت حق‌السعی کاری را برای مدت موقت یا مدت غیرموقت برای کارفرما انجام می‌دهد.</p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- حداکثر مدت موقت برای کارهایی که طبیعت آنها جنبه غیرمستمر دارد توسط وزارت کار و اموراجتماعی تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216754' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره 2</span>- در کارهائی که طبیعت آنها جنبه مستمر دارد، در صورتی که مدتی در قرارداد ذکر نشود، قرارداد دائمی تلقی می ‌شود.</p><p style=""><span Style='font-weight:bold;'><span style='color</span>:red; '>تبصره 3 – قراردادهای با بیش از سی روز باید به صورت کتبی و در فرم مخصوص که توسط وزارت کار و امور اجتماعی در چهارچوب قوانین و مقررات تهیه و در اختیار طرفین قرار می گیرد، باشد.</span></p><p style=""><span Style='font-weight:bold;'><span style='color</span>:red; '>تبصره 4 – کارفرمایان موظفند به کارگران با قرارداد موقت به نسبت مدت کارکرد مزایای قانونی پایان کار بمأخذ هر سال یک ماه آخرین مزد پرداخت نمایند.</span></p><p style=""><span Style='font-weight:bold;'>تبصره 3</span>- قراردادهای مربوط به قانون کار در صورت کتبی بودن باید در فرم مخصوصی باشد که توسط وزارت تعاون، کار و رفاه اجتماعی در چهارچوب قوانین و مقررات تهیه می‌شود و در اختیار طرفین قرار می‌گیرد.<a href='#myModal' data-toggle='modal' id='s2547757' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 4</span>- کارفرمایان موظفند به کارگران با قرارداد موقت به نسبت مدت کارکرد، مزایای قانونی پایان‌کار را به مأخذ هر سال یک‌ماه آخرین مزد پرداخت نمایند.<a href='#myModal' data-toggle='modal' id='s2547758' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 8</span>- شروط مذکور در قرارداد کار یا تغییرات بعدی آن در صورتی نافذ خواهد بود که برای کارگر مزایائی کمتر از امتیازات مقرر در این قانون منظور ننماید.</p><p><span Style='font-weight:bold;'>ماده 9 </span>- برای صحت قرارداد کار در زمان بستن قرارداد رعایت شرایط ذیل الزامی است:</p><p><span Style='font-weight:bold;'>الف </span>– مشروعیت مورد قرارداد</p><p><span Style='font-weight:bold;'>ب </span>– معین بودن موضوع قرارداد</p><p><span Style='font-weight:bold;'>ج </span>– عدم ممنوعیت قانونی و شرعی طرفین در تصرف اموال یا انجام کار مورد نظر.</p><p><span Style='font-weight:bold;'>تبصره</span>- اصل بر صحت کلیه قراردادهای کار است، مگر آنکه بطلان آنها در مراجع ذیصلاح به اثبات برسد.</p><p><span Style='font-weight:bold;'>ماده 10 </span>- قرارداد کار علاوه بر مشخصات دقیق طرفین، باید حاوی موارد ذیل باشد:</p><p><span Style='font-weight:bold;'>الف </span>– نوع کار یا حرفه یا وظیفه‌ای که کارگر باید به آن اشتغال یابد.</p><p><span Style='font-weight:bold;'>ب </span>– حقوق یا مزد مبنا و لواحق آن</p><p><span Style='font-weight:bold;'>ج </span>– ساعات کار، تعطیلات و مرخصیها</p><p><span Style='font-weight:bold;'>د </span>– محل انجام کار</p><p><span Style='font-weight:bold;'>ه</span>ـ – تاریخ انعقاد قرارداد</p><p><span Style='font-weight:bold;'>و </span>– مدت قرارداد، چنانچه کار برای مدت معین باشد.</p><p><span Style='font-weight:bold;'>ز </span>– موارد دیگری که عرف و عادت شغل یا محل، ایجاب نماید.</p><p style=""><span Style='font-weight:bold;'><span style='color</span>:red; '>ح – شرایط و نحوه فسخ قرارداد</span><a href='#myModal' data-toggle='modal' id='s2109100' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ح</span>- شرایط و نحوه فسخ قرارداد (در مواردی که مدت تعیین نشده است)<a href='#myModal' data-toggle='modal' id='s2547761' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- در مواردیکه قرارداد کار کتبی باشد قرارداد در چهار نسخه تنظیم می‌گردد که یک نسخه از آن به اداره کار محل و یک نسخه نزد کارگر و یک نسخه نزد کارفرما و نسخه دیگر در اختیار شورای اسلامی کار و در کارگاههای فاقد شورا در اختیار نماینده کارگر قرار می ‌گیرد.</p><p><span Style='font-weight:bold;'>ماده 11</span>- طرفین می‌توانند با توافق یکدیگر مدتی را به نام دوره آزمایشی کار تعیین نمایند. در خلال این دوره هر یک از طرفین حق دارد، بدون اخطار قبلی و بی ‌آنکه الزام به پرداخت خسارت داشته باشد، رابطه کار را قطع نماید. در صورتیکه قطع رابطه کار از طرف کارفرما باشد وی ملزم به پرداخت حقوق تمام دوره آزمایشی خواهد بود و چنانچه کارگر رابطه کار را قطع نماید کارگر فقط مستحق دریافت حقوق مدت انجام کار خواهد بود.</p><p><span Style='font-weight:bold;'>تبصره </span>- مدت دوره آزمایشی باید در قرارداد کار مشخص شود. حداکثر این مدت برای کارگران ساده و نیمه ‌ماهر یکماه و برای کارگران ماهر و دارای تخصص سطح بالا سه ماه می‌ باشد.</p><p><span Style='font-weight:bold;'>ماده 12</span>- هر نوع تغییر حقوقی در وضع مالکیت کارگاه از قبیل فروش یا انتقال به هر شکل، تغییر نوع تولید، ادغام در مؤسسه دیگر، ملی شدن کارگاه، فوت مالک و امثال اینها، در رابطه قراردادی کارگرانی که قراردادشان قطعیت یافته است مؤثر نمی ‌باشد و کارفرمای جدید، قائم مقام تعهدات و حقوق کارفرمای سابق خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 13</span>- در مواردی که کار از طریق مقاطعه انجام می ‌یابد، مقاطعه‌ دهنده مکلف است قرارداد خود را با مقاطعه‌ کار به نحوی منعقد نماید که در آن مقاطعه ‌کار متعهد گردد که تمامی مقررات این قانون را در مورد کارکنان خود اعمال نماید.</p><p><span Style='font-weight:bold;'>تبصره 1 </span>- مطالبات کارگر جزء دیون ممتازه بوده و کارفرمایان موظف می‌ باشند بدهی پیمانکاران به کارگران را برابر رأی مراجع قانونی از محل مطالبات پیمانکار، منجمله ضمانت حسن انجام کار، پرداخت نمایند.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- چنانچه مقاطعه‌ دهنده برخلاف ترتیب فوق به انعقاد قرارداد با مقاطعه ‌کار بپردازد و یا قبل از پایان 45 روز از تحویل موقت، تسویه حساب نماید، مکلف به پرداخت دیون مقاطعه کار در قبال کارگران خواهد بود.</p><p><span Style='font-weight:bold;'>مبحث دوم </span>- تعلیق قرارداد کار</p><p><span Style='font-weight:bold;'>ماده 14</span>- چنانچه به واسطه امور مذکور در مواد آتی انجام تعهدات یکی از طرفین موقتاً متوقف شود، قرارداد کار به حال تعلیق درمی ‌آید و پس از رفع آنها قرارداد کار با احتساب سابقه خدمت (از لحاظ بازنشستگی و افزایش مزد) به حالت اول بر می‌ گردد.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>- مدت خدمت نظام‌ وظیفه (ضرورت، احتیاط و ذخیره) و همچنین مدت شرکت داوطلبانه کارگران در جبهه، جزء سوابق خدمت و کار آنان محسوب می ‌شود.<a href='#myModal' data-toggle='modal' id='s216779' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- آن دسته از بیمه‌شدگانی که مشمول اصلاحیه تبصره (2) ماده (76) ‌قانون تأمین اجتماعی مصوب 14 /7 /1380 مجمع تشخیص مصلحت نظام هستند به‌ شرط آن که خدمت نظام وظیفه خود را در جبهه‌های نبرد حق علیه باطل طی نموده یا‌ حضور داوطلبانه در جبهه داشته باشند سوابق خدمتی آنان جزء کارهای سخت و زیان‌ آور ‌محسوب می‌شود.<a href='#myModal' data-toggle='modal' id='s2109088' data-target='#report-modal'></a></p><p style="color:Brown"> نظر مجلس:<br>بله، کلیه مشمولین قانون تأمین اجتماعی که حق بیمه به آن سازمان می پردازند نیز مشمول این قانون می باشند.<br>	<a href='#myModal' data-toggle='modal' id='s2109097' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 15 </span>- در موردی که به واسطه قوه قهریه و یا بروز حوادث غیر قابل پیش‌ بینی که وقوع آن از اراده طرفین خارج است، تمام یا قسمتی از کارگاه تعطیل شود و انجام تعهدات کارگر یا کارفرما بطور موقت غیر ممکن گردد، قراردادهای کار با کارگران تمام یا آن قسمت از کارگاه که تعطیل می ‌شود به حال تعلیق درمی ‌آید. تشخیص موارد فوق با وزارت کار و امور اجتماعی است.<a href='#myModal' data-toggle='modal' id='s216780' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 16</span>- قرارداد کارگرانی که مطابق این قانون از مرخصی تحصیلی و یا دیگر مرخصی‌ های بدون حقوق با مزد استفاده می‌ کنند، در طول مرخصی و به مدت دو سال به حال تعلیق درمی ‌آید.</p><p><span Style='font-weight:bold;'>تبصره</span>- مرخصی تحصیلی برای دو سال دیگر قابل تمدید است.</p><p><span Style='font-weight:bold;'>ماده 17</span>- قرارداد کارگری که توقیف می‌ گردد و توقیف وی منتهی به حکم محکومیت نمی‌ شود در مدت توقیف به حال تعلیق درمی آید و کارگر پس از رفع توقیف به کار خود باز می‌ گردد.</p><p><span Style='font-weight:bold;'>ماده 18</span>- چنانچه توقیف کارگر به سبب شکایت کارفرما باشد و این توقیف در مراجع حل اختلاف منتهی به حکم محکومیت نگردد، مدت آن جزء سابقه خدمت کارگر محسوب می ‌شود و کارفرما مکلف است علاوه بر جبران ضرر و زیان وارده که مطابق حکم دادگاه به کارگر می‌ پردازد، مزد و مزایای وی را نیز پرداخت نماید.</p><p><span Style='font-weight:bold;'>تبصره</span>- کارفرما مکلف است تا زمانی که تکلیف کارگر از طرف مراجع مذکور مشخص نشده باشد، برای رفع احتیاجات خانواده وی، حداقل پنجاه درصد از حقوق ماهیانه او را به طور علی‌ الحساب به خانواده‌اش پرداخت نماید.</p><p><span Style='font-weight:bold;'>ماده 19 </span>- در دوران خدمت نظام وظیفه قرارداد کار به‌ حالت تعلیق درمی ‌آید، ولی کارگر باید حداکثر تا دو ماه پس از پایان خدمت به کار سابق خود بر گردد و چنانچه شغل وی حذف شده باشد در شغلی مشابه آن به‌ کار مشغول می ‌شود.</p><p><span Style='font-weight:bold;'>ماده 20 </span>- در هر یک از موارد مذکور در مواد 15، 16، 17و 19 چنانچه کار‌فرما پس از رفع حالت تعلیق از پذیرفتن کارگر خودداری کند، این عمل در حکم اخراج غیرقانونی محسوب می‌ شود و کارگر حق دارد ظرف مدت 30 روز به ‌هیأت تشخیص مراجعه نماید (درصورتیکه ‌کارگر عذر موجه نداشته باشد) و هرگاه کارفرما نتواند ثابت کند که نپذیرفتن کارگر مستند به دلایل موجه بوده‌ است، به تشخیص هیأت مزبور مکلف به بازگرداندن کارگر به کار و پرداخت حقوق یا مزد وی از تاریخ مراجعه به کارگاه می ‌باشد و اگر بتواند آنرا اثبات کند به ازاء هر سال سابقه کار 45 روز آخرین مزد به وی پرداخت نماید.</p><p><span Style='font-weight:bold;'>تبصره</span>- چنانچه کارگر بدون عذر موجه حداکثر 30 روز پس از رفع حالت تعلیق، آمادگی خود را برای انجام کار به کارفرما اعلام نکند و یا پس از مراجعه و استنکاف کارفرما، به هیأت تشخیص مراجعه ننماید، مستعفی شناخته می ‌شود که در این صورت کارگر مشمول اخذ حق سنوات بازاء هر سال یکماه آخرین حقوق خواهد بود.</p><p><span Style='font-weight:bold;'>مبحث سوم</span>- خاتمه قرارداد کار</p><p><span Style='font-weight:bold;'>ماده 21 </span>- قرارداد کار به یکی از طرق زیر خاتمه می ‌یابد:</p><p><span Style='font-weight:bold;'>الف </span>– فوت کارگر.</p><p><span Style='font-weight:bold;'>ب </span>– بازنشستگی کارگر.</p><p><span Style='font-weight:bold;'>ج </span>– از کار افتادگی کلی کارگر.</p><p><span Style='font-weight:bold;'>د </span>– انقضاء مدت در قراردادهای کار با مدت موقت و عدم تجدید صریح یا ضمنی آن</p><p><span Style='font-weight:bold;'>ه</span>ـ – پایان کار در قراردادهائی که مربوط به کار معین است.</p><p><span Style='font-weight:bold;'>و </span>– استعفای کارگر.</p><p style=""><span Style='font-weight:bold;'><span style='color</span>:red; '>ز – فسخ قرارداد به نحوی که در متن قرارداد پیش بینی گردیده است.</span><a href='#myModal' data-toggle='modal' id='s2109101' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'><span style='color</span>:red; '>ح – کاهش تولید و تغییرات ساختاری در اثر شرایط اقتصادی، اجتماعی، سیاسی و لزوم تغییرات گسترده در فن آوری مطابق با مفاد ماده (9) قانون تنظیم بخشی از مقررات تسهیل و نوسازی صنایع کشور.</span><a href='#myModal' data-toggle='modal' id='s2548190' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ز</span>- فسخ قرارداد به‌نحوی که در متن قرارداد (منطبق با قانون کار) پیش بینی شده است. <a href='#myModal' data-toggle='modal' id='s2548191' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ح</span>- به‌منظور جبران کاهش تولید ناشی از ساختار قدیمی، کارفرمایان می‌توانند بر مبنای نوآوری‌ها و فناوری‌های جدید و افزایش قدرت رقابت‌پذیری تولید، اصلاح ساختار انجام دهند، در آن صورت وزارت تعاون، کار و رفاه اجتماعی مکلف است طبق قرارداد سه جانبه (تشکل کارگری کارگاه، کارفرما و اداره تعاون و کار و رفاه اجتماعی محل) کارگران کارگاه را به مدت شش تا دوازده ماه تحت پوشش بیمه بیکاری قرار دهد و بعد از اصلاح ساختار، کارگران را به میزان ذکر شده در قرارداد سه جانبه به محل کار برگرداند و یا کارفرمایان می توانند مطابق مفاد ماده (9) قانون تنظیم بخشی از مقررات تسهیل و نوسازی صنایع کشور و اصلاح ماده (113) قانون برنامه سوم توسعه اقتصادی، اجتماعی و فرهنگی جمهوری اسلامی ایران مصوب 26/ 5/ 1382 و اصلاحات بعدی آن و قانون بیمه بیکاری مصوب 26/ 6/ 1369 عمل کنند.<a href='#myModal' data-toggle='modal' id='s2548202' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- کارگری که استعفاء می‌ کند موظف است یکماه به کار خود ادامه داده و بدواً استعفای خود را کتباً به کارفرما اطلاع دهد و در صورتیکه حداکثر ظرف مدت 15 روز انصراف خود را کتباً به کار فرما اعلام نماید استعفای وی منتفی تلقی می ‌شود و کارگر موظف است رونوشت استعفاء و انصراف از آن را به شورای اسلامی کارگاه و یا انجمن صنفی و یا نماینده کارگران تحویل دهد.</p><p><span Style='font-weight:bold;'>ماده 22</span>- در پایان کار، کلیه مطالباتی که ناشی از قرارداد کار و مربوط به دوره اشتغال کارگر در موارد فوق است، به کارگر و در صورت فوت او به وارث قانونی وی پرداخت خواهد شد.</p><p><span Style='font-weight:bold;'>تبصره</span>- تا تعیین تکلیف وراث قانونی و انجام مراحل اداری و برقراری مستمری توسط سازمان تأمین اجتماعی، این سازمان موظف است نسبت به پرداخت حقوق متوفی به میزان آخرین حقوق دریافتی به طور علی‌الحساب و به مدت سه ماه به عائله تحت تکفل وی اقدام نماید.</p><p><span Style='font-weight:bold;'>ماده 23</span>- کارگر از لحاظ دریافت حقوق یا مستمری‌های ناشی از فوت، بیماری، بازنشستگی، بیکاری، تعلیق، از کارافتادگی کلی و جزئی و یا مقررات حمایتی و شرایط مربوط به آنها تابع قانون تأمین اجتماعی خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 24</span>- در صورت خاتمه قرارداد کار، کار معین یا مدت موقت، کارفرما مکلف است به کارگری که مطابق قرارداد، یکسال یا بیشتر، به کار اشتغال داشته است برای هر سال سابقه، اعم از متوالی یا متناوب براساس آخرین حقوق مبلغی معادل یکماه حقوق به عنوان مزایای پایان کار به وی پرداخت نماید.</p><p><span Style='font-weight:bold;'>ماده 25</span>- هرگاه قرارداد کار برای مدت موقت و یا برای انجام کار معین، منعقد شده باشد هیچیک از طرفین به تنهائی حق فسخ آنرا ندارد.</p><p><span Style='font-weight:bold;'>تبصره </span>- رسیدگی به اختلافات ناشی از نوع این قراردادها در صلاحیت هیأت‌های تشخیص و حل اختلاف است.</p><p><span Style='font-weight:bold;'>ماده 26 </span>- هر نوع تغییر عمده در شرایط کار که برخلاف عرف معمول کارگاه و یا محل کار باشد پس از اعلام موافقت کتبی اداره کار و اموراجتماعی محل، قابل اجراست.<br>در صورت بروز اختلاف، رأی هیأت حل اختلاف قطعی و لازم ‌الاجراء است.</p><p><span Style='font-weight:bold;'>ماده 27</span>- هرگاه کارگر در انجام وظائف محوله قصور ورزد و یا آئیننامه‌های انضباطی کارگاه را پس از تذکرات کتبی نقض نماید کارفرما حق دارد در صورت اعلام نظر مثبت شورای اسلامی کار علاوه بر مطالبات و حقوق معوقه به نسبت هر سال سابقه کار معادل یکماه آخرین حقوق کارگر را به عنوان «حق سنوات» به وی پرداخته و قرارداد کار را فسخ نماید.<br>در واحدهائی که فاقد شورای اسلامی کار هستند نظر مثبت انجمن صنفی لازم است و در هر مورد از موارد یاد شده اگر مسأله با توافق حل نشد به هیأت تشخیص ارجاع و در صورت عدم حل اختلاف از طریق هیأت حل اختلاف رسیدگی و اقدام خواهد شد. در مدت رسیدگی مراجع حل اختلاف، قرارداد کار به حالت تعلیق درمی آید.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- کارگاههائی که مشمول قانون شورای اسلامی کار نبوده و یا شورای اسلامی کار و یا انجمن صنفی در آن تشکیل نگردیده باشد یا فاقد نماینده کارگر باشند اعلام نظر مثبت هیأت تشخیص (موضوع ماده 158 این قانون) در فسخ قرارداد کار الزامی است.</p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- موارد قصور و دستورالعمل‌ها و آئیننامه‌های انضباطی کارگاهها به موجب مقرراتی است که با پیشنهاد شورایعالی کار به تصویب وزیر کار و اموراجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216805' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 28</span>- نمایندگان قانونی کارگران و اعضای شوراهای اسلامی کار و همچنین داوطلبان واجد شرایط نمایندگی کارگران و شوراهای اسلامی کار، در مراحل انتخابات، قبل از اعلام نظر قطعی هیأت تشخیص (موضوع ماده 22 قانون شوراهای اسلامی کار) و رأی هیأت حل اختلاف، کماکان به فعالیت خود در همان واحد ادامه داده و مانند سایر کارگران مشغول کار و همچنین انجام وظایف و امور محوله خواهند بود.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- هیأت تشخیص و هیأت حل اختلاف پس از دریافت شکایت در مورد اختلاف فیما بین نماینده یا نمایندگان قانونی کارگران و کارفرما، فوراً و خارج از نوبت به موضوع رسیدگی و نظر نهائی خود را اعلام خواهند داشت. در هر صورت هیأت حل اختلاف موظف است حداکثر ظرف مدت یکماه از تاریخ دریافت شکایت به موضوع رسیدگی نماید.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- در کارگاههائی که شورای اسلامی کار تشکیل نگردیده و یا در مناطقی که هیأت تشخیص (موضوع ماده 22 قانون شوراهای اسلامی کار) تشکیل نشده و یا اینکه کارگاه مورد نظر مشمول قانون شوراهای اسلامی کار نمی‌ باشد، نمایندگان کارگران و یا نمایندگان انجمن صنفی، قبل از اعلام نظر قطعی هیأت تشخیص (موضوع ماده 22 قانون شوراهای اسلامی کار) و رأی نهائی هیأت حل اختلاف کماکان به فعالیت خود در همان واحد ادامه داده و مشغول کار و همچنین انجام وظایف و امور محوله خواهند بود.</p><p><span Style='font-weight:bold;'>مبحث چهارم</span>- جبران خسارت از هر قبیل و پرداخت مزایای پایان کار</p><p><span Style='font-weight:bold;'>ماده 29</span>- در صورتیکه بنا به تشخیص هیأت حل اختلاف کارفرما، موجب تعلیق قرارداد از ناحیه کارگر شناخته شود کارگر استحقاق دریافت خسارت ناشی از تعلیق را خواهد داشت و کارفرما مکلف است کارگر تعلیقی از کار را به کار سابق وی بازگرداند.</p><p><span Style='font-weight:bold;'>ماده 30</span>- چنانچه کارگاه براثر قوه قهریه (زلزله، سیل و امثال اینها) و یا حوادث غیرقابل پیش بینی (جنگ و نظایر آن) تعطیل گردد و کارگران آن بیکار شوند پس از فعالیت مجدد کارگاه، کارفرما مکلف است کارگران بیکار شده را در همان واحد بازسازی شده و مشاغلی که در آن بوجود می ‌آید به کار اصلی بگمارد.</p><p><span Style='font-weight:bold;'>تبصره</span>- دولت مکلف است با توجه به اصل بیست و نهم قانون اساسی و با استفاده از درآمدهای عمومی و درآمد های حاصل از مشارکت مرم و نیز از طریق ایجاد صندوق بیمه بیکاری نسبت به تأمین معاش کارگران بیکار شده کارگاههای موضوع ماده 4 این قانون و با توجه به بند 2 اصل چهل و سوم قانون اساسی امکانات لازم را برای اشتغال مجدد آنان فراهم نماید.</p><p><span Style='font-weight:bold;'>ماده 31</span>- چنانچه خاتمه قرارداد کار به لحاظ از کار افتادگی کلی و یا بازنشستگی کارگر باشد، کارفرما باید براساس آخرین مزد کارگر به نسبت هر سال سابقه خدمت حقوقی به میزان 30 روز مزد به وی پرداخت نماید.<br>این وجه علاوه بر مستمری از کار افتادگی و یا بازنشستگی کارگر است که توسط سازمان تأمین اجتماعی پرداخت می‌ شود.</p><p><span Style='font-weight:bold;'>ماده 32 </span>- اگر خاتمه قرارداد کار در نتیجه کاهش توانائیهای جسمی و فکری ناشی از کار کارگر باشد (بنا به تشخیص کمیسیون پزشکی سازمان بهداشت و درمان منطقه با معرفی شورای اسلامی کار و یا نمایندگان قانونی کارگر) کارفرما مکلف است به نسبت هر سال سابقه خدمت، معادل دو ماه آخرین حقوق به وی پرداخت نماید.</p><p style=""><span Style='font-weight:bold;'>ماده 33</span>- تشخیص موارد از کار افتادگی کلی و جزئی و یا بیماریهای ناشی از کار یا ناشی از غیر کار و فوت کارگر و میزان قصور کارفرما در انجام وظایف محوله قانونی که منجر به خاتمه قرارداد کار می ‌شود براساس ضوابطی خواهد بود که به پیشنهاد وزیر کار و اموراجتماعی به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216815' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل سوم</span>- شرایط کار</p><p><span Style='font-weight:bold;'>مبحث اول</span>- حق‌السعی</p><p><span Style='font-weight:bold;'>ماده 34</span>- کلیه دریافتهای قانونی که کارگر به اعتبار قرارداد کار اعم از مزد یا حقوق، کمک عائله‌ مندی، هزینه‌های مسکن، خواربار، ایاب و ذهاب، مزایای غیرنقدی، پاداش افزایش تولید، سود سالانه و نظایر آنها دریافت می ‌نماید را حق‌السعی می ‌نامند.</p><p><span Style='font-weight:bold;'>ماده 35</span>- مزد عبارت است از وجوه نقدی یا غیرنقدی و یا مجموع آنها که در مقابل انجام کار به کارگر پرداخت می‌ شود.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- چنانچه مزد با ساعات انجام کار مرتبط باشد، مزد ساعتی و در صورتیکه براساس میزان انجام کار و یا محصول تولید شده باشد، کارمزد و چنانچه براساس محصول تولید شده و یا میزان انجام کار در زمان معین باشد، کارمزد ساعتی نامیده می‌ شود.</p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- ضوابط و مزایای مربوط به مزد ساعتی، کارمزد ساعتی و کارمزد و مشاغل قابل شمول موضوع این ماده که با پیشنهاد شورایعالی کار به تصویب وزیر کار و اموراجتماعی خواهد رسید تعیین می‌ گردد. حداکثر ساعات کار موضوع ماده فوق نباید از حداکثر ساعت قانونی کار تجاوز نماید.<a href='#myModal' data-toggle='modal' id='s216821' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 36</span>- مزد ثابت، عبارت است از مجموع مزد شغل و مزایای ثابت پرداختی به تبع شغل.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- در کارگاههائی که دارای طرح طبقه ‌بندی و ارزیابی مشاغل نیستند منظور از مزایای ثابت پرداختی به تبع شغل، مزایایی است که بر حسب ماهیت شغل یا محیط کار و برای ترمیم مزد در ساعات عادی کار پرداخت می ‌گردد از قبیل مزایای سختی کار، مزایای سرپرستی، فوق‌ العاده شغل و غیره.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- در کارگاههائیکه طرح طبقه ‌بندی مشاغل به مرحله اجراء درآمده است مزد گروه و پایه، مزد مبنا را تشکیل می‌ دهد.</p><p><span Style='font-weight:bold;'>تبصره 3 </span>- مزایای رفاهی و انگیزه‌ای از قبیل کمک‌ هزینه‌ مسکن، خواربار و کمک عائله‌مندی، پاداش افزایش تولید و سود سالانه جزو مزد ثابت و مزد مبنا محسوب نمی ‌شود.</p><p><span Style='font-weight:bold;'>ماده 37 </span>- مزد باید در فواصل زمانی مرتب و در روز غیر تعطیل و ضمن ساعات کار به وجه نقد رایج کشور یا با تراضی طرفین به وسیله چک عهده بانک و با رعایت شرایط ذیل پرداخت شود:</p><p><span Style='font-weight:bold;'>الف </span>– چنانچه براساس قرارداد با عرف کارگاه، مبلغ مزد به صورت روزانه یا ساعتی تعیین شده باشد، پرداخت آن باید پس از محاسبه در پایان روز یا هفته یا پانزده روز یکبار به نسبت ساعات کار و یا روزهای کارکرد صورت گیرد.</p><p><span Style='font-weight:bold;'>ب </span>– در صورتیکه براساس قرارداد یا عرف کارگاه، پرداخت مزد به صورت ماهانه باشد، این پرداخت باید در آخر ماه صورت گیرد. در این حالت مزد مذکور حقوق نامیده می‌ شود.</p><p><span Style='font-weight:bold;'>تبصره</span>- در ماههای سی ‌و یک روزه مزایا و حقوق باید براساس سی ‌و ‌یک روز محاسبه و به کارگر پرداخت شود.</p><p><span Style='font-weight:bold;'>ماده 38</span>- برای انجام کار مساوی که در شرایط مساوی در یک کارگاه انجام می‌گیرد باید به زن و مرد مزد مساوی پرداخت شود. تبعیض در تعیین میزان مزد براساس سن، جنس، نژاد و قومیت و اعتقادات سیاسی و مذهبی ممنوع است.</p><p><span Style='font-weight:bold;'>ماده 39</span>- مزد و مزایای کارگرانی که به صورت نیمه‌ وقت و یا کمتر از ساعات قانونی تعیین شده به کار اشتغال دارند به نسبت ساعات کار انجام یافته محاسبه و پرداخت می ‌شود.</p><p><span Style='font-weight:bold;'>ماده 40</span>- در مواردی که با توافق طرفین قسمتی از مزد به صورت غیرنقدی پرداخت می ‌شود، باید ارزش نقدی تعیین شده برای اینگونه پرداختها منصفانه و معقول باشد.</p><p><span Style='font-weight:bold;'>ماده 41</span>- شورایعالی کار همه ساله موظف است، میزان حداقل مزد کارگران را برای نقاط مختلف کشور و یا صنایع مختلف با توجه به معیارهای ذیل تعیین نماید:</p><p><span Style='font-weight:bold;'>1 </span>- حداقل مزد کارگران با توجه به درصد تورمی که از طرف بانک مرکزی جمهوری اسلامی ایران اعلام می ‌شود.</p><p><span Style='font-weight:bold;'>2</span>- حداقل مزد بدون آنکه مشخصات جسمی و روحی کارگران و ویژگیهای کار محول‌ شده را مورد توجه قرار دهد باید به اندازه‌ای باشد تا زندگی یک خانواده، که تعداد متوسط آن توسط مراجع رسمی اعلام می ‌شود را تأمین نماید.</p><p><span Style='font-weight:bold;'>تبصره</span>- کارفرمایان موظفند که در ازای انجام کار در ساعات تعیین شده قانونی به هیچ کارگری کمتر از حداقل مزد تعیین شده جدید پرداخت ننمایند و در صورت تخلف، ضامن تأدیه ما به‌ التفاوت مزد پرداخت شده و حداقل مزد جدید می ‌باشند.</p><p><span Style='font-weight:bold;'>ماده 42</span>- حداقل مزد موضوع ماده 41 این قانون منحصراً باید به صورت نقدی پرداخت شود. پرداختهای غیرنقدی به هر صورت که در قراردادها پیش بینی می‌ شود به عنوان پرداختی تلقی می‌ شود که اضافه بر حداقل مزد است.</p><p><span Style='font-weight:bold;'>ماده 43</span>- کارگران کارمزد برای روزهای جمعه و تعطیلات رسمی و مرخصی، استحقاق دریافت مزد را دارند و مأخذ محاسبه میانگین کارمزد آنها در روزهای کارکرد آخرین ماه کار آنهاست. مبلغ پرداختی در هر حال نباید کمتر از حداقل مزد قانونی باشد.</p><p><span Style='font-weight:bold;'>ماده 44</span>- چنانچه کارگر به کارفرمای خود مدیون باشد در قبال این دیون وی، تنها می‌ توان مازاد بر حداقل مزد را به موجب حکم دادگاه برداشت نمود. در هر حال این مبلغ نباید از یک چهارم کل مزد کارگر بیشتر باشد.</p><p><span Style='font-weight:bold;'>تبصره </span>- نفقه و کسوه افراد واجب‌النفقه کارگر از قاعده مستثنی و تابع مقررات قانون مدنی می ‌باشد.</p><p><span Style='font-weight:bold;'>ماده 45</span>- کارفرما فقط در موارد ذیل می‌ تواند از مزد کارگر برداشت نماید:</p><p><span Style='font-weight:bold;'>الف </span>– موردی که قانون صراحتاً اجازه داده باشد.</p><p><span Style='font-weight:bold;'>ب </span>– هنگامی که کارفرما به عنوان مساعده وجهی به کارگر داده باشد.</p><p><span Style='font-weight:bold;'>ج </span>– اقساط وامهائی که کارفرما به کارگر داده است طبق ضوابط مربوطه.</p><p><span Style='font-weight:bold;'>د </span>– چنانچه در اثر اشتباه محاسبه مبلغی اضافه پرداخت شده باشد.</p><p><span Style='font-weight:bold;'>ه</span>ـ – مال‌الاجاره خانه سازمانی (که میزان آن با توافق طرفین تعیین گردیده‌ است) در صورتیکه اجاره‌ای باشد با توافق طرفین تعیین می گردد.</p><p><span Style='font-weight:bold;'>و </span>– وجوهی که پرداخت آن از طرف کارگر برای خرید اجناس ضروری از شرکت تعاونی مصرف همان کارگاه تعهد شده است.</p><p><span Style='font-weight:bold;'>تبصره</span>- هنگام دریافت وام مذکور در بند ج با توافق طرفین باید میزان اقساط پرداختی تعیین گردد.</p><p><span Style='font-weight:bold;'>ماده 46</span>- به کارگرانی که به موجب قرارداد یا موافقت بعدی به مأموریتهای خارج از محل خدمت اعزام می ‌شوند فوق‌العاده مأموریت تعلق می‌ گیرد. این فوق‌العاده نباید کمتر از مزد ثابت یا مزد مبنای روزانه کارگران باشد، همچنین کارفرما مکلف است وسیله یا هزینه رفت ‌و‌ برگشت آنها را تأمین نماید.</p><p><span Style='font-weight:bold;'>تبصره</span>- مأموریت به موردی اطلاق می‌شود که کارگر برای انجام کار حداقل 50 کیلومتر از محل کارگاه اصلی دور شود و یا ناگزیر باشد حداقل یک شب در محل مأموریت توقف نماید.</p><p style=""><span Style='font-weight:bold;'>ماده 47</span>- به منظور ایجاد انگیزه برای تولید بیشتر و کیفیت بهتر و تقلیل ضایعات و افزایش علاقمندی و بالا بردن سطح درآمد کارگران، طرفین قرارداد دریافت و پرداخت پاداش افزایش تولید را مطابق آئیننامه ای که به تصویب وزیر کار و اموراجتماعی تعیین می ‌شود منعقد می ‌نمایند.<a href='#myModal' data-toggle='modal' id='s216851' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 48 </span>- به منظور جلوگیری از بهره‌کشی از کار دیگری وزارت کار و اموراجتماعی موظف است نظام ارزیابی و طبقه ‌بندی مشاغل را با استفاده از استاندارد مشاغل و عرف مشاغل کارگری در کشور تهیه نماید و به مرحله اجراء درآورد.<a href='#myModal' data-toggle='modal' id='s216852' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 49 </span>- به منظور استقرار مناسبات صحیح کارگاه با بازار کار در زمینه مزد و مشخص بودن شرح وظایف و دامنه مسئولیت مشاغل مختلف در کارگاه، کارفرمایان مشمول این قانون موظفند با همکاری کمیته‌ طبقه ‌بندی مشاغل کارگاه و یا مؤسسات ذیصلاح، طرح طبقه ‌بندی مشاغل را تهیه کنند و پس از تأیید وزارت کار و اموراجتماعی به مرحله اجراء درآورند.<a href='#myModal' data-toggle='modal' id='s216853' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- وزارت کار و اموراجتماعی دستورالعمل و آئیننامه‌های اجرائی طرح ارزیابی مشاغل کارگاههای مشمول این ماده را که ناظر به تعداد کارگران و تاریخ اجرای طرح است تعیین و اعلام خواهد کرد.<a href='#myModal' data-toggle='modal' id='s216854' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- صلاحیت مؤسسات و افرادی که به تهیه طرحهای طبقه ‌بندی مشاغل در کارگاهها می ‌پردازند باید مورد تأیید وزارت کار و اموراجتماعی باشد.<a href='#myModal' data-toggle='modal' id='s216855' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 3</span>- اختلافات ناشی از اجرای طرح طبقه ‌بندی مشاغل با نظر وزارت کار و اموراجتماعی در هیأت حل اختلاف قابل رسیدگی است.<a href='#myModal' data-toggle='modal' id='s216856' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 50</span>- چنانچه کارفرمایان مشمول این قانون در مهلتهای تعیین شده از طرف وزارت کار و اموراجتماعی مشاغل کارگاههای خود را ارزیابی نکرده باشند وزارت کار و اموراجتماعی، انجام این امر را به یکی از دفاتر مؤسسات مشاور فنی ارزیابی مشاغل و یا اشخاص صاحب صلاحیت (موضوع تبصره 2 ماده 49) واگذار خواهد کرد.<a href='#myModal' data-toggle='modal' id='s216857' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره</span>- کارفرما علاوه بر پرداخت هزینه‌های مربوط به این امر مکلف به پرداخت جریمه‌ای معادل 50٪ هزینه‌های مشاوره بحساب درآمد عمومی کشور نزد خزانه ‌داریکل است. از تاریخی که توسط وزارت کار و اموراجتماعی تعیین می‌ شود کارفرما باید مابه ‌التفاوت احتمالی مزد ناشی از اجرای طرح ارزیابی مشاغل را بپردازد.<a href='#myModal' data-toggle='modal' id='s216858' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'> مبحث  دوم   </span>- مدت</p><p><span Style='font-weight:bold;'>ماده 51 </span>- ساعت کار در این قانون مدت زمانی است که کارگر نیرو یا وقت خود را به منظور انجام کار در اختیار کارفرما قرار می‌ دهد. به غیر از مواردی که در این قانون مستثنی شده است . ساعات کار کارگران در شبانه روز نباید از 8 ساعت تجاوز نماید.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- کارفرما با توافق کارگران، نماینده یا نمایندگان قانونی آنان می‌ تواند ساعات کار را در بعضی از روزهای هفته کمتر از میزان مقرر و در دیگر روزها اضافه بر این میزان تعیین کند به شرط آنکه مجموع ساعات کار هر هفته از 44 ساعت تجاوز نکند.</p><p><span Style='font-weight:bold;'>تبصره 2 </span>- در کارهای کشاورزی کارفرما می‌ تواند با توافق کارگران نماینده یا نمایندگان قانونی آنان ساعات کار در شبانه روز با توجه به کار، عرف و فصول مختلف تنظیم نماید.</p><p><span Style='font-weight:bold;'>ماده 52</span>- در کارهای سخت و زیان‌ آور و زیرزمینی، ساعات کار نباید از شش ساعت در روز و 36 ساعت در هفته تجاوز نماید.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- کارهای سخت و زیان‌آور و زیرزمینی به موجب آئیننامه‌ای خواهد بود که توسط شورایعالی حفاظت فنی و بهداشت کار و شورایعالی کار تهیه و به تصویب وزرای کار و اموراجتماعی و بهداشت، درمان و آموزش پزشکی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216864' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 53</span>- کار روز کارهائی است که زمان انجام آن از ساعت 6 بامداد تا 22 می ‌باشد و کار شب کارهائی است که زمان انجام آن بین 22 تا 6 بامداد قرار دارد.<br>کار مختلط نیز کارهائی است که بخشی از ساعات انجام آن در روز و قسمتی از آن در شب واقع می‌ شود.<br>در کارهای مختلط ساعاتی که جزء کار شب محسوب می‌ شود کارگر از فوق‌العاده موضوع ماده 58 این قانون استفاده می ‌نماید.</p><p><span Style='font-weight:bold;'>ماده 54</span>- کار متناوب کاری است که نوعاً در ساعات متوالی انجام نمی ‌یابد، بلکه در ساعات معینی از شبانه‌ روز صورت می‌ گیرد.</p><p><span Style='font-weight:bold;'>تبصره </span>- فواصل تناوب کار در اختیار کارگر است و حضور او در کارگاه الزامی نیست. در کارهای متناوب، ساعات کار و فواصل تناوب و نیز کار اضافه نباید از هنگام شروع تا خاتمه جمعاً از 15 ساعت در شبانه روز بیشتر باشد.<br>ساعت شروع و خاتمه‌ کار و فواصل تناوب با توافق طرفین و نوع کار و عرف کارگاه تعیین می‌ گردد.</p><p><span Style='font-weight:bold;'>ماده 55</span>- کار نوبتی عبارت است از کاری که در طول ماه گردش دارد، به نحوی که نوبتهای آن در صبح یا عصر یا شب واقع می‌ شود.</p><p><span Style='font-weight:bold;'>ماده 56</span>- کارگری که در طول ماه به طور نوبتی کار می ‌کند و نوبتهای کار وی در صبح و عصر واقع می شود 10٪ و چنانچه نوبتها در صبح و عصر و شب قرار گیرد، 15٪ و در صورتیکه نوبتها به صبح و شب و یا عصر و شب بیفتد 5 /22٪ علاوه بر مزد به عنوان فوق‌العاده نوبت کاری دریافت خواهد کرد.</p><p><span Style='font-weight:bold;'>ماده 57</span>- در کار نوبتی ممکن است ساعات کار از 8 ساعت در شبانه‌ روز و چهل ‌و ‌چهار ساعت در هفته تجاوز نماید، لکن جمع ساعات کار در چهار هفته متوالی نباید از 176 ساعت تجاوز کند.</p><p><span Style='font-weight:bold;'>ماده 58 </span>- برای هر ساعت کار در شب تنها به کارگران غیرنوبتی 35٪ اضافه بر مزد ساعت کار عادی تعلق می‌ گیرد.</p><p><span Style='font-weight:bold;'>ماده 59 </span>- در شرایط عادی ارجاع کار اضافی به کارگر با شرایط ذیل مجاز است:</p><p><span Style='font-weight:bold;'>الف </span>– موافقت کارگر</p><p><span Style='font-weight:bold;'>ب </span>– پرداخت 40٪ اضافه بر مزد هر ساعت کار عادی.</p><p><span Style='font-weight:bold;'>تبصره</span>- ساعات کار اضافی ارجاعی به کارگران نباید از 4 ساعت در روز تجاوز نماید (مگر در موارد استثنائی با توافق طرفین).</p><p><span Style='font-weight:bold;'>ماده 60</span>- ارجاع کار اضافی با تشخیص کارفرما به شرط پرداخت اضافه کاری (موضوع بند ب ماده 59) و برای مدتی که جهت مقابله با اوضاع و احوال ذیل ضرورت دارد مجاز است و حداکثر اضافه ‌کاری موضوع این ماده 8 ساعت در روز خواهد بود (مگر در موارد استثنائی با توافق طرفین).</p><p><span Style='font-weight:bold;'>الف </span>– جلوگیری از حوادث قابل پیش بینی و یا ترمیم خسارتی که نتیجه حوادث مذکور است.</p><p><span Style='font-weight:bold;'>ب </span>– اعاده فعالیت کارگاه، درصورتیکه فعالیت مذکور به علت بروز حادثه یا اتفاق طبیعی از قبیل سیل، زلزله و یا اوضاع و احوال غیرقابل پیش‌‌ بینی دیگر قطع شده باشد.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- پس از انجام کار اضافی در موارد فوق، کارفرما مکلف است حداکثر ظرف مدت 48 ساعت، موضوع را به اداره کار و اموراجتماعی اطلاع دهد تا ضرورت کار اضافی و مدت آن تعیین شود.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- در صورت عدم تأیید ضرورت کار اضافی توسط اداره کار و اموراجتماعی محل، کارفرما مکلف به پرداخت غرامت و خسارات وارده به کارگر خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 61</span>- ارجاع کار اضافی به کارگرانی که کار شبانه یا کارهای خطرناک و سخت و زیان‌آور انجام می ‌دهند ممنوع است.</p><p><span Style='font-weight:bold;'>مبحث سوم</span>- تعطیلات و مرخصی‌ ها</p><p><span Style='font-weight:bold;'>ماده 62</span>- روز جمعه، روز تعطیل هفتگی کارگران با استفاده از مزد می ‌باشد.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- در امور مربوط به خدمات عمومی نظیر آب، برق، اتوبوسرانی و یا در کارگاههائیکه حسب نوع یا ضرورت کار و یا توافق طرفین، به طور مستمر روز دیگری برای تعطیل تعیین شود همان روز در حکم روز تعطیل هفتگی خواهد بود و به هر حال تعطیل یک روز معین در هفته اجباری است.<br>کارگرانی که به هر عنوان به این ترتیب روزهای جمعه کار می‌ کنند، در مقابل عدم استفاده از تعطیل روز جمعه 40٪ اضافه بر مزد دریافت خواهند کرد.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- در صورتیکه روزهای کار در هفته کمتر از شش روز باشد، مزد روز تعطیل هفتگی کارگر معادل یک ششم مجموع مزد یا حقوق دریافتی وی در روزهای کار در هفته خواهد بود.</p><p><span Style='font-weight:bold;'>تبصره 3 </span>- کارگاههائی که با انجام 5 روز کار در هفته و 44 ساعت کار قانونی کارگرانشان از دو روز تعطیل استفاده می‌ کنند، مزد هر یک از دو روز تعطیل هفتگی برابر با مزد روزانه کارگران خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 63</span>- علاوه بر تعطیلات رسمی کشور روز کارگر (11 اردیبهشت) نیز جزء تعطیلات رسمی کارگران به حساب می‌ آید.</p><p><span Style='font-weight:bold;'>ماده 64</span>- مرخصی استحقاقی سالانه کارگران با استفاده از مزد و احتساب چهار روز جمعه، جمعاً یکماه است. سایر روزهای تعطیل جزء ایام مرخصی محسوب نخواهد شد. برای کار کمتر از یکسال مرخصی مزبور به نسبت مدت کار انجام یافته محاسبه می ‌شود.</p><p><span Style='font-weight:bold;'>ماده 65 </span>- مرخصی سالیانه کارگرانی که به کارهای سخت و زیان‌آور اشتغال دارند 5 هفته می ‌باشد. استفاده از این مرخصی، حتی‌ الامکان در دو نوبت و در پایان هر ششماه کار صورت می‌ گیرد.</p><p><span Style='font-weight:bold;'>ماده 66</span>- کارگر نمی‌ تواند بیش از 9 روز از مرخصی سالانه خود را ذخیره کند.</p><p><span Style='font-weight:bold;'>ماده 67</span>- هر کارگر حق دارد به منظور ادای فریضه حج واجب در تمام مدت کار خویش فقط برای یک نوبت یکماه به عنوان مرخصی استحقاقی یا مرخصی بدون حقوق استفاده نماید.</p><p><span Style='font-weight:bold;'>ماده 68</span>- میزان مرخصی استحقاقی کارگران فصلی بر حسب ماههای کارکرد تعیین می‌ شود.</p><p><span Style='font-weight:bold;'>ماده 69</span>- تاریخ استفاده از مرخصی با توافق کارگر و کارفرما تعیین می‌ شود و در صورت اختلاف بین کارگر و کارفرما نظر اداره کار و اموراجتماعی محل لازم‌ الاجراء است.</p><p><span Style='font-weight:bold;'>تبصره </span>- در مورد کارهای پیوسته (زنجیره‌ای) و تمامی کارهائیکه همواره حضور حداقل معینی از کارگران در روزهای کار را اقتضا می ‌نماید، کارفرما مکلف است جدول زمانی استفاده از مرخصی کارگران را ظرف سه ماه آخر هر سال برای سال بعد تنظیم و پس از تأیید شورای اسلامی کار یا انجمن صنفی یا نماینده کارگران اعلام نماید.</p><p><span Style='font-weight:bold;'>ماده 70</span>- مرخصی کمتر از یک روز کار جزء مرخصی استحقاقی منظور می شود.</p><p><span Style='font-weight:bold;'>ماده 71</span>- در صورت فسخ یا خاتمه قرارداد کار یا بازنشستگی و از کارافتادگی کلی کارگر و یا تعطیل کارگاه، مطالبات مربوط به مدت مرخصی استحقاقی کارگر به وی و در صورت فوت او به ورثه او پرداخت می‌ شود.</p><p><span Style='font-weight:bold;'>ماده 72 </span>- نحوه استفاده از مرخصی بدون حقوق کارگران و مدت آن و شرایط برگشت آنها به کار پس از استفاده از مرخصی با توافق کتبی کارگر یا نماینده قانونی او و کارفرما تعیین خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 73 </span>- کلیه کارگران در موارد ذیل حق برخورداری از سه روز مرخصی با استفاده از مزد را دارند:</p><p><span Style='font-weight:bold;'>الف </span>– ازدواج دائم</p><p><span Style='font-weight:bold;'>ب </span>– فوت همسر، پدر، مادر و فرزندان</p><p><span Style='font-weight:bold;'>ماده 74</span>- مدت مرخصی استعلاجی، با تأیید سازمان تأمین اجتماعی جزء سوابق کار و بازنشستگی کارگران محسوب خواهد شد.</p><p><span Style='font-weight:bold;'>مبحث چهارم </span>– شرایط کار زنان</p><p style=""><span Style='font-weight:bold;'>ماده 75</span>- انجام کارهای خطرناک، سخت و زیان ‌آور و نیز حمل بار بیشتر از حد مجاز با دست و بدون استفاده از وسایل مکانیکی، برای کارگران زن ممنوع است. دستورالعمل و تعیین نوع و میزان این قبیل موارد با پیشنهاد شورایعالی کار به تصویب وزیر کار و اموراجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216903' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 76</span>- مرخصی بارداری و زایمان کارگران زن جمعاً 90 روز است. حتی ‌الامکان 45 روز از این مرخصی باید پس از زایمان مورد استفاده قرار گیرد. برای زایمان توأمان 14 روز به مدت مرخصی اضافه می‌ شود.</p><p><span Style='font-weight:bold;'>تبصره 1 </span>- پس از پایان مرخصی زایمان، کارگر زن به کار سابق خود باز می‌ گردد و این مدت با تأیید سازمان تأمین اجتماعی جزء سوابق خدمت وی محسوب می ‌شود.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- حقوق ایام مرخصی زایمان طبق مقررات قانون تأمین اجتماعی پرداخت خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 77</span>- در مواردی که به تشخیص پزشک سازمان تأمین اجتماعی، نوع کار برای کارگر باردار خطرناک یا سخت تشخیص داده شود، کارفرما تا پایان دوره بارداری وی، بدون کسر حق‌ السعی کار مناسبتر و سبکتری به او ارجاع می نماید.</p><p><span Style='font-weight:bold;'>ماده 78</span>- در کارگاههائی که دارای کارگر زن هستند کارفرما مکلف است به مادران شیرده تا پایان دو سالگی کودک پس از هر سه ساعت، نیم ساعت فرصت شیردادن بدهد. این فرصت جزء ساعات کار آنان محسوب می‌شود و همچنین کارفرما مکلف است متناسب با تعداد کودکان و با در نظر گرفتن گروه سنی آنها مراکز مربوط به نگهداری کودکان (از قبیل شیرخوارگاه، مهدکودک و...) را ایجاد نماید.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- آئیننامه اجرائی، ضوابط تأسیس و اداره شیرخوارگاه و مهد کودک توسط سازمان بهزیستی کل کشور تهیه و پس از تصویب وزیر کار و اموراجتماعی به مرحله اجراء گذاشته می‌ شود.<a href='#myModal' data-toggle='modal' id='s216909' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>مبحث پنجم </span>– شرایط کار نوجوانان</p><p><span Style='font-weight:bold;'>ماده 79</span>- به کار گماردن افراد کمتر از 15 سال تمام ممنوع است.</p><p><span Style='font-weight:bold;'>ماده 80</span>- کارگری که سنش بین 15 تا 18 سال تمام باشد، کارگر نوجوان نامیده می‌ شود و در بدو استخدام باید توسط سازمان تأمین اجتماعی مورد آزمایشهای پزشکی قرار گیرد.</p><p><span Style='font-weight:bold;'>ماده 81 </span>- آزمایش‌های پزشکی کارگر نوجوان، حداقل باید سالی یکبار تجدید شود و مدارک مربوط در پرونده استخدامی وی ضبط گردد. پزشک درباره تناسب نوع کار با توانائی کارگر نوجوان اظهارنظر می‌ کند و چنانچه کار مربوط را نامناسب بداند کارفرما مکلف است در حدود امکانات خود شغل کارگر را تغییر دهد.</p><p><span Style='font-weight:bold;'>ماده 82</span>- ساعات کار روزانه کارگر نوجوان، نیم ساعت کمتر از ساعات کار معمولی کارگران است. ترتیب استفاده از این امتیاز با توافق کارگر و کارفرما تعیین خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 83</span>- ارجاع هر نوع کار اضافی و انجام کار در شب و نیز ارجاع کارهای سخت و زیان‌ آور و خطرناک و حمل بار با دست، بیش از حد مجاز و بدون استفاده از وسایل مکانیکی برای کارگر نوجوان ممنوع است.</p><p style=""><span Style='font-weight:bold;'>ماده 84</span>- در مشاغل و کارهائی که بعلت ماهیت آن یا شرایطی که کار در آن انجام می شود برای سلامتی یا اخلاق کارآموزان و نوجوانان زیان ‌آور است، حداقل سن کار 18 سال تمام خواهد بود. تشخیص این امر با وزارت کار و امور اجتماعی است.<a href='#myModal' data-toggle='modal' id='s216916' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل چهارم</span>- حفاظت فنی و بهداشت کار</p><p><span Style='font-weight:bold;'>مبحث اول </span>– کلیات</p><p><span Style='font-weight:bold;'>ماده 85</span>- برای صیانت نیروی انسانی و منابع مادی کشور رعایت دستورالعملهائی که از طریق شورای عالی حفاظت فنی (جهت تأمین حفاظت فنی) و وزارت بهداشت، درمان و آموزش پزشکی (جهت جلوگیری از بیماریهای حرفه‌ ای و تأمین بهداشت کار و کارگر و محیط کار) تدوین می ‌شود، برای کلیه کارگاهها، کارفرمایان، کارگران و کارآموزان الزامی است.</p><p><span Style='font-weight:bold;'>تبصره</span>- کارگاههای خانوادگی نیز مشمول مقررات این فصل بوده و مکلف به رعایت اصول فنی و بهداشت کار می ‌باشند.</p><p><span Style='font-weight:bold;'>ماده 86</span>- شورایعالی حفاظت فنی مسئول تهیه موازین و آئیننامه‌های حفاظت فنی می ‌باشد و از اعضاء ذیل تشکیل می‌ گردد:</p><p style=""><span Style='font-weight:bold;'>1</span>- وزیر کار و امور اجتماعی یا معاون او که رئیس شورا خواهد بود.<a href='#myModal' data-toggle='modal' id='s216922' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>2</span>- معاون وزارت صنایع</p><p><span Style='font-weight:bold;'>3</span>- معاون وزارت صنایع سنگین</p><p><span Style='font-weight:bold;'>4</span>- معاون وزارت کشاورزی</p><p><span Style='font-weight:bold;'>5</span>- معاون وزارت نفت</p><p><span Style='font-weight:bold;'>6</span>- معاون وزارت معادن و فلزات</p><p><span Style='font-weight:bold;'>7</span>- معاون وزارت جهاد سازندگی</p><p><span Style='font-weight:bold;'>8</span>- رئیس سازمان حفاظت محیط زیست</p><p><span Style='font-weight:bold;'>9 </span>- دو نفر از استادان با تجربه دانشگاه در رشته‌های فنی</p><p><span Style='font-weight:bold;'>10</span>- دو نفر از مدیران صنایع</p><p><span Style='font-weight:bold;'>11</span>- دو نفر از نمایندگان کارگران</p><p style=""><span Style='font-weight:bold;'>12 </span>- مدیرکل بازرسی کار وزارت کار و اموراجتماعی که دبیر شورا خواهد بود.<a href='#myModal' data-toggle='modal' id='s216933' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- پیشنهادات شورا به تصویب وزیر کار و امور اجتماعی رسیده و شورا در صورت لزوم می‌ تواند برای تهیه طرح آئیننامه‌های مربوط به حفاظت فنی کارگران در محیط کار و انجام سایر وظایف مربوط به شورا، کمیته‌های تخصصی مرکب از کارشناسان تشکیل دهد.<a href='#myModal' data-toggle='modal' id='s216934' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- آئیننامه داخلی شورا با پیشنهاد شورایعالی حفاظت فنی به تصویب وزیر کار و امور اجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216935' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 3</span>- انتخاب اساتید دانشگاه، نمایندگان کارگران و نمایندگان مدیران صنایع مطابق دستورالعملی خواهد بود که توسط شورایعالی حفاظت فنی تهیه و به تصویب وزیر کار و امور اجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216936' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 87</span>- اشخاص حقیقی و حقوقی که بخواهند کارگاه جدیدی احداث نمایند و یا کارگاههای موجود را توسعه دهند، مکلفند بدواً برنامه کار و نقشه‌های ساختمانی و طرحهای مورد نظر را از لحاظ پیش ‌بینی در امر حفاظت فنی و بهداشت کار، برای اظهار نظر و تأیید به وزارت کار و اموراجتماعی ارسال دارند. وزارت کار و اموراجتماعی موظف است نظرات خود را ظرف مدت یکماه اعلام نماید. بهره ‌برداری از کارگاههای مزبور منوط به رعایت مقررات حفاظتی و بهداشتی خواهد بود.<a href='#myModal' data-toggle='modal' id='s216937' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 88</span>- اشخاص حقیقی یا حقوقی که به ساخت یا ورود و عرضه ماشین می‌ پردازند مکلف به رعایت موارد ایمنی و حفاظتی مناسب می ‌باشند.</p><p style=""><span Style='font-weight:bold;'>ماده 89</span>- کارفرمایان مکلفند پیش از بهره‌ برداری از ماشینها، دستگاهها، ابزار و لوازمی که آزمایش آنها مطابق آئیننامه‌های مصوب شورایعالی حفاظت فنی ضروری شناخته شده است آزمایشهای لازم را توسط آزمایشگاهها و مراکز مورد تأیید شورایعالی حفاظت فنی انجام داده و مدارک مربوطه را حفظ و یک نسخه از آنها را برای اطلاع به وزارت کار و امور اجتماعی ارسال نمایند.<a href='#myModal' data-toggle='modal' id='s216939' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 90</span>- کلیه اشخاص حقیقی یا حقوقی که بخواهند لوازم حفاظت فنی و بهداشتی را وارد یا تولید کنند، باید مشخصات وسائل را حسب مورد همراه با نمونه‌های آن به وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی ارسال دارند و پس از تأیید، به ساخت یا وارد کردن این وسائل اقدام نمایند.<a href='#myModal' data-toggle='modal' id='s216940' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 91</span>- کارفرمایان و مسئولان کلیه واحدهای موضوع ماده 85 این قانون مکلفند براساس مصوبات شورایعالی حفاظت فنی برای تأمین حفاظت و سلامت و بهداشت کارگران در محیط کار، وسایل و امکانات لازم را تهیه و در اختیار آنان قرار داده و چگونگی کاربرد وسایل فوق ‌الذکر را به آنان بیاموزند و در خصوص رعایت مقررات حفاظتی و بهداشتی نظارت نمایند. افراد مذکور نیز ملزم به استفاده و نگهداری از وسایل حفاظتی و بهداشتی فردی و اجرای دستورالعملهای مربوطه کارگاه می ‌باشند.</p><p><span Style='font-weight:bold;'>ماده 92</span>- کلیه واحدهای موضوع ماده 85 این قانون که شاغلین در آنها به اقتضای نوع کار در معرض بروز بیماریهای ناشی از کار قرار دارند باید برای همه افراد مذکور پرونده پزشکی تشکیل دهند و حداقل سالی یکبار توسط مراکز بهداشتی درمانی از آنها معاینه و آزمایشهای لازم را بعمل آورند و نتیجه را در پرونده مربوطه ضبط نمایند.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- چنانچه با تشخیص شورای پزشکی نظر داده شود که فرد معاینه شده به بیماری ناشی از کار مبتلا یا در معرض ابتلا باشد کارفرما و مسئولین مربوطه مکلفند کار او را براساس نظریه شورای پزشکی مذکور بدون کاهش حق السعی، در قسمت مناسب دیگری تعیین نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- در صورت مشاهده چنین بیمارانی، وزارت کار و امور اجتماعی مکلف به بازدید و تأیید مجدد شرایط فنی و بهداشت و ایمنی محیط کار خواهد بود.<a href='#myModal' data-toggle='modal' id='s216944' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 93</span>- به منظور جلب مشارکت کارگران و نظارت بر حسن اجرای مقررات حفاظتی و بهداشتی در محیط کار و پیشگیری از حوادث و بیماریها، در کارگاههائی که وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی ضروری تشخیص دهند کمیتة حفاظت فنی و بهداشت کار تشکیل خواهد شد.<a href='#myModal' data-toggle='modal' id='s216945' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- کمیته مذکور از افراد متخصص در زمینه حفاظت فنی و بهداشت حرفه‌ای و امور فنی کارگاه تشکیل می‌ شود و از بین اعضاء، دو نفر شخص واجد شرایطی که مورد تأیید وزارتخانه‌های کار و امور اجتماعی و بهداشت، درمان و آموزش پزشکی باشند تعیین می ‌گردند که وظیفه‌ شان برقراری ارتباط میان کمیته مذکور با کارفرما و وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی می ‌باشد.<a href='#myModal' data-toggle='modal' id='s216946' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- نحوه تشکیل و ترکیب اعضاء براساس دستورالعملهائی خواهد بود که توسط وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی تهیه و ابلاغ خواهد شد.<a href='#myModal' data-toggle='modal' id='s216947' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 94</span>- در مواردیکه یک یا چند نفر از کارگران یا کارکنان واحدهای موضوع ماده 85 این قانون امکان وقوع حادثه یا بیماری ناشی از کار را در کارگاه یا واحد مربوطه پیش بینی نمایند می ‌توانند مراتب را به کمیته حفاظت فنی و بهداشت کار یا مسئول حفاظت فنی و بهداشت کار اطلاع دهند و این امر نیز بایستی توسط فرد مطلع شده در دفتری که به همین منظور نگهداری می‌ شود ثبت گردد.</p><p><span Style='font-weight:bold;'>تبصره</span>- چنانچه کارفرما یا مسئول واحد، وقوع حادثه یا بیماری ناشی از کار را محقق نداند موظف است در اسرع وقت موضوع را همراه با دلایل و نظرات خود به نزدیکترین اداره کار و اموراجتماعی محل اعلام نماید. اداره کار و اموراجتماعی مذکور موظف است در اسرع وقت توسط بازرسین کار به موضوع رسیدگی و اقدام لازم را معمول نماید.</p><p><span Style='font-weight:bold;'>ماده 95</span>- مسئولیت اجرای مقررات و ضوابط فنی و بهداشت کار برعهده کارفرما یا مسئولین واحدهای موضوع ذکر شده در ماده 85 این قانون خواهد بود. هرگاه بر اثر عدم رعایت مقررات مذکور از سوی کارفرما یا مسئولین واحد، حادثه‌ای رخ دهد، شخص کارفرما یا مسئول مذکور از نظر کیفری و حقوقی و نیز مجازاتهای مندرج در این قانون مسئول است.</p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- کارفرما یا مسئولان واحدهای موضوع ماده 85 این قانون موظفند کلیه حوادث ناشی از کار را در دفتر ویژه‌ای که فرم آن از طریق وزارت کار و امور اجتماعی اعلام می ‌گردد ثبت و مراتب را سریعاً به صورت کتبی به اطلاع اداره کار و امور اجتماعی محل برسانند.<a href='#myModal' data-toggle='modal' id='s216951' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره 2</span>- چنانچه کارفرما یا مدیران واحدهای موضوع ماده 85 این قانون برای حفاظت فنی و بهداشت کار وسایل و امکانات لازم را در اختیار کارگر قرارداده باشند و کارگر با وجود آموزشهای لازم و تذکرات قبلی بدون توجه به دستورالعمل و مقررات موجود از آنها استفاده ننماید کارفرما مسئولیتی نخواهد داشت. در صورت بروز اختلاف، رأی هیأت حل اختلاف نافذ خواهد بود.</p><p><span Style='font-weight:bold;'>مبحث دوم</span>- بازرسی کار</p><p style=""><span Style='font-weight:bold;'>ماده 96</span>- به منظور اجرای صحیح این قانون و ضوابط حفاظت فنی، اداره کل بازرسی وزارت کار و امور اجتماعی با وظایف ذیل تشکیل می‌ شود:<a href='#myModal' data-toggle='modal' id='s216954' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>الف </span>– نظارت بر اجرای مقررات ناظر به شرایط کار به ویژه مقررات حمایتی مربوط به کارهای سخت و زیان ‌آور و خطرناک، مدت کار، مزد، رفاه کارگر، اشتغال زنان و کارگران نوجوان.</p><p><span Style='font-weight:bold;'>ب </span>– نظارت بر اجرای صحیح مقررات قانون کار و آئیننامه‌ها و دستورالعملهای مربوط به حفاظت فنی.</p><p><span Style='font-weight:bold;'>ج </span>– آموزش مسائل مربوط به حفاظت فنی و راهنمائی کارگران، کارفرمایان و کلیه افرادی که در معرض صدمات و ضایعات ناشی از حوادث و خطرات ناشی از کار قرار دارند.</p><p><span Style='font-weight:bold;'>د </span>– بررسی و تحقیق پیرامون اشکالات ناشی از اجرای مقررات حفاظت فنی و تهیه پیشنهاد لازم جهت اصلاح میزان ها و دستورالعملهای مربوط به موارد مذکور، مناسب با تحولات و پیشرفتهای تکنولوژی.</p><p><span Style='font-weight:bold;'>ه</span>ـ – رسیدگی به حوادث ناشی از کار در کارگاههای مشمول و تجزیه و تحلیل عمومی و آماری اینگونه موارد به منظور پیشگیری حوادث.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- وزارت بهداشت، درمان و آموزش پزشکی مسئول برنامه‌ ریزی، کنترل، ارزشیابی و بازرسی در زمینه بهداشت کار و درمان کارگری بوده و موظف است اقدامات لازم را در این زمینه بعمل آورد.</p><p><span Style='font-weight:bold;'>تبصره 2 </span>- بازرسی به صورت مستمر، همراه با تذکر اشکالات و معایب و نواقص و در صورت لزوم تقاضای تعقیب متخلفان در مراجع صالح انجام می ‌گیرد.</p><p><span Style='font-weight:bold;'>ماده 97 </span>- اشتغال در سمت بازرسی کار منوط به گذراندن دوره‌های آموزش نظری و علمی در بدو استخدام است.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>– آئین ‌نامه شرایط استخدام بازرسان کار و کارشناسان بهداشت کار با پیشنهاد مشترک وزارت کار و امور اجتماعی، وزارت بهداشت، درمان و آموزش پزشکی و سازمان امور اداری و استخدامی به تصویب هیأت وزیران خواهد رسید. این شرایط به نحوی تدوین خواهد شد که ثبات و استقلال شغلی بازرسان را تامین کند و آنها را از هر نوع تعرض مصون بدارد.<a href='#myModal' data-toggle='modal' id='s216963' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 98</span>- بازرسان کار و کارشناسان بهداشت کار در حدود وظایف خویش حق دارند بدون اطلاع قبلی در هر موقع از شبانه ‌روز به مؤسسات مشمول ماده 85 این قانون وارد شده و به بازرسی بپردازند و نیز می ‌توانند به دفاتر و مدارک مربوطه در مؤسسه مراجعه و در صورت لزوم از تمام یا قسمتی از آنها رونوشت تحصیل نمایند.</p><p><span Style='font-weight:bold;'>تبصره </span>- ورود بازرسان کار به کارگاههای خانوادگی منوط به اجازه کتبی دادستان محل خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 99</span>- بازرسان کار و کارشناسان بهداشت کار حق دارند به منظور اطلاع از ترکیبات موادی که کارگران با آنها در تماس می باشند و یا در انجام کار مورد استفاده قرار می‌ گیرند، به اندازه‌ای که برای آزمایش لازم است در مقابل رسید، نمونه بگیرند و به رؤسای مستقیم خود تسلیم نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- سایر مقررات مربوط به چگونگی بازرسی کار مطابق آئین‌نامه‌ ای خواهد بود که با پیشنهاد شورای عالی حفاظت فنی و بهداشت کار حسب مورد به تصویب وزیر کار و امور اجتماعی و وزیر بهداشت، درمان و آموزش پزشکی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216967' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 100</span>- کلیه بازرسان کار و کارشناسان بهداشت حرفه‌ای، دارای کارت ویژه حسب مورد با امضاء وزیر کار و امور اجتماعی یا وزیر بهداشت، درمان و آموزش پزشکی هستند که هنگام بازرسی باید همراه آنها باشد و در صورت تقاضای مقامات رسمی یا مسئولین کارگاه ارائه شود.<a href='#myModal' data-toggle='modal' id='s216968' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 101</span>- گزارش بازرسان کار و کارشناسان بهداشت کار در موارد مربوط به حدود وظایف و اختیاراتشان در حکم گزارش ضابطین دادگستری خواهد بود.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- بازرسان کار و کارشناسان بهداشت کار می ‌توانند به عنوان مطلع و کارشناس در جلسات مراجع حل اختلاف شرکت نمایند.</p><p><span Style='font-weight:bold;'>تبصره 2 </span>- بازرسان کار و کارشناسان بهداشت کار نمی ‌توانند در تصمیم ‌گیری مراجع حل اختلاف نسبت به پرونده‌هائیکه قبلا به عنوان بازرس در مورد آنها اظهارنظر کرده‌ اند، شرکت کنند.</p><p><span Style='font-weight:bold;'>ماده 102</span>- بازرسان کار و کارشناسان بهداشت کار نمی ‌توانند در کارگاهی اقدام به بازرسی نمایند که خود یا یکی از بستگان نسبی آنها تا طبقه سوم و یا یکی از اقربای سببی درجه اول ایشان به طور مستقیم در آن ذینفع باشند.</p><p><span Style='font-weight:bold;'>ماده 103</span>- بازرسان کار و کارشناسان بهداشت کار حق ندارند در هیچ مورد حتی پس از برکناری از خدمت دولت اسرار و اطلاعات را که به مقتضای شغل خود به دست آورده‌اند و یا نام اشخاصی را که به آنان اطلاعاتی داده یا موارد تخلف را گوشزد کرده‌ اند، فاش نمایند.</p><p><span Style='font-weight:bold;'>تبصره</span>- متخلفین از مقررات این ماده مشمول مجازاتهای مقرر در قوانین مربوط خواهند بود.</p><p><span Style='font-weight:bold;'>ماده 104</span>- کارفرمایان و دیگر کسانیکه مانع ورود بازرسان کار و کارشناسان بهداشت کار به کارگاههای مشمول این قانون گردند و یا مانع انجام وظیفه ایشان شوند یا از دادن اطلاعات و مدارک لازم به آنان خودداری نمایند، حسب مورد به مجازاتهای مقرر در این قانون محکوم خواهند شد.</p><p><span Style='font-weight:bold;'>ماده 105</span>- هرگاه در حین بازرسی، به تشخیص بازرس کار یا کارشناس بهداشت حرفه‌ ای احتمال وقوع حادثه و یا بروز خطر در کارگاه داده شود، بازرس کار یا کارشناس بهداشت حرفه‌ای مکلف هستند مراتب را فوراً و کتباً به کارفرما یا نماینده او و نیز به رئیس مستقیم خود اطلاع دهند.</p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی، حسب مورد گزارش بازرسان کار و کارشناسان بهداشت حرفه‌ای از دادسرای عمومی محل و در صورت عدم تشکیل دادسرا از دادگاه عمومی محل تقاضا خواهند کرد فوراً قرار تعطیل و لاک و مهر تمام یا قسمتی از کارگاه را صادر نماید. دادستان بلافاصله نسبت به صدور قرار اقدام و قرار مذکور پس از ابلاغ قابل اجراست.<br>دستور رفع تعطیل توسط مرجع مزبور در صورتی صادر خواهد شد که بازرس کار یا کارشناس بهداشت حرفه‌ای و یا کارشناسان ذیربط دادگستری رفع نواقص و معایب موجود را تائید نموده باشند.<a href='#myModal' data-toggle='modal' id='s216977' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره 2 </span>- کارفرما مکلف است در ایامی که به علت فوق کار تعطیل می شود مزد کارگران کارگاه را بپردازد.</p><p><span Style='font-weight:bold;'>تبصره 3 </span>- متضرران از قرارهای موضوع این ماده در صورت اعتراض به گزارش بازرس کار و یا کارشناس بهداشت حرفه ‌ای و تعطیل کارگاه می ‌توانند از مراجع مزبور، به دادگاه صالح شکایت کنند و دادگاه مکلف است به فوریت و خارج از نوبت به موضوع رسیدگی نماید. تصمیم دادگاه قطعی و قابل اجرا است.</p><p style=""><span Style='font-weight:bold;'>ماده 106 </span>- دستورالعملها و آئین ‌نامه‌های اجرائی مربوط به این فصل به پیشنهاد مشترک وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216980' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'> فصل  پنجم  </span>ـ آموزش و اشتغال</p><p><span Style='font-weight:bold;'> مبحث  اول  </span>ـ کارآموز و مراکز کارآموزی</p><p><span Style='font-weight:bold;'>1 </span>- مراکز کارآموزی</p><p style=""><span Style='font-weight:bold;'>ماده ۱۰۷</span>- در اجرای اهداف قانون اساسی و به منظور اشتغال مولد و مستمر جویندگان کار و نیز بالا بردن دانش فنی کارگران، وزارت کار و امور اجتماعی مکلف است امکانات آموزشی لازم را فراهم سازد. <a href='#myModal' data-toggle='modal' id='s216984' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره</span>- وزارتخانه‌ها و سازمانهای ذینفع موظف به همکاریهای لازم با وزارت کار و امور اجتماعی می‌ باشند.<a href='#myModal' data-toggle='modal' id='s216985' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده ۱۰۸</span>- وزارت کار و امور اجتماعی موظف است بر حسب نیاز و با توجه به استقرار نوع صنعت موجود در نقاط مختلف کشور برای ایجاد و توسعه مراکز کارآموزی ذیل در سطوح مختلف مهارت اقدام نماید <a href='#myModal' data-toggle='modal' id='s216986' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>الف </span>– مراکز کارآموزی پایه برای آموزش کارگران و کارجویان غیر ماهر.</p><p><span Style='font-weight:bold;'>ب </span>– مراکز کارآموزی تکمیل مهارت و تخصصهای موردی برای بازآموزی، ارتقاء مهارت و تعلیم تخصصهای پیشرفته به کارگران و کارجویان نیمه‌ ماهر، ماهر و مربیان آموزش حرفه ‌ای.</p><p><span Style='font-weight:bold;'>ج </span>– مراکز تربیت مربی برای آموزش مربیان مراکز کارآموزی.</p><p><span Style='font-weight:bold;'>د </span>– مراکز کارآموزی خاص معلولین و جانبازان با همکاری وزارتخانه ‌ها و سازمانهای ذیربط (مانند وزارت بهداشت، درمان و آموزش پزشکی، بنیاد شهید، بنیاد جانبازان و...) .</p><p style=""><span Style='font-weight:bold;'>ماده 109</span>- مراکز آموزش مذکور در ماده 108 این قانون از نظر مالی و اداری با رعایت قانون محاسبات عمومی به طور مستقل زیر نظر وزارت کار و امور اجتماعی اداره خواهند شد.<a href='#myModal' data-toggle='modal' id='s216991' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده ۱۱۰</span>- واحدهای صنعتی، تولیدی و خدماتی به منظور مشارکت در امر آموزش کارگر ماهر و نیمه ‌ماهر مورد نیاز خویش مکلفند نسبت به ایجاد مراکز کارآموزی جوار کارگاه و یا بین کارگاهی، همکاریهای لازم را با وزارت کار و امور اجتماعی بعمل آورند. <a href='#myModal' data-toggle='modal' id='s216992' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- وزارت کار و اموراجتماعی، استانداردها و جزوات مربوط به امر آموزش در مراکز کارآموزی جوار کارگاه و بین کارگاهی را تهیه و در مورد تعلیم و تأمین مربیان مراکز مزبور اقدام می ‌نماید.<a href='#myModal' data-toggle='modal' id='s216993' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- دستورالعملها و مقررات مربوط به ایجاد مراکز کارآموزی جوار کارگاه و بین کارگاهی بر حسب مورد به پیشنهاد وزیر کار و اموراجتماعی به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216994' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده ۱۱۱</span>- علاوه بر تشکیل مراکز کارآموزی توسط وزارت کار و امور اجتماعی آموزشگاه فنی ‌و‌ حرفه ‌ای آزاد نیز بمنظور آموزش صنعت یا حرفه معین، به وسیله اشخاص حقیقی یا حقوقی، با کسب پروانه از وزارت کار و امور اجتماعی تاسیس می‌شود. <a href='#myModal' data-toggle='modal' id='s216995' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره </span>– آئین ‌نامه مربوط به تشخیص صلاحیت فنی و مؤسسات کارآموزی آزاد و صلاحیت مسئول و مربیان و نیز نحوه نظارت وزارت کار و امور اجتماعی بر این مؤسسات با پیشنهاد وزیر کار و اموراجتماعی به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s216996' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>2</span>- کارآموز و قرارداد کارآموزی</p><p><span Style='font-weight:bold;'>ماده ۱۱۲</span>- از لحاظ مقررات این قانون، کارآموز به افراد ذیل اطلاق می‌شود: </p><p><span Style='font-weight:bold;'>الف </span>– کسانی که فقط برای فرا گرفتن حرفه خاص، بازآموزی یا ارتقاء مهارت برای مدت معین در مراکز کارآموزی و یا آموزشگاههای آزاد آموزش می بینند.</p><p><span Style='font-weight:bold;'>ب </span>– افرادی که به موجب قرارداد کارآموزی به منظور فرا گرفتن حرفه ‌ای خاص برای مدت معین که زاید بر سه سال نباشد، در کارگاهی معین به کارآموزی توأم با کار اشتغال دارند، مشروط بر آنکه سن آنها از 15 سال کمتر نبوده و از 18 سال تمام بیشتر نباشد.</p><p><span Style='font-weight:bold;'>تبصره 1 </span>- کارآموزان بند الف ممکن است کارگرانی باشند که مطابق توافق کتبی منعقده با کارفرما به مراکز کارآموزی معرفی می‌ شوند و یا داوطلبانی باشند که شاغل نیستند و راساً به مراکز کارآموزی مراجعه می‌ نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- دستورالعملهای مربوط به شرایط پذیرش، حقوق و تکالیف دورة کارآموزی داوطلبان مذکور در بند «ب» با پیشنهاد شورایعالی کار، به تصویب وزیر کار و اموراجتماعی می ‌رسد.<a href='#myModal' data-toggle='modal' id='s217001' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 113 </span>- کارگران شاغلی که مطابق تبصره یک ماده 112 برای کارآموزی در یکی از مراکز کارآموزی پذیرفته می‌ شوند، از حقوق زیر برخوردار خواهند بود:<br>الف – رابطه استخدامی کارگر در مدت کارآموزی قطع نمی ‌شود و این مدت از هر لحاظ جزء سوابق کارگر محسوب می ‌شود.<br>ب – مزد کارگر در مدت کارآموزی از مزد ثابت و یا مزد مبنا کمتر نخواهد بود.<br>ج – مزایای غیر نقدی، کمکها و فوق‌العاده‌هائیکه برای جبران هزینه زندگی و مسئولیتهای خانوادگی به کارگر پرداخت می شود در دوره کار‌آموزی کماکان پرداخت خواهد شد.<br>چنانچه کارفرما قبل از پایان مدت، بدون دلیل موجه مانع ادامه کارآموزی شود و از این طریق خسارتی به کارگر وارد گردد، کارگر می ‌تواند به مراجع حل اختلاف مندرج در این قانون مراجعه و مطالبه خسارت نماید.</p><p><span Style='font-weight:bold;'>ماده ۱۱۴</span>- کارگری که مطابق تبصره (۱) ماده ۱۱۲ برای کارآموزی در یکی از مراکز کارآموزی پذیرفته می‌شود مکلف است: </p><p><span Style='font-weight:bold;'>الف </span>– تا پایان مدت مقرر به کارآموزی بپردازد و به طور منظم در برنامه‌های کارآموزی شرکت نموده و مقررات و آئین‌نامه‌های واحد آموزشی را مراعات نماید و دوره کارآموزی را با موفقیت به پایان برساند.</p><p><span Style='font-weight:bold;'>ب </span>– پس از طی دوره کارآموزی، حداقل دو برابر مدت کارآموزی در همان کارگاه به کار اشتغال ورزد.</p><p><span Style='font-weight:bold;'>تبصره</span>- در صورتیکه کارآموز پس از اتمام کارآموزی حاضر به ادامه کار در کارگاه نباشد، کارفرما می تواند برای مطالبه خسارت مندرج در قرارداد کارآموزی به مراجع حل اختلاف موضوع این قانون مراجعه و تقاضای دریافت خسارت نماید.</p><p><span Style='font-weight:bold;'>ماده 115</span>- کارآموزان مذکور در بند «ب» ماده 112، تابع مقررات مربوط به کارگران نوجوان مذکور در مواد 79 الی 84 این قانون خواهند بود ولی ساعت کار آنان از شش ساعت در روز تجاوز نخواهد کرد.</p><p><span Style='font-weight:bold;'>ماده ۱۱۶</span>- قرارداد کارآموزی علاوه بر مشخصات طرفین باید حاوی مطالب ذیل باشد:</p><p><span Style='font-weight:bold;'>الف </span>– تعهدات طرفین.</p><p><span Style='font-weight:bold;'>ب </span>– سن کارآموز.</p><p><span Style='font-weight:bold;'>ج </span>– مزد کارآموز.</p><p><span Style='font-weight:bold;'>د </span>– محل کارآموزی.</p><p><span Style='font-weight:bold;'>ه</span>ـ – حرفه یا شغلی که طبق استاندارد مصوب، تعلیم داده خواهد شد.</p><p><span Style='font-weight:bold;'>و </span>– شرایط فسخ قرارداد (در صورت لزوم).</p><p><span Style='font-weight:bold;'>ز </span>– هر نوع شرط دیگری که طرفین در حدود مقررات قانونی ذکر آنرا در قرارداد لازم بدانند.</p><p><span Style='font-weight:bold;'>ماده 117</span>- کارآموزی توأم با کار نوجوانان تا سن 18 سال تمام (موضوع ماده 80 این قانون) در صورتی مجاز است که از حدود توانائی آنان خارج نبوده و برای سلامت و رشد جسمی و روحی آنان مضر نباشد.</p><p style=""><span Style='font-weight:bold;'>ماده 118</span>- مراکز کار آموزی موظفند برای آموزش کار آموز، وسائل و تجهیزات کافی را مطابق استانداردهای آموزشی وزارت کار و امور اجتماعی در دسترسی وی قرار دهند و به طور منظم و کامل، حرفه مورد نظر را به او بیاموزند. همچنین مراکز مذکور باید برای تأمین سلامت و ایمنی کار آموز در محیط کار آموزی امکانات لازم را فراهم آورند.<a href='#myModal' data-toggle='modal' id='s217020' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'> مبحث  دوم  </span>ـ اشتغال</p><p style=""><span Style='font-weight:bold;'>ماده 119</span>- وزارت کار و امور اجتماعی موظف است نسبت به ایجاد مراکز خدمات اشتغال در سراسر کشور اقدام نماید. مراکز خدمات مذکور موظفند تا ضمن شناسائی زمینه‌های ایجاد کار و برنامه‌ ریزی برای فرصت‌های اشتغال نسبت به ثبت ‌نام و معرفی بیکاران به مراکز کار آموزی (در صورت نیاز به آموزش) و با معرفی به مراکز تولیدی، صنعتی، کشاورزی و خدماتی اقدام نمایند.<a href='#myModal' data-toggle='modal' id='s217022' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره 1</span>- مراکز خدمات اشتغال در مراکز استانها موظف به ایجاد دفتری تحت عنوان دفتر برنامه‌ ریزی و حمایت از اشتغال معلولین خواهند بود و کلیه مؤسسات مذکور در این ماده موظف به همکاری با دفاتر مزبور می ‌باشند.</p><p><span Style='font-weight:bold;'>تبصره 2</span>- دولت موظف است تا در ایجاد شرکتهای تعاونی (تولیدی، کشاورزی، صنعتی و توزیعی)، معلولین را از طریق اعطای وامهای قرض ‌الحسنه دراز مدت و آموزشهای لازم و برقراری تسهیلات انجام کار و حمایت از تولید یا خدمات آنان مورد حمایت قرار داده و نسبت به رفع موانع معماری در کلیه مراکز موضوع این ماده و تبصره ‌ها که معلولین در آنها حضور می ‌یابند اقدام نماید.</p><p style=""><span Style='font-weight:bold;'>تبصره 3</span>- وزارت کار و امور اجتماعی مکلف است تا آئین ‌نامه‌های لازم را در جهت برقراری تسهیلات رفاهی مورد نیاز معلولین شاغل در مراکز انجام کار با نظر خواهی از جامعه معلولین ایران و سازمان بهزیستی کشور تهیه و به تصویب وزیر کار و اموراجتماعی برساند.<a href='#myModal' data-toggle='modal' id='s217025' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>مبحث سوم</span>- اشتغال اتباع بیگانه</p><p><span Style='font-weight:bold;'>ماده 120</span>- اتباع بیگانه نمی ‌توانند در ایران مشغول به کار شوند مگر آنکه اولاً دارای روادید با حق کار مشخص بوده و ثانیاً مطابق قوانین و آئین‌ نامه‌های مربوطه، پروانه کار دریافت دارند.</p><p><span Style='font-weight:bold;'>تبصره </span>- اتباع بیگانه ذیل مشمول مقررات ماده 120 نمی‌ باشند:</p><p><span Style='font-weight:bold;'>الف</span>- اتباع بیگانه ‌ای که منحصراً در خدمت مأموریتهای دیپلماتیک و کنسولی هستند با تائید وزارت امور خارجه</p><p><span Style='font-weight:bold;'>ب </span>– کارکنان و کارشناسان سازمان ملل متحد و سازمانهای وابسته به آنها با تائید وزارت امور خارجه</p><p><span Style='font-weight:bold;'>ج </span>– خبرنگاران خبرگزاریها و مطبوعات خارجی به شرط معامله متقابل و تائید وزارت فرهنگ و ارشاد اسلامی.</p><p style=""><span Style='font-weight:bold;'>ماده 121</span>- وزارت کار و امور اجتماعی با رعایت شرایط ذیل در مورد صدور روادید با حق کار مشخص برای اتباع بیگانه موافقت و پروانه‌ کار صادر خواهد کرد:<a href='#myModal' data-toggle='modal' id='s217032' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>الف </span>– مطابق اطلاعات موجود در وزارت کار و امور اجتماعی در میان اتباع ایرانی آماده به کار افراد داوطلب واجد تحصیلات و تخصص مشابه وجود نداشته باشد.<a href='#myModal' data-toggle='modal' id='s217033' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ب </span>– تبعه بیگانه دارای اطلاعات و تخصص کافی برای اشتغال به کار مورد نظر باشد.</p><p><span Style='font-weight:bold;'>ج </span>– از تخصص تبعه بیگانه برای آموزش و جایگزینی بعدی افراد ایرانی استفاده شود.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- احراز شرایط مندرج در این ماده با هیأت فنی اشتغال است. ضوابط مربوط به تعداد اعضاء و شرایط انتخاب آنها و نحوه تشکیل جلسات هیأت، به موجب آئین‌ نامه ‌ای خواهد بود که با پیشنهاد وزارت کار و امور اجتماعی به تصویب هیأت وزیران می رسد.<a href='#myModal' data-toggle='modal' id='s217036' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 122</span>- وزارت کار و امور اجتماعی می‌ تواند نسبت به صدور، تمدید و تجدید پروانه کار افراد ذیل اقدام نماید:<a href='#myModal' data-toggle='modal' id='s217037' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>الف </span>– تبعه بیگانه‌ ای که حداقل ده سال مداوم در ایران اقامت داشته باشد.</p><p><span Style='font-weight:bold;'>ب </span>– تبعه بیگانه ‌ای که دارای همسر ایرانی باشد.</p><p><span Style='font-weight:bold;'>ج </span>– مهاجرین کشورهای بیگانه خصوصاً کشورهای اسلامی و پناهندگان سیاسی به شرط داشتن کارت معتبر مهاجرت و یا پناهندگی و پس از موافقت کتبی وزارتخانه‌ های کشور و امور خارجه.</p><p style=""><span Style='font-weight:bold;'>ماده 123</span>- وزارت کار و امور اجتماعی می‌ تواند در صورت ضرورت و یا به عنوان معامله متقابل اتباع بعضی از دول و یا افراد بدون تابعیت را (مشروط بر آنکه وضعیت آنان ارادی نباشد) پس از تائید وزارت امور خارجه و تصویب هیأت وزیران از پرداخت حق صدور، حق تمدید و یا حق تجدید پروانه کار معاف نماید.<a href='#myModal' data-toggle='modal' id='s217041' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 124</span>- پروانه کار با رعایت مواد این قانون حداکثر برای مدت یک سال صادر یا تمدید و یا تجدید می‌ شود.</p><p style=""><span Style='font-weight:bold;'>ماده 125</span>- در مواردی که به هر عنوان رابطه استخدامی تبعه بیگانه با کارفرما قطع می‌ شود کارفرما مکلف است ظرف پانزده روز، مراتب را به وزارت کار و امور اجتماعی اعلام کند. تبعه بیگانه نیز مکلف است ظرف پانزده روز پروانه کار خود را در برابر اخذ رسید، به وزارت کار و امور اجتماعی تسلیم نماید. وزارت کار و امور اجتماعی در صورت لزوم اخراج تبعه بیگانه را از مراجع ذیصلاح درخواست می‌ کند.<a href='#myModal' data-toggle='modal' id='s217043' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 126 </span>- در مواردی که مصلحت صنایع کشور اشتغال فوری تبعه بیگانه را به طور استثنائی ایجاب کند، وزیر مربوطه مراتب را به وزارت کار و امور اجتماعی اعلام می ‌نماید و با موافقت وزیر کار و امور اجتماعی برای تبعه بیگانه، پروانه کار موقت بدون رعایت تشریفات مربوط به صدور روادید با حق کار مشخص، صادر خواهد شد.<a href='#myModal' data-toggle='modal' id='s217044' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- مدت اعتبار پروانه کار موقت حداکثر سه ماه است و تمدید آن مستلزم تائید هیأت فنی اشتغال اتباع بیگانه خواهد بود.</p><p style=""><span Style='font-weight:bold;'>ماده 127</span>- شرایط استخدامی کارشناسان و متخصصین فنی بیگانه مورد نیاز دولت با در نظر گرفتن تابعیت و مدت خدمت و میزان مزد آنها و با توجه به نیروی کارشناس داخلی، پس از بررسی و اعلام نظر وزارت کار و امور اجتماعی و سازمان امور اداری و استخدامی کشور، با تصویب مجلس شورای اسلامی خواهد بود. پروانه کار جهت استخدام کارشناسان خارجی، در هر مورد پس از تصویب مجلس شورای اسلامی از طرف وزارت کار و امور اجتماعی صادر خواهد شد.<a href='#myModal' data-toggle='modal' id='s217046' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 128</span>- کارفرمایان مکلفند قبل از اقدام به عقد هر گونه قراردادی که موجب استخدام کارشناسان بیگانه می ‌شود، نظر وزارت کار و امور اجتماعی را در مورد امکان اجازه اشتغال تبعه بیگانه استعلام نمایند.<a href='#myModal' data-toggle='modal' id='s217047' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 129</span>- آئین ‌نامه‌های اجرائی مربوط به اشتغال اتباع بیگانه از جمله نحوه صدور، تمدید، تجدید و لغو پروانه‌ کار و نیز شرایط انتخاب اعضاء هیأت فنی اشتغال اتباع بیگانه مذکور در ماده 121 این قانون، با پیشنهاد وزیر کار و امور اجتماعی به تصویب هیأت‌ وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217048' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل ششم </span>– تشکل های کارگری و کارفرمائی</p><p><span Style='font-weight:bold;'>ماده 130</span>- به منظور تبلیغ و گسترش فرهنگ اسلامی و دفاع از دستاوردهای انقلاب اسلامی و در اجرای اصل بیست و ششم قانون اساسی جمهوری اسلامی ایران کارگران واحدهای تولیدی، صنعتی، کشاورزی، خدماتی و صنفی می‌ توانند نسبت به تاسیس انجمنهای اسلامی اقدام نمایند.</p><p><span Style='font-weight:bold;'>تبصره 1 </span>- انجمنهای اسلامی می ‌توانند به منظور هماهنگی در انجام وظایف و شیوه‌های تبلیغی، نسبت به تأسیس کانونهای هماهنگی انجمنهای اسلامی در سطح استانها و کانون عالی هماهنگی انجمنهای اسلامی در کل کشور اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- آئین ‌نامه چگونگی تشکیل، حدود وظایف و اختیارات و نحوه عملکرد انجمن های اسلامی موضوع این ماده باید توسط وزارتین کشور، کار و امور اجتماعی و سازمان تبلیغات اسلامی تهیه و به تصویب هیأت وزیران برسد.<a href='#myModal' data-toggle='modal' id='s217052' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 131</span>- در اجرای اصل بیست و ششم قانون اساسی جمهوری اسلامی ایران و به منظور حفظ حقوق و منافع مشروع و قانونی و بهبود وضع اقتصادی کارگران و کارفرمایان، که خود متضمن حفظ منافع جامعه باشد، کارگران مشمول قانون کار و کارفرمایان یک حرفه یا صنعت می‌ توانند مبادرت به تشکیل انجمنهای صنفی نمایند.</p><p><span Style='font-weight:bold;'>تبصره 1 </span>- به منظور هماهنگی در انجام وظایف محوله و قانونی انجمنهای صنفی می ‌توانند نسبت به تشکیل کانون انجمنهای صنفی در استان و کانون عالی انجمنهای صنفی در کل کشور اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- کلیه انجمنهای صنفی و کانونهای مربوطه به هنگام تشکیل موظف به تنظیم اساسنامه با رعایت مقررات قانونی و طرح و تصویب آن در مجمع عمومی و تسلیم به وزارت کار و امور اجتماعی جهت ثبت می ‌باشند.<a href='#myModal' data-toggle='modal' id='s217055' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 3</span>- کلیه نمایندگان کارفرمایان ایران در شورایعالی کار، شورایعالی تأمین اجتماعی، شورایعالی حفاظت فنی و بهداشت کار، کنفرانس بین ‌المللی کار و نظائر آن توسط کانون عالی انجمنهای صنفی کارفرمایان، در صورت تشکیل، انتخاب و در غیر این صورت توسط وزیر کار و امور اجتماعی معرفی خواهند شد.<a href='#myModal' data-toggle='modal' id='s217056' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره 4</span>- کارگران یک واحد، فقط می‌ توانند یکی از سه مورد شورای اسلامی کار، انجمن صنفی یا نماینده کارگران را داشته ‌باشند.</p><p><span Style='font-weight:bold;'>تبصره 5</span>- آئین ‌نامه چگونگی تشکیل، حدود وظائف و اختیارات و نحوه عملکرد انجمن ‌های صنفی و کانونهای مربوطه، حداکثر ظرف مدت یکماه از تاریخ تصویب این قانون، توسط شورایعالی کار تهیه و به تصویب هیأت وزیران خواهد رسید.</p><p style=""><span Style='font-weight:bold;'>تبصره 6 </span>- آئین ‌نامه نحوه انتخابات نمایندگان مذکور در تبصره 3 این ماده ظرف یکماه پس از تصویب این قانون به تصویب وزیر کار و امور اجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217059' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 132 </span>- به منظور نظارت و مشارکت در اجرای اصل سی ‌و‌ یکم قانون اساسی جمهوری اسلامی ایران و همچنین بر اساس مفاد مربوطه در اصل چهل ‌و ‌سوم قانون اساسی کارگران واحدهای تولیدی، صنفی، صنعتی، خدماتی و کشاورزی که مشمول قانون کار باشند، می ‌توانند نسبت به ایجاد شرکتهای تعاونی مسکن اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>- شرکتهای تعاونی مسکن کارگران هر استان می‌ توانند نسبت به ایجاد کانون هماهنگی شرکتهای تعاونی مسکن کارگران استان اقدام نمایند و کانونهای هماهنگی تعاونیهای مسکن کارگران استانها می‌ توانند نسبت به تشکیل کانون عالی هماهنگی تعاونیهای مسکن کارگران کشور (اتحادیه مرکزی تعاونیهای مسکن کارگران – اسکان) اقدام نمایند.<br>وزارتخانه‌های کار و امور اجتماعی، مسکن و شهرسازی و امور اقتصادی و دارائی موظف به همکاری با اتحادیه اسکان بوده و اساسنامه شرکتهای مذکور توسط وزارت کار و امور اجتماعی به ثبت خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217061' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 133</span>- به منظور نظارت و مشارکت در اجرای مفاد مربوط به توزیع و مصرف در اصول چهل ‌و‌ سوم و چهل ‌و ‌چهارم قانون اساسی جمهوری اسلامی ایران، کارگران واحدهای تولیدی، صنفی، صنعتی، خدماتی و یا کشاورزی که مشمول قانون کار باشند، می ‌توانند نسبت به ایجاد شرکتهای تعاونی مصرف (توزیع) کارگری اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- شرکتهای تعاونی مصرف (توزیع) کارگران می ‌توانند نسبت به تاسیس کانون هماهنگی شرکتهای تعاونی مصرف کارگران استان اقدام نمایند و کانونهای هماهنگی تعاونیهای مصرف (توزیع) کارگران استانها می‌ توانند نسبت به تشکیل کانون عالی هماهنگی تعاونیهای مصرف کارگران «اتحادیه مرکزی تعاونیهای مصرف (توزیع) کارگران – اسکان» اقدام نمایند.<br>وزارتخانه‌ های کار و اموراجتماعی و بازرگانی و همچنین وزارتخانه ‌های صنعتی موظف هستند تا همکاریهای لازم را با اتحادیه اسکان بعمل آورند و اساسنامه شرکتهای تعاونی مذکور توسط وزارت کار و امور اجتماعی به ثبت خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217063' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 134</span>- به منظور بررسی و پی گیری مسائل و مشکلات صنفی و اجتماعی و حسن اجرای آن قسمت از مفاد اصل بیست‌ و ‌نهم قانون اساسی که متضمن حفظ حقوق و تأمین منافع و بهره‌ مندی از خدمات بهداشتی، درمانی و مراقبت ‌های پزشکی می‌باشد، کارگران و مدیران بازنشسته می ‌توانند به طور مجزا نسبت به تاسیس کانونهای کارگران و مدیران بازنشسته شهرستانها و استانها اقدام نمایند.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- کانونهای کارگران و مدیران بازنشسته استانها می‌ توانند نسبت به تاسیس کانونهای عالی کارگران و مدیران بازنشسته کشور اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- وزارتخانه ‌های کار و اموراجتماعی و بهداشت، درمان و آموزش پزشکی و سازمان تامین اجتماعی موظف به همکاری با کانونهای عالی کارگران و مدیران بازنشسته کشور می ‌باشند.<a href='#myModal' data-toggle='modal' id='s217066' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 135</span>- به منظور ایجاد وحدت روش و هماهنگی در امور و تبادل نظر در چگونگی اجرای وظائف و اختیارات، شوراهای اسلامی کار می ‌توانند نسبت به تشکیل کانون هماهنگی شوراهای اسلامی کار در استان و کانون عالی هماهنگی شوراهای اسلامی کار در کل کشور اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>– آئین ‌نامه چگونگی تشکیل، حدود وظائف و اختیارات و نحوه عملکرد کانونهای شوراهای اسلامی کار موضوع این ماده باید توسط وزارتین کشور و کار و امور اجتماعی و سازمان تبلیغات اسلامی تهیه و به تصویب هیأت وزیران برسد.<a href='#myModal' data-toggle='modal' id='s217068' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 136</span>- کلیه نمایندگان رسمی کارگران جمهوری اسلامی ایران در سازمان جهانی کار، هیاتهای تشخیص، هیأتهای حل اختلاف، شورایعالی تامین اجتماعی، شورایعالی حفاظت فنی و نظایر آن، حسب مورد توسط کانون عالی شوراهای اسلامی کار، کانون عالی انجمنهای صنفی کارگران و یا مجمع نمایندگان کارگران انتخاب خواهند شد.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- آئین‌ نامه اجرائی این ماده با پیشنهاد شورایعالی کار به تصویب هیأت وزیران خواهد رسید.</p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- در صورتیکه تشکلهای عالی کارگری و کارفرمائی موضوع این فصل ایجاد نشده باشند، وزیر کار و امور اجتماعی می‌ تواند نسبت به انتخاب نمایندگان مزبور در مجامع، شوراها و هیأتهای عالی اقدام نماید.<a href='#myModal' data-toggle='modal' id='s217071' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 137 </span>- به منظور همآهنگی و حسن انجام وظائف مربوطه، تشکل های کارفرمائی و کارگری موضوع این فصل از قانون می ‌توانند بطور مجزا نسبت به ایجاد تشکیلات مرکزی اقدام نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>– آئین ‌نامه‌های انتخابات شورای مرکزی و اساسنامه تشکیلات مرکزی کارفرمایان و همچنین کارگران، جداگانه توسط کمیسیونی مرکب از نمایندگان شورایعالی کار، وزارت کشور و وزارت کار و امور اجتماعی تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217073' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 138</span>- مقام ولایت فقیه در صورت مصلحت میتوانند در هر یک از تشکلهای مذکور نماینده داشته باشند.</p><p><span Style='font-weight:bold;'>فصل هفتم</span>- مذاکرات و پیمانهای دسته جمعی کار</p><p><span Style='font-weight:bold;'>ماده 139</span>- هدف از مذاکرات دسته جمعی، پیشگیری و یا حل مشکلات حرفه ‌ای و یا شغلی و یا بهبود شرایط تولید و یا امور رفاهی کارگران است که از طریق تعیین ضوابطی برای مقابله با مشکلات و تأمین مشارکت طرفین در حل آنها و یا از راه تعیین و یا تغییر شرایط و نظائر اینها، در سطح کارگاه، حرفه و یا صنعت با توافق طرفین تحقق می ‌یابد.<br>خواستهای طرح شده از سوی طرفین باید متکی به دلائل و مدارک لازم باشد.</p><p><span Style='font-weight:bold;'>تبصره 1</span>- هر موضوعی که در روابط کار متضمن وضع مقررات و ایجاد ضوابط از طریق مذاکرات دسته جمعی باشد، می‌ تواند موضوع مذاکره قرار بگیرد، مشروط بر آنکه مقررات جاری کشور و از جمله سیاستهای برنامه ‌ای دولت، اتخاذ تصمیم در مورد آنها را منع نکرده باشد.<br>مذاکرات دسته جمعی باید به منظور حصول توافق و حل و فصل مسالمت ‌آمیز اختلافات با رعایت شئون طرفین و با خودداری از هر گونه عملی که موجب اختلال نظم جلسات گردد، ادامه یابد.</p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- در صورتی که طرفین مذاکرات دسته جمعی موافق باشند می ‌توانند از وزارت کار و امور اجتماعی تقاضا کنند شخص بیطرفی را که در زمینه مسائل کار تبحر داشته باشد و بتواند در مذاکرات هماهنگی ایجاد کند، به عنوان کارشناس پیمانهای دسته‌ جمعی به آنها معرفی نماید، نقش این کارشناس کمک به هر دو طرف در پیشبرد مذاکرات دسته جمعی است.<a href='#myModal' data-toggle='modal' id='s217078' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 140</span>- پیمان دسته‌ جمعی کار عبارت است از پیمانی کتبی که به منظور تعیین شرایط کار فیمابین یک یا چند (شورا یا انجمن صنفی و یا نماینده قانونی کارگران) از یک طرف و یک یا چند کارفرما و یا نمایندگان قانونی آنها از سوی دیگر و یا فیما بین کانونها و کانونهای عالی کارگری و کارفرمائی منعقد می‌ شود.</p><p style=""><span Style='font-weight:bold;'>تبصره </span>- در صورتی که مذاکرات دسته‌ جمعی کار منجر به انعقاد پیمان دسته ‌جمعی کار شود، باید متن پیمان در سه نسخه تنظیم و به امضاء طرفین برسد. دو نسخه از پیمان در اختیار طرفین عقد پیمان دسته ‌جمعی قرار گرفته و نسخه سوم ظرف سه روز در قبال اخذ رسید و به منظور رسیدگی و تائید، تسلیم وزارت کار و امور اجتماعی خواهد شد.<a href='#myModal' data-toggle='modal' id='s217080' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 141</span>- پیمانهای دسته‌ جمعی کار هنگامی اعتبار قانونی و قابلیت اجرائی خواهند داشت که :</p><p><span Style='font-weight:bold;'>الف </span>– مزایائی کمتر از آنچه در قانون کار پیش بینی گردیده است در آن تعیین نشده باشد.</p><p><span Style='font-weight:bold;'>ب </span>– با قوانین و مقررات جاری کشور و تصمیمات و مصوبات قانونی دولت مغایر نباشد.</p><p style=""><span Style='font-weight:bold;'>ج </span>– عدم تعارض موضوع یا موضوعات پیمان با بندهای الف و ب، به تأیید وزارت کار و امور اجتماعی برسد.<a href='#myModal' data-toggle='modal' id='s217084' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- وزارت کار و امور اجتماعی باید نظر خود را در مورد مطابقت یا عدم تطابق پیمان با بندهای الف و ب مذکور در این ماده را ظرف 30 روز به طرفین پیمان کتباً اعلام نماید.<a href='#myModal' data-toggle='modal' id='s217085' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- نظر وزارت کار و امور اجتماعی در مورد عدم مطابقت مفاد پیمان جمعی با موضوعات بندهای الف و ب باید متکی به دلائل قانونی و مقررات جاری کشور باشد. دلائل و موارد مستند باید کتباً به طرفین پیمان ظرف مدت مذکور در تبصره یک همین ماده اعلام گردد.<a href='#myModal' data-toggle='modal' id='s217086' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 142</span>- در صورتیکه اختلاف نظر در مورد مواد مختلف این قانون و یا پیمانهای قبلی و یا هر یک از موضوعات مورد درخواست طرفین برای انعقاد پیمان جدید، منجر به تعطیل کار ضمن حضور کارگر در کارگاه و یا کاهش عمدی تولید از سوی کارگران شود، هیأت تشخیص موظف است براساس درخواست هر یک از طرفین اختلاف و یا سازمانهای کارگری و کارفرمائی، موضوع اختلاف را سریعاً مورد رسیدگی قرار داده و اعلام نظر نماید.</p><p><span Style='font-weight:bold;'>تبصره</span>- در صورتیکه هر یک از طرفین پیمان دسته ‌جمعی نظر مذکور را نپذیرد می ‌تواند ظرف مدت ده روز از تاریخ اعلام نظر هیأت تشخیص (موضوع ماده 158) به هیأت حل اختلاف مندرج در فصل نهم این قانون مراجعه و تقاضای رسیدگی و صدور رأی نماید.<br>هیأت حل اختلاف پس از دریافت تقاضا فوراً به موضوع اختلاف در پیمان دسته جمعی رسیدگی و رأی خود را نسبت به پیمان دسته جمعی کار اعلام می کند .</p><p style=""><span Style='font-weight:bold;'>ماده 143</span>- در صورتیکه پیشنهادات هیأت حل اختلاف ظرف سه روز مورد قبول طرفین واقع نشود رئیس اداره کار و امور اجتماعی موظف است بلافاصله گزارش امر را، جهت اتخاذ تصمیم لازم به وزارت کار و امور اجتماعی اطلاع دهد. در صورت لزوم هیأت وزیران می‌ تواند مادام که اختلاف ادامه دارد، کارگاه را به هر نحوی که مقتضی بداند به حساب کارفرما اداره نماید.<a href='#myModal' data-toggle='modal' id='s217089' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 144 </span>- در پیمان ‌های دسته‌ جمعی کار که برای مدت معینی منعقد می ‌گردد، هیچیک از طرفین نمی ‌تواند به تنهائی قبل از پایان مدت، درخواست تغییر آنرا بنماید، مگر آنکه شرایط استثنائی به تشخیص وزارت کار و امور اجتماعی این تغییر را ایجاب کند.<a href='#myModal' data-toggle='modal' id='s217090' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 145 </span>- فوت کارفرما و یا تغییر مالکیت از وی، در اجرای پیمان دسته ‌جمعی کار مؤثر نمی ‌باشد و چنانچه کار استمرار داشته باشد، کارفرمای جدید قائم مقام کارفرمای قدیم محسوب خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 146 </span>- در کلیه قراردادهای انفرادی کار، که کارفرما قبل از انعقاد پیمان دسته ‌جمعی کار منعقد ساخته و یا پس از آن منعقد می ‌نماید، مقررات پیمان دسته‌ جمعی لازم الاتباع است، مگر در مواردی که قراردادهای انفرادی از لحاظ مزد دارای مزایائی بیشتر از پیمان دسته‌ جمعی باشند.</p><p><span Style='font-weight:bold;'>فصل هشتم</span>- خدمات رفاهی کارگران</p><p><span Style='font-weight:bold;'>ماده 147</span>- دولت مکلف است خدمات بهداشتی و درمانی را برای کارگران و کشاورزان مشمول این قانون و خانواده آنها فراهم سازد.</p><p><span Style='font-weight:bold;'>ماده 148</span>- کارفرمایان کارگاههای مشمول این قانون مکلفند براساس قانون تامین اجتماعی نسبت به بیمه نمودن کارگران واحد خود اقدام نمایند.</p><p><span Style='font-weight:bold;'>ماده 149</span>- کارفرمایان مکلفند با تعاونیهای مسکن و در صورت عدم وجود این تعاونیها مستقیماً با کارگران فاقد مسکن جهت تأمین خانه های شخصی مناسب همکاری لازم را بنمایند و همچنین کارفرمایان کارگاههای بزرگ مکلف به احداث خانه های سازمانی در جوار کارگاه و یا محل مناسب دیگر می‌باشند.</p><p style=""><span Style='font-weight:bold;'>تبصره 1</span>- دولت موظف است با استفاده از تسهیلات بانکی و امکانات وزارت مسکن و شهرسازی، شهرداریها و سایر دستگاههای ذیربط همکاری لازم را بنماید.<a href='#myModal' data-toggle='modal' id='s217097' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2 </span>- نحوه و میزان همکاری و مشارکت کارگران، کارفرمایان و دستگاههای دولتی و نوع کارگاههای بزرگ مشمول این ماده طبق آئین نامه‌ ای خواهد بود که توسط وزارتین کار و امور اجتماعی و مسکن و شهرسازی تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217098' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 150</span>- کلیه کارفرمایان مشمول این قانون مکلفند در کارگاه، محل مناسب برای ادای فریضه نماز ایجاد نمایند و نیز در ایام ماه مبارک رمضان برای تعظیم شعائر مذهبی و رعایت حال روزه‌ داران، باید شرایط و ساعات کار را با همکاری انجمن اسلامی و شورای اسلامی کار و یا سایر نمایندگان قانونی کارگران طوری تنظیم نمایند که اوقات کار مانع فریضه روزه نباشد. همچنین مدتی از اوقات کار را برای ادای فریضه نماز و صرف افطار یا سحری اختصاص دهند.</p><p><span Style='font-weight:bold;'>ماده 151</span>- در کارگاههائی که برای مدت محدود به منظور انجام کاری معین (راه‌ سازی و مانند آن) دور از مناطق مسکونی ایجاد می‌شوند، کارفرمایان موظفند سه وعده غذای مناسب و ارزان قیمت (صبحانه، نهار و شام) برای کارگران خود فراهم نمایند، که حداقل یک وعده آن باید غذای گرم باشد. در این قبیل کارگاهها به اقتضای فصل، محل و مدت کار، باید خوابگاه مناسب نیز برای کارگران ایجاد شود.</p><p><span Style='font-weight:bold;'>ماده 152 </span>- در صورت دوری کارگاه و عدم تکافوی وسیله نقلیه عمومی، صاحب کار باید برای رفت و برگشت کارکنان خود وسیله نقلیه مناسب در اختیار آنان قرار دهد.</p><p><span Style='font-weight:bold;'>ماده 153</span>- کارفرمایان مکلفند برای ایجاد و اداره امور شرکتهای تعاونی کارگران کارگاه خود، تسهیلات لازم را از قبیل محل، وسائل کار و امثال اینها فراهم نمایند.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- دستورالعملهای مربوط به نحوه اجرای این ماده با پیشنهاد شورایعالی کار به تصویب وزیر کار و امور اجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217103' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 154</span>- کلیه کارفرمایان موظفند با مشارکت وزارت کار و امور اجتماعی و سازمان تربیت بدنی کشور، محل مناسب برای استفاده کارگران در رشته‌ های مختلف ورزش ایجاد نمایند.<a href='#myModal' data-toggle='modal' id='s217104' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره </span>- آئیننامه نحوه ایجاد و ضوابط مربوط به آن و همچنین مدت شرکت کارگران در مسابقات قهرمانی ورزشی یا هنری و ساعات متعارف تمرین، توسط وزارت کار و امور اجتماعی و سازمان تربیت بدنی کشور تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217105' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 155 </span>- کلیه کارگاهها موظفند برحسب اعلام وزارت کار و امور اجتماعی و با نظارت این وزارت و سازمانهای مسئول در امر سواد آموزی بزرگسالان، به ایجاد کلاسهای سواد آموزی بپردازند. ضوابط نحوه اجرای این تکلیف، چگونگی تشکیل کلاس، شرکت کارگران در کلاس، انتخاب آموزش یاران و سایر موارد آن مشترکاً توسط وزارت کار و امور اجتماعی و نهضت سواد آموزی تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217106' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>– شرط ورود کارگران به دوره‌های مراکز کارآموزی، حداقل داشتن گواهینامه نهضت سوادآموزی یا معادل آن است.</p><p><span Style='font-weight:bold;'>ماده 156</span>- دستورالعملهای مربوط به تأسیسات کارگاه از نظر بهداشت محیط کار مانند غذاخوری، حمام و دستشوئی برابر آئیننامه ای خواهد بود که توسط وزارت بهداشت، درمان و آموزش پزشکی تصویب و به مرحله اجراء درخواهد آمد.</p><p><span Style='font-weight:bold;'> فصل  نهم  </span>ـ مراجع حل اختلاف</p><p><span Style='font-weight:bold;'>ماده 157</span>- هر گونه اختلاف فردی بین کارفرما و کارگر یا کارآموز که ناشی از اجرای این قانون و سایر مقررات کار، قرارداد کارآموزی، موافقت ‌نامه‌های کارگاهی یا پیمانهای دسته ‌جمعی کار باشد، در مرحله اول از طریق سازش مستقیم بین کارفرما و کارگر یا کارآموز و یا نمایندگان آنها در شورای اسلامی کار و در صورتیکه شورای اسلامی کار در واحدی نباشد، از طریق انجمن صنفی کارگران و یا نماینده قانونی و کارگران و کارفرما حل و فصل خواهد شد و در صورت عدم سازش از طریق هیأتهای تشخیص و حل اختلاف به ترتیب آتی رسیدگی و حل و فصل خواهد شد.</p><p style=""><span Style='font-weight:bold;'>ماده 158</span>- هیأت تشخیص مذکور در این قانون از افراد ذیل تشکیل می‌شود:<br>1- یک نفر نماینده وزارت کار و امور اجتماعی<br>2- یک نفر نماینده کارگران به انتخاب کانون هماهنگی شوراهای اسلامی کار استان. <br>3- یک نفر نماینده مدیران صنایع به انتخاب کانون انجمنهای صنفی کارفرمایان استان در صورت لزوم و با توجه به میزان کار هیأتها، وزارت کار و امور اجتماعی می‌تواند نسبت به تشکیل چند هیأت تشخیص در سطح هر استان اقدام نماید.<a href='#myModal' data-toggle='modal' id='s217111' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- کارگری که مطابق نظر هیأت تشخیص باید اخراج شود، حق دارد نسبت به این تصمیم به هیأت حل اختلاف مراجعه و اقامه دعوی نماید.</p><p><span Style='font-weight:bold;'>ماده 159 </span>- رأی هیأتهای تشخیص پس از 15 روز از تاریخ ابلاغ آن لازم‌ الاجراء می‌ گردد و در صورتی که ظرف مدت مذکور یکی از طرفین نسبت به رأی مزبور اعتراض داشته باشد اعتراض خود را کتباً به هیأت حل اختلاف تقدیم می ‌نماید و رأی هیأت حل اختلاف پس از صدور قطعی و لازم ‌الاجراء خواهد بود. نظرات اعضاء هیأت بایستی در پرونده درج شود.</p><p style=""><span Style='font-weight:bold;'>ماده 160</span>- هیأت حل اختلاف استان از سه نفر نماینده کارگران به انتخاب کانون هماهنگی شوراهای اسلامی کار استان یا کانون انجمنهای صنفی کارگران و یا مجمع نمایندگان کارگران واحدهای منطقه و سه نفر نماینده کارفرمایان به انتخاب مدیران واحدهای منطقه و سه نفر نماینده دولت (مدیر کل کار و امور اجتماعی، فرماندار و رئیس دادگستری محل و یا نمایندگان آنها) برای مدت 2 سال تشکیل می ‌گردد. در صورت لزوم و با توجه به میزان کار هیأتها، وزارت کار و امور اجتماعی می ‌تواند نسبت به تشکیل چند هیأت حل اختلاف در سطح استان اقدام نماید.<a href='#myModal' data-toggle='modal' id='s217117' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 161</span>- هیأتهای حل اختلاف با توجه به حجم کار و ضرورت به تعداد لازم در محل واحدهای کار و امور اجتماعی و حتی ‌الامکان خارج از وقت اداری تشکیل خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 162</span>- هیأتهای حل اختلاف از طرفین اختلاف برای حضور در جلسه رسیدگی کتباً دعوت می‌ کنند. عدم حضور هر یک از طرفین یا نماینده تام ‌الاختیار آنها مانع رسیدگی و صدور رأی توسط هیأت نیست، مگر آنکه هیأت حضور طرفین را ضروری تشخیص دهد. در این صورت فقط یک نوبت تجدید دعوت می ‌نماید. در هر حال هیأت حتی ‌الامکان ظرف مدت یکماه پس از وصول پرونده، رسیدگی و رأی لازم را صادر می‌ نماید.</p><p><span Style='font-weight:bold;'>ماده 163</span>- هیأتهای حل اختلاف می ‌توانند در صورت لزوم از مسئولین و کارشناسان انجمنها و شوراهای اسلامی واحدهای تولیدی، صنعتی، خدماتی و کشاورزی دعوت بعمل آورند و نظرات و اطلاعات آنان را در خصوص موضوع، استماع نمایند.</p><p style=""><span Style='font-weight:bold;'>ماده 164 </span>- مقررات مربوط به انتخاب اعضاء هیأتهای تشخیص و حل اختلاف و چگونگی تشکیل جلسات آنها توسط شورایعالی کار تهیه و به تصویب وزیر کار و امور اجتماعی خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217121' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 165</span>- در صورتیکه هیأت حل اختلاف، اخراج کارگر را غیر موجه تشخیص داد، حکم بازگشت کارگر اخراجی و پرداخت حق‌السعی او را از تاریخ اخراج صادر می‌ کند و در غیر اینصورت (موجه بودن اخراج) کارگر، مشمول اخذ حق سنوات به میزان مندرج در ماده 27 این قانون خواهد بود.</p><p><span Style='font-weight:bold;'>تبصره</span>- چنانچه کارگر نخواهد به واحد مربوط باز گردد، کارفرما مکلف است که براساس سابقه خدمت کارگر به نسبت هر سال 45 روزمزد و حقوق به وی بپردازد.</p><p style=""><span Style='font-weight:bold;'>ماده 166</span>- آراء قطعی صادره از طرف مراجع حل اختلاف کار، لازم‌ الاجراء بوده و بوسیله اجرای احکام دادگستری به مورد اجراء گذارده خواهد شد. ضوابط مربوط به آن به موجب آئیننامه‌ ای خواهد بود که به پیشنهاد وزراتین کار و امور اجتماعی و دادگستری به تصویب هیأت وزیران می‌ رسد.<a href='#myModal' data-toggle='modal' id='s217124' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل دهم</span>- شورایعالی کار</p><p style=""><span Style='font-weight:bold;'>ماده 167</span>- در وزارت کار و امور اجتماعی شورائی به نام شورایعالی کار تشکیل می ‌شود. وظیفه شورا انجام کلیه تکالیفی است که به موجب این قانون و سایر قوانین مربوطه به عهده آن واگذار شده است. اعضای شورا عبارتند از:<br>الف – وزیر کار و اموراجتماعی، که ریاست شورا را به عهده خواهد داشت.<br>ب – دو نفر از افراد بصیر و مطلع در مسائل اجتماعی و اقتصادی به پیشنهاد وزیر کار و اموراجتماعی و تصویب هیأت وزیران که یکنفر از آنان از اعضای شورایعالی صنایع انتخاب خواهد شد.<br>ج – سه نفر از نمایندگان کارفرمایان (یک نفر از بخش کشاورزی) به انتخاب کارفرمایان.<br>د – سه نفر از نمایندگان کارگران (یک نفر از بخش کشاورزی) به انتخاب کانون عالی شوراهای اسلامی کار.<br>شورایعالی کار از افراد فوق تشکیل که به استثناء وزیر کار و اموراجتماعی بقیه اعضاء آن برای مدت دو سال تعیین و انتخاب می‌ گردند و انتخاب مجدد آنان بلامانع است.<a href='#myModal' data-toggle='modal' id='s217126' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- هر یک از اعضاء شرکت‌ کننده در جلسه دارای یک رأی خواهند بود.</p><p><span Style='font-weight:bold;'>ماده 168 </span>- شورایعالی کار هر ماه حداقل یکبار تشکیل جلسه می‌ دهد.<br>در صورت ضرورت، جلسات فوق‌العاده به دعوت رئیس و یا تقاضای سه نفر از اعضای شورا تشکیل می ‌شود. جلسات شورا با حضور هفت نفر از اعضاء رسمیت می‌ یابد و تصمیمات آن با اکثریت آراء معتبر خواهد بود.</p><p><span Style='font-weight:bold;'>ماده 169</span>- شورایعالی کار دارای یک دبیرخانه دائمی است. کارشناسان مسائل کارگری و اقتصادی و اجتماعی و فنی دبیرخانه، مطالعات مربوط به روابط و شرایط کار و دیگر اطلاعات مورد نیاز را تهیه و در اختیار شورایعالی کار قرار می‌دهند.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- محل دبیرخانه شورایعالی کار در وزارت کار و امور اجتماعی است. مسئول دبیرخانه به پیشنهاد وزیر کار و امور اجتماعی و تصویب شورایعالی کارانتخاب می‌ شود، که به عنوان دبیر شورا، بدون حق رأی در جلسات شورایعالی کار شرکت خواهد کرد.<a href='#myModal' data-toggle='modal' id='s217134' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 170</span>- دستورالعملهای مربوط به چگونگی تشکیل و نحوه اداره شورایعالی کار و وظائف دبیرخانه شورا و همچنین نحوه انتخاب اعضاء اصلی و علی‌البدل کارگران و کارفرمایان در شورایعالی کار به موجب مقرراتی خواهد بود که حداکثر ظرف دو ماه از تاریخ تصویب این قانون توسط وزیر کار و امور اجتماعی تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217135' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل یازدهم</span>- جرائم و مجازاتها</p><p><span Style='font-weight:bold;'>ماده 171</span>- متخلفان از تکالیف مقرر در این قانون، حسب مورد مطابق مواد آتی با توجه به شرایط و امکانات خاطی و مراتب جرم به مجازات حبس یا جریمه نقدی و یا هر دو محکوم خواهند شد.<br>در صورتیکه تخلف از انجام تکالیف قانونی سبب وقوع حادثه ‌ای گردد که منجر به عوارضی مانند نقص عضو و یا فوت کارگر شود، دادگاه مکلف است علاوه بر مجازاتهای مندرج در این فصل، نسبت به این موارد طبق قانون تعیین تکلیف نماید.</p><p><span Style='font-weight:bold;'>ماده 172</span>- کار اجباری با توجه به ماده 6 این قانون به هر شکل ممنوع است و متخلف علاوه بر پرداخت اجرت ‌المثل کار انجام یافته و جبران خسارت، با توجه به شرایط و امکانات خاطی و مراتب جرم به حبس از 91 روز تا یکسال و یا جریمه نقدی معادل 50 تا 200 برابر حداقل مزد روزانه محکوم خواهد شد هرگاه چند نفر به اتفاق یا از طریق یک مؤسسه، شخصی را به کار اجباری بگمارند هر یک از متخلفان به مجازاتهای فوق محکوم و مشترکاً مسئول پرداخت اجرت ‌المثل خواهند بود. مگر آنکه مسبب اقوی از مباشر باشد، که در این صورت مسبب شخصاً مسئول است.</p><p><span Style='font-weight:bold;'>تبصره</span>- چنانچه چند نفر بطور جمعی به کار اجباری گمارده شوند، متخلف یا متخلفین علاوه بر پرداخت اجرت‌ المثل، با توجه به شرایط و امکانات خاطی و مراتب جرم به حداکثر مجازات مذکور در این ماده محکوم خواهند شد.</p><p style=""><span Style='font-weight:bold;'>ماده 173</span>- متخلفان از هر یک از موارد مذکور در مواد 149- 151- 152- 153- 154- 155 و قسمت دوم ماده 78، علاوه بر رفع تخلف، در مهلتی که دادگاه با کسب نظر نماینده وزارت کار و امور اجتماعی تعیین خواهد کرد، با توجه به تعداد کارگران و حجم کارگاه، در کارگاههای کمتر از 100 نفر برای هر بار تخلف به پرداخت جریمه نقدی از هفتاد تا یکصد و پنجاه برابر حداقل مزد روزانه رسمی یک کارگر در تاریخ صدور حکم محکوم خواهند شد و به ازای هر صد نفر کارگر اضافی در کارگاه، 10 برابر حداقل مزد به حداکثر جریمه مذکور اضافه خواهد شد.<a href='#myModal' data-toggle='modal' id='s217140' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 174</span>- متخلفان از هر یک از موارد مذکور در مواد 38- 45- 59 و تبصره ماده 41، برای هر مورد تخلف حسب مورد علاوه بر رفع تخلف یا تأدیه حقوق کارگر و یا هر دو در مهلتی که دادگاه با کسب نظر نماینده وزارت کار و امور اجتماعی تعیین خواهد کرد، به ازای هر کارگر به ترتیب ذیل محکوم خواهند شد:<a href='#myModal' data-toggle='modal' id='s217141' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>1 </span>- برای تا 10 نفر، 20 تا 50 برابر حداقل مزد روزانه یک کارگر.</p><p><span Style='font-weight:bold;'>2 </span>- برای تا 100 نفر نسبت به مازاد 10 نفر، 5 تا 10 برابر حداقل مزد روزانه یک کارگر.</p><p><span Style='font-weight:bold;'>3 </span>- برای بالاتر از 100 نفر نسبت به مازاد 100 نفر، 2 تا 5 برابر حداقل مزد روزانه یک کارگر.</p><p style=""><span Style='font-weight:bold;'>ماده 175</span>- متخلفان از هر یک از موارد مذکور در مواد 78 (قسمت اول)- 80- 81- 82 و 92 برای هر مورد تخلف حسب مورد علاوه بر رفع تخلف یا تأدیه حقوق کارگر و یا هر دو در مهلتی که دادگاه با کسب نظر نماینده وزارت کار و امور اجتماعی تعیین خواهد کرد، به ازای هر کارگر به ترتیب ذیل محکوم خواهند شد:<br>1- برای تا 10 نفر، 30 تا 100 برابر حداقل مزد روزانه یک کارگر.<br>2- برای تا 100 نفر نسبت به مازاد 10 نفر، 10 تا 30 برابر حداقل مزد روزانه یک کارگر.<br>3- برای بالاتر از 100 نفر نسبت به مازاد 100 نفر، 5 تا 10 برابر حداقل مزد روزانه یک کارگر.<br>در صورت تکرار تخلف، متخلفان مذکور به 1 /1 تا 5 /1 برابر حداکثر جرائم نقدی فوق و یا به حبس از 91 روز تا 120 روز محکوم خواهند شد.<a href='#myModal' data-toggle='modal' id='s217145' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 176</span>- متخلفان از هر یک از موارد مذکور در مواد 52- 61- 75- 77- 79- 83- 84 و 91 برای هر مورد تخلف حسب مورد علاوه بر رفع تخلف یا تأدیه حقوق کارگر یا هر دو در مهلتی که دادگاه با کسب نظر نماینده وزارت کار و امور اجتماعی تعیین خواهد کرد، به ازای هر کارگر به ترتیب ذیل محکوم خواهند شد:<br>1 - برای تا 10 نفر، 200 تا 500 برابر حداقل مزد روزانه یک کارگر.<br>2 - برای تا 100 نفر نسبت به مازاد 10 نفر، 20 تا 50 برابر حداقل مزد روزانه یک کارگر.<br>3 - برای بالاتر از 100 نفر نسبت به مازاد 100 نفر، 10 تا 20 برابر حداقل مزد روزانه یک کارگر.<br>درصورت تکرار تخلف، متخلفان مذکور به حبس از 91 روز تا 180 روز محکوم خواهند شد.<a href='#myModal' data-toggle='modal' id='s217150' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 177 </span>- متخلفان از هر یک از موارد مذکور در مواد 87- 89 (قسمت اول ماده) و 90 برای هر مورد تخلف حسب مورد علاوه بر رفع تخلف یا تأدیه حقوق کارگر و یا هر دو در مهلتی که دادگاه با کسب نظر نماینده وزارت کار و امور اجتماعی تعیین خواهد کرد، به حبس از 91 تا 120 روز و یا جریمه نقدی به ترتیب ذیل محکوم خواهند شد:<br>1 - در کارگاههای تا 10 نفر، 300 تا 600 برابر حداقل مزد روزانه یک کارگر.<br>2 - در کارگاههای 11 تا 100 نفر، 500 تا 1000 برابر حداقل مزد روزانه یک کارگر.<br>3- در کارگاههای 1000 نفر به بالا، 800 تا 1500 برابر حداقل مزد روزانه یک کارگر.<br>در صورت تکرارتخلف، متخلفان به حبس از 121 روز تا 180 روز محکوم خواهند شد.<a href='#myModal' data-toggle='modal' id='s217154' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 178</span>- هر کس، شخص یا اشخاص را با اجبار و تهدید وادار به قبول عضویت در تشکلهای کارگری یا کارفرمائی نماید، یا مانع از عضویت آنها در تشکلهای مذکور گردد و نیز چنانچه از ایجاد تشکلهای قانونی و انجام وظائف قانونی آنها جلوگیری نماید، با توجه به شرایط و امکانات خاطی و مراتب جرم به جریمه نقدی از 20 تا 100 برابر حداقل مزد روزانه کارگر در تاریخ صدور حکم یا حبس از 91 روز تا 120روز و یا هر دو محکوم خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 179</span>- کارفرمایان یا کسانی که مانع ورود و انجام وظیفه بازرسان کار و مأموران بهداشت کار به کارگاههای مشمول این قانون گردند یا از دادن اطلاعات و مدارک لازم به ایشان خودداری کنند، در هر مورد با توجه به شرایط و امکانات خاطی به پرداخت جریمه نقدی از 100 تا 300 برابر حداقل مزد روزانه کارگر پس از قطعیت حکم و در صورت تکرار به حبس از 91 روز تا 120 روز محکوم خواهند شد.</p><p><span Style='font-weight:bold;'>ماده 180 </span>- کارفرمایانیکه برخلاف مفاد ماده 159 این قانون از اجرای بموقع آراء قطعی و لازم اجرای مراجع حل اختلاف این قانون خودداری نمایند، علاوه بر اجرای آراء مذکور، با توجه بشرایط و امکانات خاطی به جریمه نقدی از 20 تا 200 برابر حداقل مزد روزانه کارگر محکوم خواهند شد.</p><p style=""><span Style='font-weight:bold;'>ماده 181</span>- کارفرمایانیکه اتباع بیگانه را که فاقد پروانه کارند و یا مدت اعتبار پروانه کارشان منقضی شده است به کار گمارند و یا اتباع بیگانه را در کاری غیر از آنچه در پروانه کار آنها قید شده است بپذیرند و یا در مواردی که رابطه استخدامی تبعه بیگانه با کارفرما قطع می‌گردد مراتب را به وزارت کار و امور اجتماعی اعلام ننمایند، با توجه به شرایط و امکانات خاطی و مراتب جرم به مجازات حبس از 91 روز تا 180 روز محکوم خواهند شد.<a href='#myModal' data-toggle='modal' id='s217161' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 182</span>- کارفرمایانیکه برخلاف مفاد ماده 192 این قانون از تسلیم آمار و اطلاعات مقرر به وزارت کار و امور اجتماعی خودداری نمایند، علاوه بر الزام به ارائه آمار و اطلاعات مورد نیاز وزارت کار و اموراجتماعی، در هر مورد با توجه به شرایط و امکانات خاطی و مراتب جرم به جریمه نقدی از 50 تا 250 برابر حداقل مزد روزانه کارگر محکوم خواهند شد.<a href='#myModal' data-toggle='modal' id='s217162' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 183</span>- کارفرمایانیکه برخلاف مفاد ماده 148 این قانون از بیمه نمودن کارگران خود خودداری نمایند، علاوه بر تأدیه کلیه حقوق متعلق به کارگر (سهم کارفرما) با توجه به شرایط و امکانات خاطی و مراتب جرم به جریمه نقدی معادل دو تا ده برابر حق بیمه مربوطه محکوم خواهند شد.</p><p><span Style='font-weight:bold;'>ماده 184</span>- در کلیه مواردی که تخلف از ناحیه اشخاص حقوقی باشد، اجرت ‌المثل کار انجام شده و طلب و خسارت باید از اموال شخص حقوقی پرداخت شود، ولی مسئولیت جزائی اعم از حبس، جریمه نقدی و یا هر دو حالت متوجه مدیر عامل یا مدیر مسئول شخصیت حقوقی است که تخلف به دستور او انجام گرفته است و کیفر درباره مسئولین مذکور اجراء خواهد شد.</p><p><span Style='font-weight:bold;'>ماده 185 </span>- رسیدگی به جرائم مذکور در مواد 171 تا 184 در صلاحیت دادگاههای کیفری دادگستری است، رسیدگی مذکور در دادسرا و دادگاه خارج از نوبت بعمل خواهد آمد.</p><p style=""><span Style='font-weight:bold;'>ماده 186</span>- جرائم نقدی مقرر در این قانون به حساب مخصوصی در بانک واریز خواهد شد و این وجوه تحت نظر وزیر کار و امور اجتماعی به موجب آئیننامه‌ای که به تصویب هیأت وزیران می ‌رسد، جهت امور رفاهی، آموزشی و فرهنگی کارگران به مصرف خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217166' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>فصل دوازدهم</span>- مقررات متفرقه</p><p><span Style='font-weight:bold;'>ماده 187</span>- کارفرمایان مکلفند پس از پایان قرارداد کار بنا به درخواست کارگر، گواهی انجام کار با قید مدت، زمان شروع و پایان و نوع کار انجام شده را به وی تسلیم نمایند.</p><p><span Style='font-weight:bold;'>ماده 188</span>- اشخاص مشمول قانون استخدام کشوری یا سایر قوانین و مقررات خاص استخدامی و نیز کارگران کارگاههای خانوادگی که انجام کار آنها منحصراً توسط صاحب کار و همسر و خویشاوندان نسبی درجه یک از طبقه اول وی انجام می ‌شود، مشمول مقررات این قانون نخواهند بود.</p><p><span Style='font-weight:bold;'>تبصره</span>- حکم این ماده مانع انجام تکالیف دیگری که در فصول مختلف، نسبت به موارد مذکور تصریح شده است نمی ‌باشد.</p><p><span Style='font-weight:bold;'>ماده 189</span>- در بخش کشاورزی، فعالیتهای مربوط به پرورش و بهره‌ برداری از درختان میوه، انواع نباتات، جنگلها، مراتع، پارکهای جنگلی و نیز دامداری و تولید و پرورش ماکیان و طیور، صنعت نوغان، پرورش آبزیان و زنبور عسل و کاشت، داشت و برداشت و سایر فعالیت‌ها در کشاورزی، به پیشنهاد شورایعالی کار و تصویب هیئت وزیران می‌ تواند از شمول قسمتی از این قانون معاف گردد.</p><p><span Style='font-weight:bold;'>ماده 190</span>- مدت کار، تعطیلات و مرخصی‌ها، مزد یا حقوق صیادان، کارکنان حمل و نقل (هوائی، زمینی و دریائی) خدمه و مستخدمین منازل، معلولین و نیز کارگرانی که طرز کارشان بنحوی است که تمام یا قسمتی از مزد و درآمد آنها بوسیله مشتریان یا مراجعین تأمین می ‌شود و همچنین کارگرانی که کار آنها نوعاً در ساعات متناوب انجام می‌ گیرد، در آئیننامه‌هائی که توسط شورایعالی کار تدوین و به تصویب هیأت وزیران خواهد رسید تعیین می ‌گردد. در موارد سکوت مواد این قانون حاکم است.</p><p><span Style='font-weight:bold;'>ماده 191</span>- کارگاههای کوچک کمتر از ده نفر را می ‌توان برحسب مصلحت موقتاً از شمول بعضی از مقررات این قانون مستثنی نمود. تشخیص مصلحت و موارد استثناء به موجب آئیننامه‌ای خواهد بود که با پیشنهاد شورایعالی کار به تصویب هیأت وزیران خواهد رسید.</p><p style=""><span Style='font-weight:bold;'>ماده 192</span>- کارفرمایان موظفند در مهلت مقرر، آمار و اطلاعات مورد نیاز وزارت کار و امور اجتماعی را طبق آئیننامه‌ ای که به تصویب وزیر کار و امور اجتماعی می ‌رسد تهیه و تسلیم نمایند.<a href='#myModal' data-toggle='modal' id='s217174' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 193</span>- وزارت کار و امور اجتماعی و وزارت بهداشت، درمان و آموزش پزشکی حسب مورد به منظور تأمین کادر متخصص سرپرستی در صورت لزوم به افرادی که در واحدها بعنوان سرپرست تعیین شده ‌اند، آموزشهای لازم را در زمینه مسائل ناظر به روابط انسانی، روابط کار و ایمنی و بهداشت کار خواهند داد.<br>آئیننامه مربوط توسط شورایعالی کار تهیه و حسب مورد به تصویب وزرای کار و امور اجتماعی و بهداشت، درمان و آموزش پزشکی می ‌رسد.<a href='#myModal' data-toggle='modal' id='s217175' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 194 </span>- کارفرمایان کارخانه‌ ها مکلفند در زمینه آموزش نظامی کارگران واحدهای خود با نیروی مقاومت بسیج سپاه پاسداران انقلاب اسلامی همکاریهای لازم را مبذول دارند.</p><p style=""><span Style='font-weight:bold;'>تبصره</span>- آئیننامه اجرائی این ماده با همکاری مشترک وزارتین کار و امور اجتماعی و دفاع و پشتیبانی نیروی مسلح، تهیه و به تصویب هیأت وزیران خواهد رسید.<a href='#myModal' data-toggle='modal' id='s217177' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 195 </span>- به منظور تشویق نیروهای کارگری مولد، متخصص، مخترع و مبتکر، وزارت کار و امور اجتماعی مکلف است همه ساله به طرق مقتضی در مورد انتخاب کارگران نمونه سال اقدام نماید.<a href='#myModal' data-toggle='modal' id='s217178' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره  </span>-ضوابط اجرائی این ماده و چگونگی تشویق کارگران نمونه و نحوه اجرای آن و پیش بینی هزینه‌های متعارف مربوط، توسط وزارت کار و امور اجتماعی تعیین خواهد گردید.<a href='#myModal' data-toggle='modal' id='s217179' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 196</span>- وزارت کار و امور اجتماعی مکلف است در جهت آگاهی و شکوفائی فکری بیشتر کارگران و رشد کارهای علمی، عملی، تخصصی در زمینه‌های علم و صنعت، کشاورزی و خدماتی، فیلم، اسلاید و آموزشهای لازم دیگر را تدارک ببیند و این امکانات را از طریق رادیو، تلویزیون و رسانه‌های گروهی و یا هر نحو دیگری که لازم باشد در اختیار آنان قرار دهد.<a href='#myModal' data-toggle='modal' id='s217180' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>ماده 197</span>- دولت مکلف است با توجه به امکانات خود برای کارگرانی که قصد داشته باشند از شهر به روستا مهاجرت کنند و به کار کشاورزی بپردازند تسهیلات لازم را فراهم نماید.</p><p style=""><span Style='font-weight:bold;'>ماده 198</span>- وزارت کار و امور اجتماعی می‌ تواند در موارد ضرورت برای تنظیم نیروی کار ایرانیان خارج از کشور، در نمایندگی های جمهوری اسلامی ایران، وابسته کار منصوب نماید.<a href='#myModal' data-toggle='modal' id='s217182' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 1 </span>- وابسته کار، توسط وزیر کار و امور اجتماعی تعیین و پس از موافقت وزیر امورخارجه منصوب و اعزام می‌ گردد.<a href='#myModal' data-toggle='modal' id='s217183' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>تبصره 2</span>- وزارتین کار و امور اجتماعی و امور خارجه و سازمان امور اداری و استخدامی موظفند پس از تصویب این قانون آئیننامه اجرائی موضوع این ماده را تهیه و به تصویب هیأت وزیران برسانند.<a href='#myModal' data-toggle='modal' id='s217184' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 199</span>- وزارت کار و امور اجتماعی مکلف است ظرف شش ماه از تاریخ تصویب این قانون، آئیننامه‌های اجرائی مربوط را تهیه و به تصویب مراجع مذکور در این قانون برساند.<a href='#myModal' data-toggle='modal' id='s217185' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره</span>- آن دسته از آئیننامه‌ های اجرائی قانون کار مصوب 26 /12 /1337 که با مقررات این قانون مغایر نباشد، تا تصویب آئیننامه‌ های موضوع این ماده قابل اجراء می ‌باشند.</p><p><span Style='font-weight:bold;'>ماده 200</span>- با تصویب این قانون و آئیننامه‌ های اجرائی آن، قوانین کار و کار کشاورزی مغایر این قانون لغو می‌ گردند.</p><p style=""><span Style='font-weight:bold;'>ماده 201 </span>- وزارت کار و امور اجتماعی باید کلیه حقوق و تکالیف مذکور در این قانون را با روشهای مناسب به اطلاع کارگران و کارفرمایان برساند.<a href='#myModal' data-toggle='modal' id='s217188' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 202 </span>- وزارت کار و امور اجتماعی مکلف است سازمان و تشکیلات خود را در ارتباط با قانون کار جدید، طراحی و به تصویب سازمان امور اداری و استخدامی کشور برساند.<a href='#myModal' data-toggle='modal' id='s217189' data-target='#report-modal'></a></p><p style=""><span Style='font-weight:bold;'>ماده 203 </span>- وزارت کار و امور اجتماعی و دادگستری مأمور اجرای این قانون می ‌باشند.<a href='#myModal' data-toggle='modal' id='s217190' data-target='#report-modal'></a></p><p><span Style='font-weight:bold;'>تبصره </span>- مفاد این ماده رافع تکالیف و مسئولیتهائی نخواهد بود که در این قانون و یا سایر قوانین به عهده وزارتخانه‌های ذیربط و مؤسسات و کارگاههای دولتی مشمول این قانون نهاده شده است.</p><p>قانون فوق که در تاریخ دوم مهرماه یکهزار و سیصد و شصت و هشت به تصویب مجلس شورای اسلامی رسیده و موادی از آن مورد اختلاف مجلس و شورای نگهبان قرار گرفته است، در جلسات متعدد مجمع تشخیص مصلحت نظام بررسی و با اصلاح و تتمیم مواد 3- 7- 8- 12- 15- 20- 24- 26- 27- 29- 31- 32- 33- 41- 46- 51- 52- 53- 56- 58- 59- 60- 62- 64- 65- 66- 67- 69- 70- 73- 81- 105- 108- 110- 111- 112- 113- 114- 118- 119- 130- 131- 135- 136- 137- 138- 143- 151- 154- 155- 158- 159- 160- 166- کل فصل مجازاتها (مواد 171- 172- 173- 174- 175- 176- 177- 178- 179- 180- 181- 182- 183- 184- 185- 186)- 188- 189- 190- 191- 202و 203 مشتمل بر دویست و سه ماده و یکصد و بیست و یک تبصره در تاریخ بیست و نهم آبانماه یکهزار و سیصد و شصت و نه به تصویب نهائی مجمع تشخیص مصلحت نظام رسید.</p><p align=left ><span Style='font-weight:bold;'>رئیس مجمع تشخیص مصلحت نظام – اکبر هاشمی رفسنجانی</span></p>
+
+
+                </div>
+                <ul class="tag-items article-tags mt-4">
+                    <li><span class="title">برچسب ها:</span></li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-sm-4 col-12">
+            <aside id="sidebar">
+                    <section class="section teal d-sm-block" id="">
+        <header class="section-header">
+            <h4 class="section-title">جستجو شده ها</h4>
+        </header>
+        <div class="row">
+                    <p class="col-lg-12 col-12">
+                        <a target="_blank" style="color: blue; font-weight: 600;" class="ads mb-lg-0 mb-3" href="https://ble.ir/solhchannel" title="کانال اطلاع رسانی صلح در بله">کانال اطلاع رسانی صلح در بله</a>
+                    </p>
+                    <p class="col-lg-12 col-12">
+                        <a target="_blank" style="color: blue; font-weight: 600;" class="ads mb-lg-0 mb-3" href="https://www.vakilbin.com/the-basic-lawyer-of-a-justice/" title="وکیل پایه یک دادگستری">وکیل پایه یک دادگستری</a>
+                    </p>
+                    <p class="col-lg-12 col-12">
+                        <a target="_blank" style="color: blue; font-weight: 600;" class="ads mb-lg-0 mb-3" href="https://hajilou-lawyer.com/&#x628;&#x647;&#x62A;&#x631;&#x6CC;&#x646;-&#x648;&#x6A9;&#x6CC;&#x644;-&#x62A;&#x647;&#x631;&#x627;&#x646;/" title="وکیل در تهران">وکیل در تهران</a>
+                    </p>
+                    <p class="col-lg-12 col-12">
+                        <a target="_blank" style="color: blue; font-weight: 600;" class="ads mb-lg-0 mb-3" href="https://taaghche.com/book/112773/%D8%AA%D9%88%D8%A7%D9%86%D9%85%D9%86%D8%AF%D8%B3%D8%A7%D8%B2%DB%8C-%D8%B2%D9%86%D8%A7%D9%86" title="توانمندسازی زنان">توانمندسازی زنان</a>
+                    </p>
+        </div>
+    </section>
+
+
+                    <section class="section blue" id="tag-cloud">
+        <header class="section-header">
+            <h4 class="section-title">همه چیز درباره</h4>
+        </header>
+        <div class="tag-cloud">
+            <ul>
+                        <li><a href="/tag/59" title="سرقت" style="border-color: #4258fe; color: #4258fe;">سرقت</a></li>
+                        <li><a href="/tag/60" title="زورگیری" style="border-color: #4258fe; color: #4258fe;">زورگیری</a></li>
+                        <li><a href="/tag/14" title="ارث" style="border-color: #4258fe; color: #4258fe;">ارث</a></li>
+                        <li><a href="/tag/50" title="روابط نامشروع " style="border-color: #4258fe; color: #4258fe;">روابط نامشروع </a></li>
+                        <li><a href="/tag/2" title="عقد موقت" style="border-color: #4258fe; color: #4258fe;">عقد موقت</a></li>
+                        <li><a href="/tag/24" title="چک" style="border-color: #4258fe; color: #4258fe;">چک</a></li>
+                        <li><a href="/tag/25" title="سفته" style="border-color: #4258fe; color: #4258fe;">سفته</a></li>
+                        <li><a href="/tag/6" title="نفقه" style="border-color: #4258fe; color: #4258fe;">نفقه</a></li>
+                        <li><a href="/tag/12" title="حضانت" style="border-color: #4258fe; color: #4258fe;">حضانت</a></li>
+                        <li><a href="/tag/1" title="عقد دائم" style="border-color: #4258fe; color: #4258fe;">عقد دائم</a></li>
+                        <li><a href="/tag/56" title="کلاهبرداری" style="border-color: #4258fe; color: #4258fe;">کلاهبرداری</a></li>
+                        <li><a href="/tag/21" title="موجر و مستاجر" style="border-color: #4258fe; color: #4258fe;">موجر و مستاجر</a></li>
+                    <li><a href="/tags/" title="سایر موضوعات" style="background: #4258fe;color: white;">سایر موضوعات</a></li>
+            </ul>
+        </div>
+    </section>
+
+
+<section class="section teal box">
+    <header class="section-header">
+        <a href="/expert-search" title="فهرست کارشناسان رسمی"><h3 class="section-title">کارشناسان رسمی</h3></a>
+    </header>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/30e80fe2967b48e7a90931f220d52f14.jpg" alt="مرضیه دریکوند"><a class="link" href="/expert/169304" title="مرضیه دریکوند"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/expert/169304" title="مرضیه دریکوند">مرضیه دریکوند</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>
+                            <a class="opt-value" title="رشته مهندسی پزشکی ـ لوازم و تجهیزات پزشکی " href="/expert-search?expertGroup=12644&expertField=12693">رشته مهندسی پزشکی ـ لوازم و تجهیزات پزشکی </a>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                        <div class="item"><span class="opt-title">
+    <span class="icons icon-flag"></span>
+    <a class="opt-value" title="اهواز" href="/city/expert/177">اهواز</a>
+</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/9b335e5fd42f4ae784a862527b30b0c4.jpg" alt="تیمور حسینی اصل"><a class="link" href="/expert/169288" title="تیمور حسینی اصل"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/expert/169288" title="تیمور حسینی اصل">تیمور حسینی اصل</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>
+                            <a class="opt-value" title="امور سرمایه گذاری، پولی و اعتباری" href="/expert-search?expertGroup=12641&expertField=12669">امور سرمایه گذاری، پولی و اعتباری</a>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                        <div class="item"><span class="opt-title">
+    <span class="icons icon-flag"></span>
+    <a class="opt-value" title="اردبیل" href="/city/expert/38">اردبیل</a>
+</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/ad1811a8a3d64e52a0fb100620e6ff92.jpg" alt="رضا میرغفاری اسفندآباد"><a class="link" href="/expert/169282" title="رضا میرغفاری اسفندآباد"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/expert/169282" title="رضا میرغفاری اسفندآباد">رضا میرغفاری اسفندآباد</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                        <div class="item"><span class="opt-title">
+    <span class="icons icon-flag"></span>
+    <a class="opt-value" title="تهران" href="/city/expert/98">تهران</a>
+</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<section class="section violet box">
+    <header class="section-header">
+        <a href="/lawyer-search" title="فهرست وکلای دادگستری و قوه قضاییه"><h3 class="section-title">وکلای دادگستری و قوه قضاییه</h3></a>
+    </header>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/4e9f7dc6334740c1802e41d6cf01119f.jpg" alt="سید مصطفی حسینی"><a class="link" title="سید مصطفی حسینی" href="/lawyer/981391"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/lawyer/981391" title="سید مصطفی حسینی">سید مصطفی حسینی</a></h2>
+                        <h3 class="responsible">
+                            <span class="opt-title">
+                                            <span class="icons icon-flag"></span>
+                                            <a href="/province/27" class="opt-value" title="استان مازندران">مازندران</a>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                            <div class="item"><span class="opt-title"><span class="icons icon-flag"></span><a href="/city/509" class="opt-value" title="شهر چمستان">چمستان</a></span></div>
+                    </footer>
+                    </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/fcde63ee7e684ceca6567d9776e83178.jpg" alt="علی شریعت پور"><a class="link" title="علی شریعت پور" href="/lawyer/981328"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/lawyer/981328" title="علی شریعت پور">علی شریعت پور</a></h2>
+                        <h3 class="responsible">
+                            <span class="opt-title">
+                                            <span class="icons icon-flag"></span>
+                                            <a href="/province/17" class="opt-value" title="استان فارس">فارس</a>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                            <div class="item"><span class="opt-title"><span class="icons icon-flag"></span><a href="/city/240" class="opt-value" title="شهر جهرم">جهرم</a></span></div>
+                    </footer>
+                    </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/Images/LegalLawyerExpert/084c29a5019a4466bc96890cd13d6d0e.jpg" alt="امیرحسین کریمی دارنجانی"><a class="link" title="امیرحسین کریمی دارنجانی" href="/lawyer/944262"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/lawyer/944262" title="امیرحسین کریمی دارنجانی">امیرحسین کریمی دارنجانی</a></h2>
+                        <h3 class="responsible">
+                            <span class="opt-title">
+                                            <span class="icons icon-flag"></span>
+                                            <a href="/province/21" class="opt-value" title="استان کرمان">کرمان</a>
+                            </span>
+                        </h3>
+                    </header>
+                    <footer class="details">
+                            <div class="item"><span class="opt-title"><span class="icons icon-flag"></span><a href="/city/279" class="opt-value" title="شهر کرمان">کرمان</a></span></div>
+                    </footer>
+                    </div>
+            </div>
+        </div>
+</section>
+
+
+<section class="section dark box">
+    <header class="section-header">
+        <a title="فهرست دفاتر اسناد رسمی" href="/notary-search"><h3 class="section-title">دفاتر اسناد رسمی</h3></a>
+    </header>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/assets/img/NotaryLogo.jpg" alt="دفتر اسناد رسمی 556 شیراز"><a class="link" href="/notary/12946" title="دفتر اسناد رسمی 556 شیراز"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/notary/12946" title="دفتر اسناد رسمی 556 شیراز">دفتر اسناد رسمی 556 شیراز</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>سردفتر:</span><a class="opt-value" href="">هیلا صالح احمدی</a></h3>
+                    </header>
+                        <footer class="details">
+                            <div class="item">
+                                <span class="opt-title"><span class="icons icon-flag"></span>شهر:</span>
+                                    <a href="/city/notary/227" class="opt-value" title="شهر شیراز">شیراز</a>
+                            </div>
+                        </footer>
+                </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/assets/img/NotaryLogo.jpg" alt="دفتر اسناد رسمی 427 تهران"><a class="link" href="/notary/6071" title="دفتر اسناد رسمی 427 تهران"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/notary/6071" title="دفتر اسناد رسمی 427 تهران">دفتر اسناد رسمی 427 تهران</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>سردفتر:</span><a class="opt-value" href="">مینا بختیاری</a></h3>
+                    </header>
+                        <footer class="details">
+                            <div class="item">
+                                <span class="opt-title"><span class="icons icon-flag"></span>شهر:</span>
+                                    <a href="/city/notary/98" class="opt-value" title="شهر تهران">تهران</a>
+                            </div>
+                        </footer>
+                </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/assets/img/NotaryLogo.jpg" alt="دفتر اسناد رسمی 149 زنجان"><a class="link" href="/notary/12996" title="دفتر اسناد رسمی 149 زنجان"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/notary/12996" title="دفتر اسناد رسمی 149 زنجان">دفتر اسناد رسمی 149 زنجان</a></h2>
+                        <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>سردفتر:</span><a class="opt-value" href="">مژگان خالقی</a></h3>
+                    </header>
+                        <footer class="details">
+                            <div class="item">
+                                <span class="opt-title"><span class="icons icon-flag"></span>شهر:</span>
+                                    <a href="/city/notary/191" class="opt-value" title="شهر زنجان">زنجان</a>
+                            </div>
+                        </footer>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<section class="section teal box">
+    <header class="section-header">
+        <a href="/public-services-office-search" title="فهرست دفاتر پیشخوان دولت"><h3 class="section-title">دفاتر پیشخوان دولت</h3></a>
+    </header>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/assets/img/GovDashboardLogo.jpg" alt="دفتر پیشخوان دولت  شماره 73401036 آغچه حصار"><a class="link" href="/public-services-office/20431" title="دفتر پیشخوان دولت  شماره 73401036 آغچه حصار"></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/public-services-office/20431" title="دفتر پیشخوان دولت  شماره 73401036 آغچه حصار">دفتر پیشخوان دولت  شماره 73401036 آغچه حصار</a></h2>
+                            <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>شهر:</span><a class="opt-value" title="چهارباغ" href="/city/740">چهارباغ</a></h3>
+                    </header>
+                        <footer class="details">
+                            <div class="item"><span class="opt-title"><span class="icons icon-flag"></span>استان:</span><a href="/province/5" class="opt-value" title="البرز">البرز</a></div>
+                        </footer>
+                </div>
+            </div>
+        </div>
+        <div class="office-items">
+            <div class="office small">
+                <figure class="image has-star-icon spec"><img height="80" width="80" src="/assets/img/GovDashboardLogo.jpg" alt="دفتر پیشخوان دولت  شماره 1122 "><a class="link" href="/public-services-office/15736" title="دفتر پیشخوان دولت  شماره 1122 "></a></figure>
+                <div class="content">
+                    <header>
+                        <h2 class="title"><a href="/public-services-office/15736" title="دفتر پیشخوان دولت  شماره 1122 ">دفتر پیشخوان دولت  شماره 1122 </a></h2>
+                            <h3 class="responsible"><span class="opt-title"><span class="icons icon-person"></span>شهر:</span><a class="opt-value" title="کرج" href="/city/265">کرج</a></h3>
+                    </header>
+                        <footer class="details">
+                            <div class="item"><span class="opt-title"><span class="icons icon-flag"></span>استان:</span><a href="/province/5" class="opt-value" title="البرز">البرز</a></div>
+                        </footer>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+            </aside>
+
+        </div>
+    </div>
+</section>
+    </main>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-12">
+                    <section class="footer-section">
+                        <header class="footer-header">
+                            <h3 class="footer-title">درباره ما</h3>
+                        </header>
+                        <div class="about-us">
+                            <p class="desc" style="margin-bottom: 0;">مرجع حقوقی ایران از سال 1394 با هدف جمع آوری و انتشار اطلاعات علمی حقوقی صحیح، جامع و دقیق به عنوان عضوی از زیر مجموعه مرجع دانش ایران (سیویلیکا) فعالیت می کند.</p>
+
+                            <ul class="socials">
+                                <li><a href="https://t.me/solhir"><span class="icons icon-telegram"></span></a></li>
+                                <li><a href="https://www.instagram.com/solh_ir/"><span class="icons icon-instagram"></span></a></li>
+                                <li><a href="#"><span class="icons icon-twitter"></span></a></li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-4 col-12">
+                    <section class="footer-section">
+                        <header class="footer-header">
+                            <h3 class="footer-title">دسترسی سریع</h3>
+                        </header>
+                        <ul class="links">
+                            <li><a title="درخواست ویرایش/ثبت نام" href="/request-profile">درخواست ویرایش/ثبت نام</a></li>
+                            <li><a title="راهنمای استفاده از سایت" href="/help">راهنمای استفاده از سایت</a></li>
+                            <li><a title="تماس با ما" href="/contactus">تماس با ما</a></li>
+                            <li><a title="درخواست تبلیغات" href="/ads">درخواست تبلیغات</a></li>
+                            <li><a title="ورود به سایت" href="/Account/Login">ورود به سایت</a></li>
+                            <li><a title="درخواست مشاوره حقوقی" href="/question-form">درخواست مشاوره حقوقی</a></li>
+                            <li><a title="درباره ما" href="/aboutus">درباره ما</a></li>
+                            <li><a title="قوانین و مقررات" href="/faq">قوانین و مقررات</a></li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="col-sm-4 col-12">
+                        <section class="footer-section" id="tag-cloud">
+        <header class="footer-header">
+            <h3 class="footer-title">همه چیز درباره</h3>
+        </header>
+        <div class="tag-cloud">
+            <ul>
+                        <li><a href="/tag/6" title="نفقه" style="border-color: #4258fe; color: #4258fe;">نفقه</a></li>
+                        <li><a href="/tag/21" title="موجر و مستاجر" style="border-color: #4258fe; color: #4258fe;">موجر و مستاجر</a></li>
+                        <li><a href="/tag/36" title="داوری" style="border-color: #4258fe; color: #4258fe;">داوری</a></li>
+                        <li><a href="/tag/2" title="عقد موقت" style="border-color: #4258fe; color: #4258fe;">عقد موقت</a></li>
+                        <li><a href="/tag/9" title="مهریه" style="border-color: #4258fe; color: #4258fe;">مهریه</a></li>
+                        <li><a href="/tag/52" title="تهمت" style="border-color: #4258fe; color: #4258fe;">تهمت</a></li>
+                        <li><a href="/tag/14" title="ارث" style="border-color: #4258fe; color: #4258fe;">ارث</a></li>
+                        <li><a href="/tag/17" title="املاک" style="border-color: #4258fe; color: #4258fe;">املاک</a></li>
+                        <li><a href="/tag/51" title="خیانت" style="border-color: #4258fe; color: #4258fe;">خیانت</a></li>
+                        <li><a href="/tag/24" title="چک" style="border-color: #4258fe; color: #4258fe;">چک</a></li>
+                        <li><a href="/tag/50" title="روابط نامشروع " style="border-color: #4258fe; color: #4258fe;">روابط نامشروع </a></li>
+                        <li><a href="/tag/57" title="جعل" style="border-color: #4258fe; color: #4258fe;">جعل</a></li>
+                    <li><a href="/tags/" title="سایر موضوعات" style="background: #4258fe;color: white;">سایر موضوعات</a></li>
+            </ul>
+        </div>
+    </section>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 col-12">
+                        <p class="copy-right"><span>حقوق تمامی مطالب برای</span><a href="https://www.solh.ir/">صلح؛ مرجع حقوقی ایران</a><span>محفوظ است.&nbsp;</span><span>کپی رایت &copy; 1405</span></p>
+                    </div>
+                    <div class="col-md-6 col-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="back-top"><span class="icons icon-keyboard_arrow_up"></span></div>
+    </footer>
+    <script src="/assets/js/libraries-min.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            switch (window.location.pathname.split("/")[1]) {
+                case "post":
+                    $("#activePost").addClass("active");
+                    break;
+
+                case "news":
+                    $("#activeNews").addClass("active");
+                    break;
+
+                case "contract":
+                case "contract-search":
+                case "power-of-attorney":
+                case "power-of-attorney-search":
+                case "confirmation":
+                case "confirmation-search":
+                case "declaration":
+                case "declaration-search":
+                case "petition":
+                case "petition-search":
+                case "complaint":
+                case "complaint-search":
+                case "company-statute":
+                case "company-statute-search":
+                    $("#activeDocument").addClass("active");
+                    break;
+
+                case "regulation":
+                case "regulation-search":
+                    $("#activeLaw").addClass("active");
+                    break;
+
+                case "newbook":
+                case "bookreview":
+                case "exambook":
+                case "bookstore":
+                case "bookstore-search":
+                case "book-search":
+                case "book":
+                    $("#activeBook").addClass("active");
+                    break;
+
+                case "lawyer":
+                case "lawyer-search":
+                case "judiciary-lawyer":
+                case "judiciary-lawyer-search":
+                case "expert":
+                case "expert-search":
+                case "judiciary-expert":
+                case "judiciary-expert-search":
+                case "cti":
+                case "cti-search":
+                    $("#activePerson").addClass("active");
+                    break;
+
+                case "notary":
+                case "notary-search":
+                case "marriage":
+                case "marriage-search":
+                case "public-services-office":
+                case "public-services-office-search":
+                case "cti-office":
+                case "cti-office-search":
+                case "police10":
+                case "police10-search":
+                case "city-electronic-service":
+                case "city-electronic-service-search":
+                case "social-security-brokers":
+                case "social-security-brokers-search":
+                case "judicial-service":
+                case "judicial-service-search":
+                    $("#activeOffice").addClass("active");
+                    break;
+
+                case "policestation":
+                case "policestation-search":
+                    $("#activeJud").addClass("active");
+                    break;
+
+                case "question":
+                case "question-search":
+                case "question-form":
+                case "request-document":
+                    $("#activeQuestion").addClass("active");
+                    break;
+
+                default:
+                    $("#activeHome").addClass("active");
+
+            }
+
+        });
+    </script>
+
+    <script type="text/javascript">
+  !function(){var i="FvtuP2",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
+    </script>
+</body>
+</html>

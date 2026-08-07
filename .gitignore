@@ -1,83 +1,45 @@
-# ==============================
-# Python
-# ==============================
-
+# Python and tooling
 __pycache__/
 *.py[cod]
-*$py.class
-
-# ==============================
-# Virtual Environment
-# ==============================
-
-.venv/
-venv/
-env/
-
-# ==============================
-# Environment Variables
-# ==============================
-
-.env
-
-# ==============================
-# Jupyter
-# ==============================
-
-.ipynb_checkpoints/
-
-# ==============================
-# IDE
-# ==============================
-
-.vscode/
-.idea/
-
-# ==============================
-# OS
-# ==============================
-
-.DS_Store
-Thumbs.db
-
-# ==============================
-# Data
-# ==============================
-
-data/raw/*
-data/processed/*
-data/vector_store/*
-
-# Keep directory structure
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/vector_store/.gitkeep
-
-# ==============================
-# Logs
-# ==============================
-
-*.log
-
-# ==============================
-# Python build
-# ==============================
-
+*.egg-info/
 build/
 dist/
-*.egg-info/
-
-# ==============================
-# Test / Coverage
-# ==============================
-
 .pytest_cache/
+.ruff_cache/
 .coverage
+coverage.xml
 htmlcov/
 
-# ==============================
-# Secrets
-# ==============================
+# Environments and secrets
+.venv/
+.venv-old/
+venv/
+env/
+.env
+.streamlit/secrets.toml
 
-*.pem
-*.key
+# Editors and notebooks
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# OS and runtime files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Keep the small reproducible deployment corpus and direct FAISS index.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/labor_law_raw.html
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/labor_law_records.json
+!data/processed/legal_chunks.json
+data/vector_store/*
+!data/vector_store/.gitkeep
+!data/vector_store/labor_law_faiss/
+data/vector_store/labor_law_faiss/*
+!data/vector_store/labor_law_faiss/index.faiss
+!data/vector_store/labor_law_faiss/manifest.json
