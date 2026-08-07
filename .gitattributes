@@ -11,3 +11,7 @@
 
 *.faiss binary
 *.ttf binary
+
+# Data artifacts and test fixtures are not application source code.
+data/raw/*.html linguist-detectable=false
+tests/fixtures/*.html linguist-detectable=false
