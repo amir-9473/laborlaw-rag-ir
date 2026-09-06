@@ -178,6 +178,24 @@ def test_query_transformation_accepts_fenced_json_and_applies_limit(settings) ->
     assert "مزد کارگر" in session.posts[0]["json"]["messages"][1]["content"]
 
 
+def test_conversation_contextualization_returns_a_standalone_query(settings) -> None:
+    payload = {"standalone_query": "مدت مرخصی استحقاقی سالانه کارگر چند روز است؟"}
+    session = QueueSession(
+        FakeResponse({"choices": [{"message": {"content": json.dumps(payload)}}]})
+    )
+
+    result = OpenRouterClient(settings, session=session).contextualize_query(
+        "مدتش چقدره؟",
+        "کاربر: مرخصی استحقاقی چیست؟\nدستیار: پاسخ قبلی",
+    )
+
+    assert result == payload["standalone_query"]
+    messages = session.posts[0]["json"]["messages"]
+    assert "مرتبط‌کردن اجباری" in messages[0]["content"]
+    assert "مدتش چقدره؟" in messages[1]["content"]
+    assert "مرخصی استحقاقی چیست؟" in messages[1]["content"]
+
+
 @pytest.mark.parametrize(
     ("raw_status", "expected"),
     [

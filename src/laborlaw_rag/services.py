@@ -223,6 +223,27 @@ class OpenRouterClient:
             :max_queries
         ]
 
+    def contextualize_query(self, normalized_query: str, conversation_history: str) -> str:
+        """Resolve a follow-up against bounded history without answering it."""
+
+        system = """شما بازنویس پرسش مکالمه‌ای برای دستیار قانون کار ایران هستید.
+فقط اگر پرسش فعلی به پیام‌های قبلی ارجاع دارد، مرجع آن را روشن کنید و پرسش را
+به‌شکل مستقل بازنویسی کنید. اگر پرسش مستقل یا نامرتبط است، همان معنا را بدون
+مرتبط‌کردن اجباری به گفتگو حفظ کنید. پاسخ حقوقی ندهید، اطلاعات تازه نسازید و
+فقط JSON معتبر برگردانید."""
+        prompt = f"""تاریخچه محدود گفتگو:
+{conversation_history}
+
+پرسش فعلی:
+{normalized_query}
+
+خروجی: {{"standalone_query":"..."}}"""
+        payload = _extract_json(self.complete(system, prompt, max_tokens=300))
+        standalone = payload.get("standalone_query", "")
+        if not isinstance(standalone, str) or not standalone.strip():
+            raise ExternalServiceError("The contextualized query is invalid.")
+        return standalone.strip()
+
     def generate_answer(
         self,
         normalized_query: str,

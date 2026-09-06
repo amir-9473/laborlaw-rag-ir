@@ -17,10 +17,15 @@ class FakePipeline:
     def __init__(self, result: RAGResult | None = None, error: Exception | None = None):
         self.result = result
         self.error = error
-        self.calls: list[tuple[str, bool | None]] = []
+        self.calls: list[tuple[str, bool | None, list[dict[str, str]]]] = []
 
-    def ask(self, question: str, use_query_transformation: bool | None = None):
-        self.calls.append((question, use_query_transformation))
+    def ask(
+        self,
+        question: str,
+        use_query_transformation: bool | None = None,
+        conversation_history: list[dict[str, str]] | None = None,
+    ):
+        self.calls.append((question, use_query_transformation, conversation_history or []))
         if self.error:
             raise self.error
         return self.result
@@ -64,7 +69,14 @@ def test_api_dependency_override_forwards_request_and_serializes_result() -> Non
         with TestClient(api.app) as client:
             response = client.post(
                 "/v1/ask",
-                json={"question": "  کارگر کیست؟  ", "use_query_transformation": True},
+                json={
+                    "question": "  کارگر کیست؟  ",
+                    "use_query_transformation": True,
+                    "conversation_history": [
+                        {"role": "user", "content": "قرارداد کار چیست؟"},
+                        {"role": "assistant", "content": "پاسخ قبلی"},
+                    ],
+                },
             )
     finally:
         api.app.dependency_overrides.clear()
@@ -74,7 +86,16 @@ def test_api_dependency_override_forwards_request_and_serializes_result() -> Non
     assert response.json()["citations"][0]["source_id"] == "iran-labor-law"
     assert response.json()["citations"][0]["article_reference"] == "ماده 1"
     assert response.json()["model_name"] == "test-model"
-    assert fake.calls == [("کارگر کیست؟", True)]
+    assert fake.calls == [
+        (
+            "کارگر کیست؟",
+            True,
+            [
+                {"role": "user", "content": "قرارداد کار چیست؟"},
+                {"role": "assistant", "content": "پاسخ قبلی"},
+            ],
+        )
+    ]
 
 
 def test_api_health_does_not_construct_pipeline() -> None:
@@ -194,6 +215,9 @@ def test_rtl_css_embeds_vazirmatn_and_right_alignment() -> None:
     assert 'font-family: "Material Symbols Rounded"' in css
     assert ".history-list" in css
     assert ".source-heading" in css
+    assert '[data-testid="stChatMessage"] [data-testid="stCaptionContainer"]' in css
+    assert "flex-wrap: wrap" in css
+    assert "overflow-wrap: anywhere" in css
     assert '[class*="st-"]' not in css
 
 
@@ -228,6 +252,7 @@ def test_streamlit_source_is_valid_and_pipeline_loading_is_lazy() -> None:
     assert "from laborlaw_rag.pipeline import RAGPipeline" in source
     assert "history_html(st.session_state.messages)" in source
     assert "_split_answer_sources" in source
+    assert "conversation_history=conversation_history" in source
     assert "پاک‌کردن تاریخچه گفتگو" in source
     assert 'st.session_state.pop("request_count"' not in source
     assert source.index("def get_pipeline") < source.index(

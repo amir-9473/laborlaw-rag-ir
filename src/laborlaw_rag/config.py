@@ -83,6 +83,8 @@ class RAGConfig:
     min_rerank_score: float = 0.05
     min_fusion_score: float = 0.02
     max_context_chars: int = 16_000
+    memory_max_turns: int = 6
+    memory_max_chars: int = 6_000
     temperature: float = 0.0
     max_tokens: int = 1_200
 
@@ -101,6 +103,8 @@ class RAGConfig:
             min_rerank_score=float(os.getenv("RAG_MIN_RERANK_SCORE", "0.05")),
             min_fusion_score=float(os.getenv("RAG_MIN_FUSION_SCORE", "0.02")),
             max_context_chars=int(os.getenv("RAG_MAX_CONTEXT_CHARS", "16000")),
+            memory_max_turns=int(os.getenv("RAG_MEMORY_MAX_TURNS", "6")),
+            memory_max_chars=int(os.getenv("RAG_MEMORY_MAX_CHARS", "6000")),
             temperature=float(os.getenv("LLM_TEMPERATURE", "0")),
             max_tokens=int(os.getenv("LLM_MAX_TOKENS", "1200")),
         )
@@ -114,6 +118,8 @@ class RAGConfig:
             self.rrf_k,
             self.max_transformed_queries,
             self.max_context_chars,
+            self.memory_max_turns,
+            self.memory_max_chars,
             self.max_tokens,
         )
         if any(value <= 0 for value in positive):

@@ -24,11 +24,19 @@ class ReadyResponse(BaseModel):
     status: Literal["ready"] = "ready"
 
 
+class ConversationMessage(BaseModel):
+    """One bounded user or assistant message supplied by an API client."""
+
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=4_000)
+
+
 class AskRequest(BaseModel):
-    """Question and optional per-request retrieval override."""
+    """Question, bounded history, and optional per-request retrieval override."""
 
     question: str = Field(min_length=1, max_length=2_000)
     use_query_transformation: bool | None = None
+    conversation_history: list[ConversationMessage] = Field(default_factory=list, max_length=12)
 
 
 class CitationResponse(BaseModel):
@@ -130,6 +138,7 @@ def ask(request: AskRequest, pipeline: PipelineDependency) -> AskResponse:
         result = pipeline.ask(
             question,
             use_query_transformation=request.use_query_transformation,
+            conversation_history=[item.model_dump() for item in request.conversation_history],
         )
         return AskResponse(**result.to_dict())
     except FileNotFoundError:
