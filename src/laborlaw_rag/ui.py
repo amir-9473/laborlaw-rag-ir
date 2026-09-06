@@ -293,6 +293,10 @@ def page_css() -> str:
     }}
     [data-testid="stChatMessage"] [data-testid="stCaptionContainer"] {{
         display: inline-flex;
+        max-width: 100%;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        min-width: 0;
         margin-top: .7rem;
         padding: .3rem .65rem;
         color: var(--muted);
@@ -300,6 +304,14 @@ def page_css() -> str:
         border-radius: 999px;
         background: #f8faf9;
         font-size: .74rem;
+        line-height: 1.8;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }}
+    [data-testid="stChatMessage"] [data-testid="stCaptionContainer"] * {{
+        min-width: 0;
+        max-width: 100%;
     }}
     [data-testid="stMarkdownContainer"] ul,
     [data-testid="stMarkdownContainer"] ol {{

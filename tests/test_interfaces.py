@@ -215,6 +215,9 @@ def test_rtl_css_embeds_vazirmatn_and_right_alignment() -> None:
     assert 'font-family: "Material Symbols Rounded"' in css
     assert ".history-list" in css
     assert ".source-heading" in css
+    assert '[data-testid="stChatMessage"] [data-testid="stCaptionContainer"]' in css
+    assert "flex-wrap: wrap" in css
+    assert "overflow-wrap: anywhere" in css
     assert '[class*="st-"]' not in css
 
 
