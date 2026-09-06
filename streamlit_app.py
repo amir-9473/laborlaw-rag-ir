@@ -22,6 +22,8 @@ SECRET_KEYS = (
     "DEMO_ACCESS_CODE",
     "DEMO_MIN_REQUEST_INTERVAL",
     "DEMO_MAX_QUESTIONS",
+    "RAG_MEMORY_MAX_TURNS",
+    "RAG_MEMORY_MAX_CHARS",
 )
 
 
@@ -193,6 +195,7 @@ for message in st.session_state.messages:
 if question := st.chat_input("پرسش خود را دربارهٔ قانون کار بنویسید…"):
     question = question.strip()
     if question:
+        conversation_history = list(st.session_state.messages)
         st.session_state.messages.append({"role": "user", "content": question})
         _render_message("user", question)
 
@@ -209,6 +212,7 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                         result = get_pipeline().ask(
                             question,
                             use_query_transformation=use_query_transformation,
+                            conversation_history=conversation_history,
                         )
                         output = result.final_output
                         response_metadata = {

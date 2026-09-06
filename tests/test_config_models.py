@@ -50,6 +50,8 @@ def test_rag_config_reads_feature_flags_and_limits(
     monkeypatch.setenv("RAG_RERANKER", "off")
     monkeypatch.setenv("RAG_FINAL_K", "3")
     monkeypatch.setenv("RAG_MAX_TRANSFORMED_QUERIES", "2")
+    monkeypatch.setenv("RAG_MEMORY_MAX_TURNS", "4")
+    monkeypatch.setenv("RAG_MEMORY_MAX_CHARS", "3500")
     monkeypatch.setenv("LLM_TEMPERATURE", "0.1")
 
     config = RAGConfig.from_env()
@@ -58,6 +60,8 @@ def test_rag_config_reads_feature_flags_and_limits(
     assert config.use_reranker is False
     assert config.final_k == 3
     assert config.max_transformed_queries == 2
+    assert config.memory_max_turns == 4
+    assert config.memory_max_chars == 3500
     assert config.temperature == 0.1
 
 
@@ -78,6 +82,8 @@ def test_rag_config_accepts_valid_boundaries(config: RAGConfig) -> None:
         {"dense_k": 0},
         {"rrf_k": -1},
         {"max_context_chars": 0},
+        {"memory_max_turns": 0},
+        {"memory_max_chars": 0},
         {"temperature": -0.01},
         {"temperature": 2.01},
     ],

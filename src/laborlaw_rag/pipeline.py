@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Mapping, Sequence
 from time import perf_counter
 
 from .config import RAGConfig, Settings
@@ -28,8 +29,12 @@ INSUFFICIENT_MESSAGE = (
 INTRODUCTION_MESSAGE = (
     "من دستیار هوشمند قانون کار ایران هستم. وظیفه‌ام پاسخ‌گویی به پرسش‌های مرتبط "
     "با روابط کار بر پایهٔ مواد و تبصره‌های موجود در منابع این پروژه است. پاسخ‌های "
-    "حقوقی را همراه با سایتیشن و فهرست منابع ارائه می‌کنم، برای موضوعات خارج از این "
+    "حقوقی را همراه با ارجاع دقیق و فهرست منابع ارائه می‌کنم، برای موضوعات خارج از این "
     "حوزه پاسخی نمی‌سازم و جایگزین مشاورهٔ تخصصی حقوقی نیستم."
+)
+GREETING_MESSAGE = (
+    "سلام! من دستیار هوشمند قانون کار ایران هستم. می‌توانید پرسش خود را دربارهٔ "
+    "روابط کار، قرارداد، مزد، مرخصی و سایر موضوعات پوشش‌داده‌شده در منابع پروژه بپرسید."
 )
 _SOURCE_TAG = re.compile(r"\[SOURCE_(\d+)\]")
 _CLAIM_BOUNDARY = re.compile(r"(?<=[.!؟؛])\s+|\n+")
@@ -38,6 +43,17 @@ _OTHER_LAW = re.compile(r"قانون\s+(?:مدنی|مجازات|اساسی|تج�
 _IDENTITY_QUERY = re.compile(
     r"(?:خود(?:ت|تان)?(?:و|\s+را)?\s+معرفی|معرفی\s+خود(?:ت|تان)?|"
     r"(?:تو|شما)\s+(?:کی|چه\s+کسی)\s+(?:هستی|هستید)|درباره\s+خود(?:ت|تان)?\s+بگو)"
+)
+_GREETING_QUERY = re.compile(
+    r"(?:سلام(?:\s+(?:وقت\s+بخیر|صبح\s+بخیر|عصر\s+بخیر|شب\s+بخیر))?|درود|"
+    r"وقت\s+بخیر|صبح\s+بخیر|عصر\s+بخیر|شب\s+بخیر|خسته\s+نباشید|"
+    r"(?:خوبی|حال(?:ت|تون|تان)\s+چطور(?:ه|\s+است)))"
+    r"(?:\s+(?:ممنون|متشکرم|سپاس))?[!.،؟\s]*$"
+)
+_CLEARLY_UNRELATED = re.compile(
+    r"(?:پایتخت|فرانسه|کارگردان|سینما|فیلم|بازیگر|فوتبال|ورزش|"
+    r"نامزد\s+انتخابات|انتخابات\s+(?:ریاست|مجلس)|آب\s*و\s*هوا|"
+    r"دستور\s+غذا|آشپزی|برنامه\s*نویسی|حل\s+معادله)"
 )
 _LABOR_TERMS = {
     "کارگر",
@@ -98,6 +114,14 @@ def _has_labor_signal(query: str) -> bool:
     )
 
 
+def _is_clearly_out_of_scope(query: str) -> bool:
+    """Reject only explicit non-labor topics; ambiguous questions still reach the model."""
+
+    if _has_labor_signal(query):
+        return False
+    return bool(_OTHER_LAW.search(query) or _CLEARLY_UNRELATED.search(query))
+
+
 class RAGPipeline:
     """Normalize, optionally transform, retrieve, rerank, and answer."""
 
@@ -153,34 +177,67 @@ class RAGPipeline:
         unique_queries = list(dict.fromkeys(item for item in queries if item))
         return normalized, unique_queries, warnings, used_transformation
 
-    def ask(self, question: str, use_query_transformation: bool | None = None) -> RAGResult:
+    def ask(
+        self,
+        question: str,
+        use_query_transformation: bool | None = None,
+        conversation_history: Sequence[Mapping[str, str]] | None = None,
+    ) -> RAGResult:
         """Return a validated answer contract with numbered sources at the bottom."""
         started = perf_counter()
         validated_question = self._validate_question(question)
         initial_query = normalize_query(validated_question)
         if _IDENTITY_QUERY.search(initial_query):
-            elapsed = round((perf_counter() - started) * 1000, 2)
-            return RAGResult(
-                status=AnswerStatus.ANSWER,
-                question=validated_question,
-                normalized_query=initial_query,
-                retrieval_queries=(),
-                used_query_transformation=False,
-                answer=INTRODUCTION_MESSAGE,
-                citations=(),
-                final_output=INTRODUCTION_MESSAGE,
-                timings_ms={
-                    "query_preparation": elapsed,
-                    "retrieval": 0.0,
-                    "generation": 0.0,
-                    "postprocessing": 0.0,
-                    "total": elapsed,
-                },
-                model_name="internal",
+            return self._internal_result(
+                validated_question,
+                initial_query,
+                INTRODUCTION_MESSAGE,
+                AnswerStatus.ANSWER,
+                started,
             )
-        normalized, queries, warnings, used_transformation = self.prepare_queries(
-            validated_question, use_query_transformation
+        if _GREETING_QUERY.fullmatch(initial_query):
+            return self._internal_result(
+                validated_question, initial_query, GREETING_MESSAGE, AnswerStatus.ANSWER, started
+            )
+        if _is_clearly_out_of_scope(initial_query):
+            return self._internal_result(
+                validated_question,
+                initial_query,
+                OUT_OF_SCOPE_MESSAGE,
+                AnswerStatus.OUT_OF_SCOPE,
+                started,
+            )
+
+        warnings: list[str] = []
+        bounded_history = self._bounded_history(conversation_history)
+        resolved_query = initial_query
+        if bounded_history:
+            try:
+                contextualized = normalize_query(
+                    self.llm.contextualize_query(initial_query, bounded_history)
+                )
+                if not contextualized or len(contextualized) > 2_000:
+                    raise ExternalServiceError("The contextualized query is invalid.")
+                resolved_query = contextualized
+            except ExternalServiceError:
+                warnings.append(
+                    "Conversation context resolution failed; "
+                    "the current question was used unchanged."
+                )
+
+        if _is_clearly_out_of_scope(resolved_query):
+            return self._internal_result(
+                validated_question,
+                resolved_query,
+                OUT_OF_SCOPE_MESSAGE,
+                AnswerStatus.OUT_OF_SCOPE,
+                started,
+                warnings,
+            )
+        normalized, queries, preparation_warnings, used_transformation = self.prepare_queries(
+            resolved_query, use_query_transformation
         )
+        warnings.extend(preparation_warnings)
         prepared = perf_counter()
         hits = self.retriever.retrieve(queries, rerank_query(normalized))
         retrieved = perf_counter()
@@ -212,6 +269,65 @@ class RAGPipeline:
                 "total": round((finished - started) * 1000, 2),
             },
             model_name=getattr(self.llm, "model_name", "unknown"),
+            warnings=tuple(warnings),
+        )
+
+    def _bounded_history(self, conversation_history: Sequence[Mapping[str, str]] | None) -> str:
+        """Keep only the newest configured turns within the configured character budget."""
+
+        if not conversation_history:
+            return ""
+        messages: list[tuple[str, str]] = []
+        for message in conversation_history:
+            if not isinstance(message, Mapping):
+                continue
+            role = message.get("role")
+            content = message.get("content")
+            if role not in {"user", "assistant"} or not isinstance(content, str):
+                continue
+            compact = " ".join(content.split())
+            if compact:
+                messages.append((role, compact))
+
+        selected: list[str] = []
+        remaining = self.config.memory_max_chars
+        for role, content in reversed(messages[-self.config.memory_max_turns * 2 :]):
+            label = "کاربر" if role == "user" else "دستیار"
+            prefix = f"{label}: "
+            if remaining <= len(prefix):
+                break
+            line = prefix + content[: remaining - len(prefix)]
+            selected.append(line)
+            remaining -= len(line)
+        return "\n".join(reversed(selected))
+
+    @staticmethod
+    def _internal_result(
+        question: str,
+        normalized_query: str,
+        message: str,
+        status: AnswerStatus,
+        started: float,
+        warnings: Sequence[str] = (),
+    ) -> RAGResult:
+        elapsed = round((perf_counter() - started) * 1000, 2)
+        return RAGResult(
+            status=status,
+            question=question,
+            normalized_query=normalized_query,
+            retrieval_queries=(),
+            used_query_transformation=False,
+            answer=message,
+            citations=(),
+            final_output=message,
+            timings_ms={
+                "query_preparation": elapsed,
+                "retrieval": 0.0,
+                "generation": 0.0,
+                "postprocessing": 0.0,
+                "total": elapsed,
+            },
+            model_name="internal",
             warnings=tuple(warnings),
         )
 

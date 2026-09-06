@@ -6,7 +6,12 @@ import pytest
 
 from laborlaw_rag.config import RAGConfig
 from laborlaw_rag.models import AnswerStatus, SearchHit
-from laborlaw_rag.pipeline import INSUFFICIENT_MESSAGE, OUT_OF_SCOPE_MESSAGE, RAGPipeline
+from laborlaw_rag.pipeline import (
+    GREETING_MESSAGE,
+    INSUFFICIENT_MESSAGE,
+    OUT_OF_SCOPE_MESSAGE,
+    RAGPipeline,
+)
 from laborlaw_rag.services import DraftAnswer, ExternalServiceError
 
 
@@ -27,12 +32,17 @@ class StubLLM:
         *,
         variants: list[str] | None = None,
         transform_error: bool = False,
+        contextualized_query: str | None = None,
+        contextualize_error: bool = False,
     ) -> None:
         self.model_name = "test-model"
         self.draft = draft
         self.variants = variants or []
         self.transform_error = transform_error
+        self.contextualized_query = contextualized_query
+        self.contextualize_error = contextualize_error
         self.transform_calls: list[tuple[str, int]] = []
+        self.contextualize_calls: list[tuple[str, str]] = []
         self.generate_calls: list[tuple[str, str, RAGConfig]] = []
 
     def transform_query(self, query: str, max_queries: int) -> list[str]:
@@ -44,6 +54,12 @@ class StubLLM:
     def generate_answer(self, query: str, context: str, config: RAGConfig) -> DraftAnswer:
         self.generate_calls.append((query, context, config))
         return self.draft
+
+    def contextualize_query(self, query: str, history: str) -> str:
+        self.contextualize_calls.append((query, history))
+        if self.contextualize_error:
+            raise ExternalServiceError("offline failure")
+        return self.contextualized_query or query
 
 
 def _hits(chunks) -> list[SearchHit]:
@@ -111,7 +127,7 @@ def test_identity_question_returns_internal_bio_without_provider_calls(legal_chu
     assert result.status is AnswerStatus.ANSWER
     assert result.model_name == "internal"
     assert "دستیار هوشمند قانون کار ایران" in result.answer
-    assert "سایتیشن" in result.answer
+    assert "ارجاع دقیق" in result.answer
     assert result.citations == ()
     assert result.retrieval_queries == ()
     assert result.timings_ms["retrieval"] == 0
@@ -119,6 +135,108 @@ def test_identity_question_returns_internal_bio_without_provider_calls(legal_chu
     assert retriever.calls == []
     assert llm.transform_calls == []
     assert llm.generate_calls == []
+
+
+@pytest.mark.parametrize("question", ["سلام", "درود", "وقت بخیر", "خوبی؟"])
+def test_greetings_return_a_friendly_internal_response_without_provider_calls(
+    question: str, legal_chunks
+) -> None:
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT, "", ()))
+
+    result = RAGPipeline(retriever, llm).ask(question)
+
+    assert result.status is AnswerStatus.ANSWER
+    assert result.answer == GREETING_MESSAGE
+    assert result.model_name == "internal"
+    assert result.citations == ()
+    assert retriever.calls == []
+    assert llm.contextualize_calls == []
+    assert llm.generate_calls == []
+
+
+def test_follow_up_question_is_resolved_from_bounded_conversation_history(
+    legal_chunks,
+) -> None:
+    standalone = "مدت مرخصی استحقاقی سالانه کارگر چند روز است؟"
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(
+        DraftAnswer(AnswerStatus.INSUFFICIENT, "", ()),
+        contextualized_query=standalone,
+    )
+    pipeline = RAGPipeline(
+        retriever,
+        llm,
+        RAGConfig(memory_max_turns=2, memory_max_chars=1_000),
+    )
+    history = [
+        {"role": "user", "content": "پیام قدیمی که نباید در حافظه بماند"},
+        {"role": "assistant", "content": "پاسخ قدیمی"},
+        {"role": "user", "content": "مرخصی استحقاقی سالانه کارگر چیست؟"},
+        {"role": "assistant", "content": "این مرخصی در قانون کار تعریف شده است."},
+        {"role": "user", "content": "آیا برای همه کارگران است؟"},
+        {"role": "assistant", "content": "پاسخ مستند قبلی درباره مرخصی کارگر."},
+    ]
+
+    result = pipeline.ask("مدتش چقدره؟", conversation_history=history)
+
+    assert result.normalized_query == standalone
+    assert llm.contextualize_calls[0][0] == "مدتش چقدره؟"
+    bounded = llm.contextualize_calls[0][1]
+    assert "مرخصی استحقاقی سالانه کارگر چیست؟" in bounded
+    assert "پیام قدیمی" not in bounded
+    assert retriever.calls[0][1] == standalone
+    assert llm.generate_calls[0][0] == standalone
+
+
+def test_contextualization_failure_safely_uses_current_question(legal_chunks) -> None:
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(
+        DraftAnswer(AnswerStatus.INSUFFICIENT, "", ()),
+        contextualize_error=True,
+    )
+
+    result = RAGPipeline(retriever, llm).ask(
+        "مرخصی کارگر چقدر است؟",
+        conversation_history=[{"role": "user", "content": "پرسش قبلی"}],
+    )
+
+    assert result.normalized_query == "مرخصی کارگر چقدر است؟"
+    assert result.warnings == (
+        "Conversation context resolution failed; the current question was used unchanged.",
+    )
+
+
+def test_memory_character_limit_is_enforced(legal_chunks) -> None:
+    pipeline = RAGPipeline(
+        SpyRetriever(_hits(legal_chunks)),
+        StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT, "", ())),
+        RAGConfig(memory_max_turns=3, memory_max_chars=40),
+    )
+
+    bounded = pipeline._bounded_history(
+        [
+            {"role": "user", "content": "الف" * 100},
+            {"role": "assistant", "content": "ب" * 100},
+        ]
+    )
+
+    assert len(bounded) <= 40
+    assert bounded.startswith("دستیار: ")
+
+
+def test_clearly_unrelated_question_ignores_labor_history(legal_chunks) -> None:
+    retriever = SpyRetriever(_hits(legal_chunks))
+    llm = StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT, "", ()))
+
+    result = RAGPipeline(retriever, llm).ask(
+        "پایتخت فرانسه کجاست؟",
+        conversation_history=[{"role": "user", "content": "قرارداد کار چیست؟"}],
+    )
+
+    assert result.status is AnswerStatus.OUT_OF_SCOPE
+    assert llm.contextualize_calls == []
+    assert retriever.calls == []
 
 
 def test_transformed_queries_are_renormalized_and_deduplicated(legal_chunks) -> None:

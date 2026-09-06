@@ -18,6 +18,8 @@ Try the web application at:
 - Optional query transformation for complex or ambiguous questions
 - Numbered citations after legal claims and a reference list at the end of each answer
 - Separate handling for unrelated questions and relevant questions with insufficient evidence
+- Bounded memory of the latest six turns for contextual follow-up questions
+- Internal, provider-free responses for greetings and assistant introductions
 - Guardrails against unsupported legal answers
 - RTL Persian interface with the Vazirmatn font, conversation history, and history clearing
 - Model name and end-to-end latency displayed with every answer
@@ -29,6 +31,7 @@ Try the web application at:
 ```text
 user question
   -> Persian normalization
+  -> follow-up resolution from bounded conversation memory
   -> optional query transformation
   -> hybrid retrieval
   -> result fusion and reranking
@@ -88,7 +91,11 @@ Send a `POST` request to `/v1/ask`:
 ```json
 {
   "question": "شرایط فسخ قرارداد کار چیست؟",
-  "use_query_transformation": false
+  "use_query_transformation": false,
+  "conversation_history": [
+    {"role": "user", "content": "قرارداد کار چیست؟"},
+    {"role": "assistant", "content": "پاسخ قبلی دستیار"}
+  ]
 }
 ```
 
@@ -102,6 +109,8 @@ The API response includes the result state, normalized query, final answer, cita
 | `OPENROUTER_API_KEY` | Access to the language model | Required |
 | `LLM_MODEL` | Answer-generation model | `qwen/qwen3-8b` |
 | `RAG_QUERY_TRANSFORMATION` | Enables query transformation at configuration level | `false` |
+| `RAG_MEMORY_MAX_TURNS` | Recent turns available to follow-up resolution | `6` |
+| `RAG_MEMORY_MAX_CHARS` | Character cap for conversation memory | `6000` |
 | `REQUEST_TIMEOUT` | External request timeout in seconds | `90` |
 | `DEMO_ACCESS_CODE` | Optional access code for the web demo | Empty |
 | `DEMO_MIN_REQUEST_INTERVAL` | Minimum interval between questions per session | `3` |
