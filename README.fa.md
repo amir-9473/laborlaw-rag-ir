@@ -23,7 +23,7 @@
 - جلوگیری از ارائهٔ پاسخ حقوقی بدون پشتوانهٔ منابع بازیابی‌شده
 - رابط فارسی راست‌به‌چپ با فونت Vazirmatn، تاریخچهٔ گفتگو و امکان پاک‌کردن آن
 - نمایش نام مدل و زمان کل پردازش در کنار هر پاسخ
-- رابط وب Streamlit و API مبتنی بر FastAPI
+- رابط‌های وب Streamlit و Gradio و API مبتنی بر FastAPI
 - امکان افزودن منابع HTML، متنی و PDF با ساختار مشترک پردازش داده
 
 ## فرایند پاسخ‌گویی
@@ -81,6 +81,7 @@ LLM_MODEL=qwen/qwen3-8b
 
 ```bash
 python -m streamlit run streamlit_app.py
+python app.py
 python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
 ```
 
@@ -118,6 +119,9 @@ python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
 
 فایل‌های `.env` و `.streamlit/secrets.toml` حاوی اطلاعات محرمانه هستند و نباید در Git ثبت شوند.
 
+راهنمای کامل استقرار و رفع اشکال Hugging Face Spaces در فایل
+[`docs/huggingface-deployment.md`](docs/huggingface-deployment.md) قرار دارد.
+
 ## ساختار پروژه
 
 ```text
@@ -126,6 +130,7 @@ laborlaw-rag-ir/
 ├── data/               # دادهٔ خام، دادهٔ پردازش‌شده و ایندکس جست‌وجو
 ├── tests/              # تست‌های واحد و یکپارچه‌سازی
 ├── assets/             # فونت و دارایی‌های رابط کاربری
+├── app.py              # ورودی Gradio و Hugging Face Spaces
 ├── streamlit_app.py    # رابط وب
 └── pyproject.toml      # وابستگی‌ها و تنظیمات پروژه
 ```

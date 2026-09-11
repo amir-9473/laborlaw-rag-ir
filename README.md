@@ -1,3 +1,15 @@
+---
+title: Iranian Labor Law Assistant
+emoji: ⚖️
+colorFrom: green
+colorTo: gray
+sdk: gradio
+sdk_version: 6.26.0
+python_version: 3.12
+app_file: app.py
+suggested_hardware: cpu-basic
+---
+
 # Iranian Labor Law Assistant
 
 [فارسی](README.fa.md) · [Live demo](https://laborlaw-rag.streamlit.app/)
@@ -23,7 +35,7 @@ Try the web application at:
 - Guardrails against unsupported legal answers
 - RTL Persian interface with the Vazirmatn font, conversation history, and history clearing
 - Model name and end-to-end latency displayed with every answer
-- Streamlit web interface and FastAPI service
+- Streamlit and Gradio web interfaces plus a FastAPI service
 - Extensible ingestion for HTML, text, and PDF sources
 
 ## Response flow
@@ -81,6 +93,7 @@ On other operating systems, use:
 
 ```bash
 python -m streamlit run streamlit_app.py
+python app.py
 python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
 ```
 
@@ -118,6 +131,9 @@ The API response includes the result state, normalized query, final answer, cita
 
 The `.env` and `.streamlit/secrets.toml` files contain secrets and must not be committed to Git.
 
+For a complete Hugging Face Spaces setup and troubleshooting guide, see
+[`docs/huggingface-deployment.md`](docs/huggingface-deployment.md).
+
 ## Project structure
 
 ```text
@@ -126,6 +142,7 @@ laborlaw-rag-ir/
 ├── data/               # raw data, processed corpus, and search index
 ├── tests/              # unit and integration tests
 ├── assets/             # fonts and interface assets
+├── app.py              # Gradio / Hugging Face Spaces entry point
 ├── streamlit_app.py    # web interface
 └── pyproject.toml      # dependencies and project configuration
 ```
