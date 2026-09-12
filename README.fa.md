@@ -1,6 +1,6 @@
 # دستیار هوشمند قانون کار ایران
 
-[English](README.md) · [دموی آنلاین](https://laborlaw-rag.streamlit.app/)
+[English](README.md) · [دموی آنلاین](https://82.22.175.58/)
 
 یک دستیار فارسی مبتنی بر بازیابی افزوده (RAG) برای پاسخ‌گویی مستند به پرسش‌های قانون کار ایران است. سامانه پرسش کاربر را نرمال‌سازی می‌کند، مواد و تبصره‌های مرتبط را با بازیابی هیبریدی پیدا می‌کند و پاسخ نهایی را همراه با ارجاع‌های شماره‌دار ارائه می‌دهد.
 
@@ -8,7 +8,7 @@
 
 نسخهٔ تحت وب پروژه از لینک زیر در دسترس است:
 
-**[اجرای دستیار قانون کار](https://laborlaw-rag.streamlit.app/)**
+**[اجرای دستیار قانون کار](https://82.22.175.58/)**
 
 ## قابلیت‌ها
 
@@ -82,6 +82,69 @@ LLM_MODEL=qwen/qwen3-8b
 ```bash
 python -m streamlit run streamlit_app.py
 python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
+```
+
+## استقرار با Docker
+
+پیش‌نیازهای میزبان Docker Engine و Docker Compose نسخهٔ ۲ هستند. image با Python 3.12 ساخته می‌شود و رابط Streamlit را داخل کانتینر روی پورت `8501` اجرا می‌کند. داده‌ها، ایندکس FAISS، manifest و assetهای لازم داخل image قرار می‌گیرند.
+
+فایل تنظیمات خصوصی را از نمونه بسازید و سپس کلیدها را بدون commit‌کردن فایل تکمیل کنید:
+
+```bash
+cp .env.example .env
+chmod 600 .env
+```
+
+متغیرهای `JINA_API_KEY` و `OPENROUTER_API_KEY` برای اجرای کامل RAG الزامی هستند. متغیرهای اختیاری اصلی شامل `LLM_MODEL`، تنظیمات embedding و reranker، `REQUEST_TIMEOUT`، تنظیمات حافظه و محدودیت دمو، `SITE_ADDRESS` و `PUBLIC_HTTP_PORT` هستند. فایل `.env`، secretهای Streamlit، کلیدهای API، رمزها و certificate/private keyها نباید وارد Git یا Docker image شوند.
+
+ساخت و اجرای Streamlit و Reverse Proxy مبتنی بر Caddy:
+
+```bash
+docker compose build
+docker compose up -d
+docker compose ps
+docker compose logs -f
+```
+
+بررسی سلامت و توقف سرویس:
+
+```bash
+curl http://127.0.0.1:8501/_stcore/health
+docker compose down
+```
+
+کانتینرها از `restart: unless-stopped` استفاده می‌کنند؛ بنابراین با فعال‌بودن Docker service پس از restart سرور دوباره اجرا می‌شوند، مگر اینکه دستی متوقف شده باشند.
+
+## استقرار روی VPS
+
+مسیر درخواست‌ها در استقرار فعلی:
+
+```text
+Internet
+  -> Caddy / Reverse Proxy (:443)
+  -> Docker network
+  -> Streamlit (:8501)
+  -> RAG Pipeline
+```
+
+نسخهٔ فعلی از آدرس **[https://82.22.175.58/](https://82.22.175.58/)** در دسترس است. پورت `8501` فقط روی loopback میزبان قرار دارد و نباید مستقیماً public شود. برای میزبانی چند پروژه روی یک VPS باید برای هر سرویس پورت عمومی متفاوت یا routing دامنه‌ای در یک Reverse Proxy مشترک در نظر گرفت.
+
+بدون دامنه می‌توان سرویس را با قالب `http://SERVER_PUBLIC_IP:PUBLIC_HTTP_PORT` باز کرد. بعداً با افزودن دامنه فقط DNS و `SITE_ADDRESS` یا تنظیم Reverse Proxy تغییر می‌کند و نیازی به تغییر Docker یا برنامه نیست. Caddy می‌تواند certificate معتبر را خودکار دریافت و تمدید کند؛ Let's Encrypt/Certbot نیز با Reverse Proxyهای دیگر قابل استفاده است.
+
+به‌روزرسانی استقرار:
+
+```bash
+git pull
+docker compose up -d --build
+```
+
+عیب‌یابی پایه:
+
+```bash
+docker compose ps
+docker compose logs
+docker inspect laborlaw-rag-streamlit
+curl http://127.0.0.1:8501/_stcore/health
 ```
 
 ## استفاده از API

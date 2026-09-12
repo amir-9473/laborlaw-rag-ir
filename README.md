@@ -1,6 +1,6 @@
 # Iranian Labor Law Assistant
 
-[فارسی](README.fa.md) · [Live demo](https://laborlaw-rag.streamlit.app/)
+[فارسی](README.fa.md) · [Live demo](https://82.22.175.58/)
 
 A Persian retrieval-augmented generation application for grounded questions and answers about Iranian labor law. It normalizes the user's question, retrieves relevant articles and notes through hybrid search, and returns a cited answer with a numbered reference list.
 
@@ -8,7 +8,7 @@ A Persian retrieval-augmented generation application for grounded questions and 
 
 Try the web application at:
 
-**[Open the Iranian Labor Law Assistant](https://laborlaw-rag.streamlit.app/)**
+**[Open the Iranian Labor Law Assistant](https://82.22.175.58/)**
 
 ## Features
 
@@ -147,12 +147,8 @@ Internet
   -> RAG Pipeline
 ```
 
-The currently deployed demonstration instance is available through Caddy on the explicit HTTPS
-port `443`:
-
-```text
-https://82.22.175.58:443
-```
+The currently deployed demonstration instance is available through Caddy at
+**[https://82.22.175.58/](https://82.22.175.58/)** on the standard HTTPS port `443`.
 
 This endpoint is deployment-specific and may change. Port `443` is used because non-standard public
 ports such as `8080` may be blocked by some client networks. For another VPS, replace the IP address
