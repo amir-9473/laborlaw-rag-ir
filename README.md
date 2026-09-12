@@ -103,8 +103,10 @@ chmod 600 .env
 variables are `LLM_MODEL`, `EMBEDDING_MODEL`, `EMBEDDING_QUERY_TASK`,
 `EMBEDDING_DOCUMENT_TASK`, `RERANKER_MODEL`, `REQUEST_TIMEOUT`, `RAG_QUERY_TRANSFORMATION`,
 `RAG_MEMORY_MAX_TURNS`, `RAG_MEMORY_MAX_CHARS`, `DEMO_ACCESS_CODE`,
-`DEMO_MIN_REQUEST_INTERVAL`, `DEMO_MAX_QUESTIONS`, and `SITE_ADDRESS`. Keep real API keys, passwords,
-Streamlit secrets, certificates, and private keys outside Git and the Docker image.
+`DEMO_MIN_REQUEST_INTERVAL`, `DEMO_MAX_QUESTIONS`, `SITE_ADDRESS`, and `PUBLIC_HTTP_PORT`. Keep real
+API keys, passwords, Streamlit secrets, certificates, and private keys outside Git and the Docker
+image. `PUBLIC_HTTP_PORT` defaults to `80` and can be changed in the private `.env` file when a
+dedicated public port is needed.
 
 The default model may require OpenRouter credit. For low-volume testing, `LLM_MODEL=openrouter/free`
 uses OpenRouter's free-model router, subject to its current availability and rate limits.
@@ -139,22 +141,37 @@ The Compose stack implements this deployment path:
 
 ```text
 Internet
-  -> Caddy / Reverse Proxy (:80/:443)
+  -> Caddy / Reverse Proxy (:PUBLIC_HTTP_PORT/:443)
   -> Docker network
   -> Streamlit (:8501)
   -> RAG Pipeline
 ```
 
-Clone the repository on an Ubuntu VPS, check out the desired deployment branch, create `.env` as
-shown above, and run the Docker build and startup commands. Caddy publishes ports `80` and `443`, while the
-Streamlit host mapping is restricted to `127.0.0.1:8501`; do not expose port `8501` publicly.
-Allow the actual SSH port before enabling a firewall, then allow inbound `80/tcp` (and `443/tcp`
-when HTTPS is configured). Do not remove unrelated firewall rules.
-
-Without a domain, open the service at:
+The currently deployed demonstration instance is available through Caddy on the dedicated public
+HTTP port `8080`:
 
 ```text
-http://SERVER_PUBLIC_IP
+http://82.22.175.58:8080
+```
+
+This endpoint is deployment-specific and may change. For another VPS, set `PUBLIC_HTTP_PORT` in the
+private `.env` file and replace the IP address with that server's public IP. For example:
+
+```dotenv
+PUBLIC_HTTP_PORT=8080
+```
+
+Clone the repository on an Ubuntu VPS, check out the desired deployment branch, create `.env` as
+shown above, and run the Docker build and startup commands. Caddy publishes the configured HTTP
+port and port `443`, while the Streamlit host mapping is restricted to `127.0.0.1:8501`; do not
+expose port `8501` publicly. Allow the actual SSH port before enabling a firewall, then allow the
+configured `PUBLIC_HTTP_PORT/tcp` (and `443/tcp` when HTTPS is configured). Do not remove unrelated
+firewall rules.
+
+Without a domain, open the service using the server IP and configured public HTTP port:
+
+```text
+http://SERVER_PUBLIC_IP:PUBLIC_HTTP_PORT
 ```
 
 When a domain becomes available, point its DNS records to the server and set `SITE_ADDRESS` in the
@@ -181,7 +198,7 @@ curl http://127.0.0.1:8501/_stcore/health
 
 Also confirm that Docker starts at boot (`systemctl is-enabled docker`), inspect the Caddy container
 logs when the public URL returns `502` or `504`, and verify that the VPS/provider firewall permits
-ports `80` and `443` while keeping port `8501` private.
+the configured public HTTP port and port `443` while keeping port `8501` private.
 
 ## API usage
 
