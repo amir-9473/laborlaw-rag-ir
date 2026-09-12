@@ -147,15 +147,17 @@ Internet
   -> RAG Pipeline
 ```
 
-The currently deployed demonstration instance is available through Caddy on the dedicated public
-HTTP port `8080`:
+The currently deployed demonstration instance is available through Caddy on the explicit HTTPS
+port `443`:
 
 ```text
-http://82.22.175.58:8080
+https://82.22.175.58:443
 ```
 
-This endpoint is deployment-specific and may change. For another VPS, set `PUBLIC_HTTP_PORT` in the
-private `.env` file and replace the IP address with that server's public IP. For example:
+This endpoint is deployment-specific and may change. Port `443` is used because non-standard public
+ports such as `8080` may be blocked by some client networks. For another VPS, replace the IP address
+with that server's public IP. If a non-standard HTTP port is required and reachable from the target
+network, set `PUBLIC_HTTP_PORT` in the private `.env` file. For example:
 
 ```dotenv
 PUBLIC_HTTP_PORT=8080
