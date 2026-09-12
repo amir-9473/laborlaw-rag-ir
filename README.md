@@ -84,6 +84,105 @@ python -m streamlit run streamlit_app.py
 python -m uvicorn laborlaw_rag.api:app --host 127.0.0.1 --port 8000
 ```
 
+## Docker Deployment
+
+Docker Engine and Docker Compose v2 are the only host prerequisites. The image uses Python 3.12
+and starts the existing Streamlit entry point on port `8501` inside the application container.
+The versioned corpus, FAISS index, manifest, application assets, and Python package are included in
+the image; BM25 is reconstructed from the versioned chunks when the RAG pipeline is initialized.
+
+Create a private runtime environment file from the tracked template, then fill in the provider
+credentials without committing the resulting file:
+
+```bash
+cp .env.example .env
+chmod 600 .env
+```
+
+`JINA_API_KEY` and `OPENROUTER_API_KEY` are required for full RAG requests. Supported optional
+variables are `LLM_MODEL`, `EMBEDDING_MODEL`, `EMBEDDING_QUERY_TASK`,
+`EMBEDDING_DOCUMENT_TASK`, `RERANKER_MODEL`, `REQUEST_TIMEOUT`, `RAG_QUERY_TRANSFORMATION`,
+`RAG_MEMORY_MAX_TURNS`, `RAG_MEMORY_MAX_CHARS`, `DEMO_ACCESS_CODE`,
+`DEMO_MIN_REQUEST_INTERVAL`, `DEMO_MAX_QUESTIONS`, and `SITE_ADDRESS`. Keep real API keys, passwords,
+Streamlit secrets, certificates, and private keys outside Git and the Docker image.
+
+The default model may require OpenRouter credit. For low-volume testing, `LLM_MODEL=openrouter/free`
+uses OpenRouter's free-model router, subject to its current availability and rate limits.
+
+Build and run the application and bundled Caddy reverse proxy:
+
+```bash
+docker compose build
+docker compose up -d
+docker compose ps
+docker compose logs -f
+```
+
+Verify Streamlit directly through its loopback-only host binding:
+
+```bash
+curl http://127.0.0.1:8501/_stcore/health
+```
+
+Stop and remove the deployment containers with:
+
+```bash
+docker compose down
+```
+
+The application container uses `restart: unless-stopped`. It starts again after a server restart
+as long as the Docker service is enabled and the container was not stopped manually.
+
+## VPS Deployment
+
+The Compose stack implements this deployment path:
+
+```text
+Internet
+  -> Caddy / Reverse Proxy (:80/:443)
+  -> Docker network
+  -> Streamlit (:8501)
+  -> RAG Pipeline
+```
+
+Clone the repository on an Ubuntu VPS, check out the desired deployment branch, create `.env` as
+shown above, and run the Docker build and startup commands. Caddy publishes ports `80` and `443`, while the
+Streamlit host mapping is restricted to `127.0.0.1:8501`; do not expose port `8501` publicly.
+Allow the actual SSH port before enabling a firewall, then allow inbound `80/tcp` (and `443/tcp`
+when HTTPS is configured). Do not remove unrelated firewall rules.
+
+Without a domain, open the service at:
+
+```text
+http://SERVER_PUBLIC_IP
+```
+
+When a domain becomes available, point its DNS records to the server and set `SITE_ADDRESS` in the
+private `.env` file, for example `SITE_ADDRESS="http://:80, app.example.com"`. Caddy then obtains and
+renews a trusted certificate automatically. Only DNS and reverse-proxy configuration change;
+Docker and the application do not. Let's Encrypt/Certbot or another certificate mechanism may also
+be used with a different reverse proxy; never commit certificate private keys.
+
+Update an existing deployment with:
+
+```bash
+git pull
+docker compose up -d --build
+```
+
+Basic troubleshooting commands are:
+
+```bash
+docker compose ps
+docker compose logs
+docker inspect laborlaw-rag-streamlit
+curl http://127.0.0.1:8501/_stcore/health
+```
+
+Also confirm that Docker starts at boot (`systemctl is-enabled docker`), inspect the Caddy container
+logs when the public URL returns `502` or `504`, and verify that the VPS/provider firewall permits
+ports `80` and `443` while keeping port `8501` private.
+
 ## API usage
 
 Send a `POST` request to `/v1/ask`:
