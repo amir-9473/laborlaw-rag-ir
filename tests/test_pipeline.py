@@ -180,13 +180,14 @@ def test_follow_up_question_is_resolved_from_bounded_conversation_history(
 
     result = pipeline.ask("مدتش چقدره؟", conversation_history=history)
 
-    assert result.normalized_query == standalone
-    assert llm.contextualize_calls[0][0] == "مدتش چقدره؟"
-    bounded = llm.contextualize_calls[0][1]
+    assert "مدتش چقدره؟" in result.normalized_query
+    assert "مرخصی استحقاقی سالانه کارگر چیست؟" in result.normalized_query
+    assert llm.contextualize_calls == []
+    bounded = llm.generate_calls[0][0]
     assert "مرخصی استحقاقی سالانه کارگر چیست؟" in bounded
     assert "پیام قدیمی" not in bounded
-    assert retriever.calls[0][1] == standalone
-    assert llm.generate_calls[0][0] == standalone
+    assert "مدتش چقدره؟" in retriever.calls[0][1]
+    assert "پرسش فعلی کاربر" in llm.generate_calls[0][0]
 
 
 def test_contextualization_failure_safely_uses_current_question(legal_chunks) -> None:
@@ -202,9 +203,9 @@ def test_contextualization_failure_safely_uses_current_question(legal_chunks) ->
     )
 
     assert result.normalized_query == "مرخصی کارگر چقدر است؟"
-    assert result.warnings == (
-        "Conversation context resolution failed; the current question was used unchanged.",
-    )
+    assert result.warnings == ()
+    assert llm.contextualize_calls == []
+    assert "پرسش قبلی" in llm.generate_calls[0][0]
 
 
 def test_memory_character_limit_is_enforced(legal_chunks) -> None:
@@ -237,6 +238,27 @@ def test_clearly_unrelated_question_ignores_labor_history(legal_chunks) -> None:
     assert result.status is AnswerStatus.OUT_OF_SCOPE
     assert llm.contextualize_calls == []
     assert retriever.calls == []
+
+
+@pytest.mark.parametrize('question',['سوال قبلی چی بود؟','سؤال قبلی من چه بود؟','آخرین سوال من چه بود؟','قبل از این چه پرسیدم؟'])
+def test_recall_is_local_and_does_not_call_providers(question,legal_chunks):
+    retriever=SpyRetriever(_hits(legal_chunks))
+    llm=StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT,'',()))
+    result=RAGPipeline(retriever,llm).ask(question,conversation_history=[{'role':'user','content':'مرخصی سالانه چقدر است؟'},{'role':'assistant','content':'پاسخ قبلی'}])
+    assert 'مرخصی سالانه چقدر است؟' in result.answer
+    assert result.model_name=='internal' and result.status==AnswerStatus.ANSWER
+    assert not retriever.calls and not llm.generate_calls and not llm.contextualize_calls
+
+
+def test_follow_up_has_one_generation_call_and_previous_details(legal_chunks):
+    retriever=SpyRetriever(_hits(legal_chunks))
+    llm=StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT,'',()))
+    history=[{'role':'user','content':'ساعت کار عادی در هفته چقدر است؟'},{'role':'assistant','content':'پاسخ قبلی درباره ساعات کار.'}]
+    result=RAGPipeline(retriever,llm).ask('در ادامه سوال قبلی اضافه کاری چطور؟',conversation_history=history)
+    assert len(llm.generate_calls)==1 and not llm.contextualize_calls
+    assert 'ساعت کار عادی' in llm.generate_calls[0][0] and 'اضافه کار' in llm.generate_calls[0][0]
+    assert 'پاسخ قبلی درباره ساعات کار' in llm.generate_calls[0][0]
+    assert 'ساعت کار عادی' in result.normalized_query
 
 
 def test_transformed_queries_are_renormalized_and_deduplicated(legal_chunks) -> None:

@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 SECRET_KEYS = (
     "JINA_API_KEY",
     "OPENROUTER_API_KEY",
+    "GROQ_API_KEY",
+    "LLM_PROVIDER",
     "LLM_MODEL",
     "DEMO_ACCESS_CODE",
     "DEMO_MIN_REQUEST_INTERVAL",

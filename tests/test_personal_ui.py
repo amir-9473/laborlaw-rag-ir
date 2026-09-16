@@ -32,6 +32,7 @@ def test_form_routes_to_personal_model_without_default_call():
     app=enabled_app()
     app.text_input(key='personal_api_key').input('private-key').run(timeout=10)
     app.text_input(key='personal_model').input('private-model').run(timeout=10)
+    next(x for x in app.button if x.label=='ثبت').click().run(timeout=10)
     base=SimpleNamespace(ask=lambda *a,**k:(_ for _ in ()).throw(AssertionError('default model called')))
     result=SimpleNamespace(final_output='پاسخ آزمایشی',model_name='private-model',timings_ms={})
     with patch('laborlaw_rag.pipeline.RAGPipeline.from_settings',return_value=base),patch('laborlaw_rag.personal_settings.ask_personal',return_value=result) as personal:
@@ -52,4 +53,19 @@ def test_missing_key_shows_short_user_message():
     app=enabled_app()
     app.chat_input[0].set_value('ساعت کار عادی در هفته چقدر است؟').run(timeout=10)
     assert not app.exception and app.error
-    assert 'لطفاً کلید API' in app.error[0].value
+    assert 'دکمهٔ «ثبت»' in app.error[0].value
+
+
+def test_personal_drafts_are_inactive_until_registered_and_clear_deletes_snapshot():
+    app=enabled_app()
+    app.text_input(key='personal_api_key').input('private-key').run(timeout=10)
+    app.text_input(key='personal_model').input('model-one').run(timeout=10)
+    assert 'personal_saved' not in app.session_state
+    next(x for x in app.button if x.label=='ثبت').click().run(timeout=10)
+    assert app.session_state['personal_saved']['model']=='model-one'
+    app.text_input(key='personal_model').input('model-two').run(timeout=10)
+    assert app.session_state['personal_saved']['model']=='model-one'
+    next(x for x in app.button if x.label=='ثبت').click().run(timeout=10)
+    assert app.session_state['personal_saved']['model']=='model-two'
+    next(x for x in app.button if x.label=='حذف تنظیمات شخصی').click().run(timeout=10)
+    assert 'personal_saved' not in app.session_state and app.session_state['personal_enabled'] is False

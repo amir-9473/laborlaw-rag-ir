@@ -56,6 +56,8 @@ class PersonalLLMClient(OpenRouterClient):
             payload = {'model': self._model, 'temperature': temperature, 'max_tokens': max_tokens,
                        'response_format': {'type': 'json_object'},
                        'messages': [{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': user_prompt}]}
+            if self.provider == 'Groq' and self._model in {'openai/gpt-oss-120b', 'openai/gpt-oss-20b'}:
+                payload.update(reasoning_effort='low', include_reasoning=False)
         try:
             response = self._transport.post(url, headers=headers, json=payload, timeout=(5, 30), allow_redirects=False)
             check_response(response)

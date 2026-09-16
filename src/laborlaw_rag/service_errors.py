@@ -12,7 +12,7 @@ class ExternalServiceError(RuntimeError):
 
 def check_response(response: requests.Response, *args, **kwargs):
     """Requests hook: preserve 429 bodies and also detect HTTP-200 error envelopes."""
-    provider = {"openrouter.ai": "OpenRouter", "api.jina.ai": "Jina", "generativelanguage.googleapis.com": "Gemini"}.get(
+    provider = {"openrouter.ai": "OpenRouter", "api.jina.ai": "Jina", "api.groq.com": "Groq", "api.deepseek.com": "DeepSeek", "generativelanguage.googleapis.com": "Gemini"}.get(
         requests.utils.urlparse(response.url).hostname, "سرویس خارجی")
     try:
         body = response.json()
@@ -84,12 +84,13 @@ def friendly_error(exc: Exception, *, personal: bool = False) -> str:
         "authentication": "کلید API پذیرفته نشد. لطفاً کلید و دسترسی حساب خود را بررسی کنید.",
         "billing": "اعتبار حساب کافی نیست. لطفاً اعتبار حساب خود را بررسی کنید.",
         "configuration": "لطفاً کلید API، ارائه‌دهنده و نام مدل را کامل و درست وارد کنید.",
+        "unregistered_settings": "ابتدا کلید API و مدل دلخواه خود را وارد کنید و دکمهٔ «ثبت» را بزنید.",
         "model_unavailable": "مدل انتخاب‌شده در دسترس نیست. لطفاً نام مدل را بررسی کنید یا مدل دیگری انتخاب کنید.",
         "timeout": "دریافت پاسخ بیش از حد طول کشید. لطفاً دوباره تلاش کنید.",
         "connection": "اتصال به سرویس پاسخ‌گویی برقرار نشد. لطفاً دوباره تلاش کنید.",
         "invalid_request": "درخواست با مدل انتخاب‌شده سازگار نیست. لطفاً سؤال را کوتاه‌تر کنید یا مدل دیگری انتخاب کنید.",
         "invalid_response": "پاسخ قابل نمایش دریافت نشد. لطفاً دوباره تلاش کنید یا مدل دیگری انتخاب کنید.",
     }
-    if kind == "quota_exhausted" and exc.provider == "OpenRouter":
+    if kind == "quota_exhausted" and exc.provider in {"OpenRouter", "Groq"}:
         return "سهمیهٔ حساب شخصی شما به پایان رسیده است. لطفاً سهمیهٔ حساب خود را بررسی کنید." if personal else FREE_QUOTA_MESSAGE
     return messages.get(kind, "پاسخ‌گویی موقتاً در دسترس نیست. لطفاً بعداً دوباره تلاش کنید.")
