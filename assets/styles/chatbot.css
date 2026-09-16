@@ -45,6 +45,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 [data-testid="stTextInput"] input { font-size: 16px !important; min-height: 44px; }
 [data-testid="stSelectbox"] [role="combobox"] { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--border) !important; min-height: 44px; }
 [data-testid="stSelectbox"] span, [data-testid="stSelectbox"] input { color: var(--ink) !important; }
+[data-testid="stSelectbox"] [role="group"], [data-testid="stSelectbox"] button { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--border) !important; }
+[data-testid="stTextInput"] input::placeholder { color: var(--muted) !important; opacity: 1 !important; }
 [data-testid="stTextInput"] [data-baseweb="input"], [data-testid="stTextInput"] [data-baseweb="base-input"], [data-testid="stSelectbox"] [data-baseweb="select"] > div { background: var(--surface-soft); color: var(--ink); border-color: var(--border); border-radius: 9px; }
 [data-testid="stTextInput"] button { color: var(--muted); }
 [data-testid="stSelectbox"] { direction: ltr; }
@@ -63,6 +65,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 [data-testid="stMarkdownContainer"] pre * { color: var(--ink) !important; }
 [data-testid="stCode"] { direction: ltr; text-align: left; }
 [data-testid="stCode"] pre { background: var(--surface-soft); border: 1px solid var(--border); color: var(--ink); max-width: 100%; overflow-x: auto; }
+[data-testid="stCode"] > div { visibility: visible !important; opacity: 1 !important; }
+[data-testid="stCode"] [data-testid="stElementToolbarButton"], [data-testid="stCode"] button { visibility: visible !important; }
+[data-testid="stCode"] button { min-height: 44px; min-width: 44px; color: var(--accent) !important; background: var(--surface) !important; border-radius: 8px; }
 .timings-row { display: flex; flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: thin; gap: .3rem .65rem; direction: rtl; margin: .3rem 0 .5rem; padding-bottom: .2rem; font-size: .68rem; color: var(--muted); line-height: 1.8; }
 .timing-item { display: inline-flex; flex-shrink: 0; align-items: baseline; gap: .2rem; white-space: nowrap; }
 .timing-item b { font-weight: 400; color: var(--ink); }

@@ -19,7 +19,7 @@ def render_personal_settings(st):
             st.selectbox('ارائه‌دهنده', list(PROVIDERS), key='personal_provider', on_change=provider_changed)
             with st.form('personal_credentials_form'):
                 st.text_input('کلید API', type='password', key='personal_api_key')
-                st.text_input('شناسهٔ مدل', key='personal_model', placeholder='شناسهٔ دقیق مدل در پنل ارائه‌دهنده')
+                st.text_input('شناسهٔ مدل', key='personal_model', placeholder='model-id')
                 save_col, delete_col = st.columns(2)
                 submitted = save_col.form_submit_button('ثبت', type='primary', use_container_width=True)
                 delete_col.form_submit_button('حذف', on_click=clear, use_container_width=True)

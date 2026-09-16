@@ -111,6 +111,7 @@ def _chrome_component(runtime):
       export default function() {
         const frame=requestAnimationFrame(()=>{
           document.querySelectorAll('[data-testid="stIconMaterial"]').forEach(el=>el.setAttribute('aria-hidden','true'));
+          document.querySelectorAll('[data-testid="stCode"] button').forEach(el=>el.setAttribute('aria-label','کپی کد'));
           const labels={stExpandSidebarButton:'بازکردن فهرست گفتگوها',stChatInputSubmitButton:'ارسال پیام',stCodeCopyButton:'کپی کد'};
           Object.entries(labels).forEach(([id,label])=>document.querySelectorAll(`[data-testid="${id}"]`).forEach(el=>{
             (el.matches('button')?el:el.querySelector('button'))?.setAttribute('aria-label',label);
