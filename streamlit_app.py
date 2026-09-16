@@ -101,6 +101,14 @@ def _render_content(role: str, content: str, metadata: dict[str, Any] | None = N
         latency_ms = max(float(metadata.get("latency_ms") or 0), 0)
         latency = to_persian_digits(f"{latency_ms / 1_000:.2f}").replace(".", "٫")
         st.caption(f"مدل پاسخ‌گو: {model_label}  •  زمان کل پاسخ: {latency} ثانیه")
+        labels = {"query_preparation": "آماده‌سازی پرسش", "jina_embedding": "بردارسازی پرسش", "local_search_and_fusion": "جستجوی محلی", "jina_rerank": "رتبه‌بندی منابع", "generation": "تولید پاسخ", "postprocessing": "اعتبارسنجی"}
+        timings = metadata.get("timings_ms") or {}
+        if timings:
+            with st.expander("جزئیات زمان پاسخ", expanded=False):
+                for key, label in labels.items():
+                    if key in timings:
+                        seconds = to_persian_digits(f"{float(timings[key])/1000:.2f}").replace(".", "٫")
+                        st.caption(f"{label}: {seconds} ثانیه")
 
 
 def _enforce_demo_access() -> None:
@@ -136,9 +144,9 @@ st.set_page_config(
     page_title="دستیار قانون کار ایران",
     page_icon="⚖️",
     layout="centered",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
-st.markdown(page_css(), unsafe_allow_html=True)
+st.markdown(page_css("dark" if st.session_state.get("ui_theme") == "تاریک" else "light"), unsafe_allow_html=True)
 _configure_cloud_secrets()
 _enforce_demo_access()
 
@@ -151,6 +159,7 @@ with st.sidebar:
         "<span>پاسخ مستند بر پایهٔ مواد و تبصره‌های قانون کار ایران</span></div>",
         unsafe_allow_html=True,
     )
+    st.radio("ظاهر برنامه", ("روشن", "تاریک"), horizontal=True, key="ui_theme")
     st.markdown('<div class="sidebar-section-title">تنظیمات پاسخ</div>', unsafe_allow_html=True)
     with st.container(border=True):
         use_query_transformation = st.toggle(
@@ -175,10 +184,10 @@ with st.sidebar:
     )
 
 st.markdown(
-    '<section class="hero-card"><span class="hero-badge">پرسش و پاسخ مستند</span>'
-    "<h1>دستیار هوشمند قانون کار ایران</h1>"
-    "<p>پرسش خود را مطرح کنید تا پاسخ فقط بر پایهٔ مواد، تبصره‌ها و منابع موجود "
-    "ارائه شود.</p></section>",
+    '<section class="hero-card"><span class="hero-badge">دستیار حقوقی · قانون کار ایران</span>'
+    "<h1>پرسش شما، پاسخ مستند.</h1>"
+    "<p>دربارهٔ قرارداد، حقوق، مرخصی یا شرایط کار بپرسید؛ "
+    "پاسخ را همراه با مواد قانونی مرتبط دریافت کنید.</p></section>",
     unsafe_allow_html=True,
 )
 
@@ -215,6 +224,7 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                         response_metadata = {
                             "model_name": result.model_name,
                             "latency_ms": round((monotonic() - request_started) * 1_000, 2),
+                            "timings_ms": result.timings_ms,
                         }
                     except Exception as exc:
                         logger.exception("Streamlit RAG request failed.")
