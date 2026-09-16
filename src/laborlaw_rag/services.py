@@ -16,8 +16,7 @@ from .config import RAGConfig, Settings
 from .models import AnswerStatus, LegalChunk
 
 
-class ExternalServiceError(RuntimeError):
-    """A sanitized provider failure safe to expose at application boundaries."""
+from .service_errors import ExternalServiceError, check_response
 
 
 def _session() -> requests.Session:
@@ -28,8 +27,10 @@ def _session() -> requests.Session:
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=frozenset({"POST"}),
         respect_retry_after_header=True,
+        raise_on_status=False,
     )
     session.mount("https://", HTTPAdapter(max_retries=retry))
+    session.hooks["response"].append(check_response)
     return session
 
 

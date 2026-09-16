@@ -51,17 +51,8 @@ def get_pipeline() -> Any:
 def _friendly_error(exc: Exception) -> str:
     """Map internal failures to safe Persian messages."""
 
-    if isinstance(exc, FileNotFoundError):
-        return (
-            "فایل‌های داده یا نمایهٔ بازیابی در دسترس نیستند. "
-            "ابتدا مراحل آماده‌سازی داده و ساخت نمایه را اجرا کنید."
-        )
-    if isinstance(exc, RuntimeError):
-        return (
-            "سرویس پاسخ‌گویی در حال حاضر در دسترس نیست. "
-            "کلیدهای JINA_API_KEY و OPENROUTER_API_KEY و تنظیمات سرویس را بررسی کنید."
-        )
-    return "پردازش پرسش با خطا روبه‌رو شد. لطفاً کمی بعد دوباره تلاش کنید."
+    from laborlaw_rag.service_errors import friendly_error
+    return friendly_error(exc)
 
 
 def _render_message(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
