@@ -53,7 +53,7 @@ def timings_html(timings: dict[str, Any]) -> str:
             except (ValueError, TypeError):
                 continue
             seconds = to_persian_digits(f'{value:.2f}').replace('.', '٫')
-            items.append(f'<span class="timing-item">{label} <b>{escape(seconds)}</b><span> ث</span></span>')
+            items.append(f'<span class="timing-item">{label} <b>{escape(seconds)}</b><span> ثانیه</span></span>')
     return '<div class="timings-row" aria-label="جزئیات زمان پاسخ">' + ''.join(items) + '</div>'
 
 

@@ -33,4 +33,15 @@ def test_timings_horizontal_and_localized():
     app.run(timeout=10)
     assert not app.exception
     assert any('timings-row' in x.value and '۰٫۹۹' in x.value for x in app.markdown)
+    assert any('timings-row' in x.value and ' ثانیه</span>' in x.value for x in app.markdown)
     assert not any(x.label == 'جزئیات زمان پاسخ' for x in app.expander)
+
+
+def test_header_has_only_requested_title_and_scoped_desktop_alignment():
+    app = AppTest.from_file(str(APP)).run(timeout=10)
+    assert not app.exception
+    headers = [x.value for x in app.markdown if '<header class="chat-header">' in x.value]
+    assert headers == ['<header class="chat-header"><h1>دستیار هوشمند قانون کار</h1></header>']
+    css = page_css()
+    assert '@media (min-width: 769px)' in css
+    assert '.st-key-sample_questions button:focus-visible { outline: 2px solid #808080' in css

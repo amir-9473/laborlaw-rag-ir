@@ -184,7 +184,7 @@ with st.sidebar:
     )
 
 st.markdown(
-    '<header class="chat-header"><h1>دستیار هوشمند قانون کار</h1><span>پاسخ بر پایهٔ منابع قانونی</span></header>',
+    '<header class="chat-header"><h1>دستیار هوشمند قانون کار</h1></header>',
     unsafe_allow_html=True,
 )
 

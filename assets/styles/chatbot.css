@@ -15,9 +15,8 @@ h1, h2, h3, h4, p, label, [data-testid="stCaptionContainer"], [data-testid="stAl
 [data-testid="stMarkdownContainer"] ul, [data-testid="stMarkdownContainer"] ol { padding-right: 1.5rem; padding-left: 0; }
 [data-testid="stMarkdownContainer"] pre, [data-testid="stMarkdownContainer"] code { direction: ltr; text-align: left; unicode-bidi: isolate; }
 [data-testid="stMarkdownContainer"] table { display: block; max-width: 100%; overflow-x: auto; }
-.chat-header { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: .5rem; border-bottom: 1px solid var(--border); padding: .25rem 0 1rem; margin-bottom: 1rem; direction: rtl; }
-.chat-header h1 { color: var(--ink); font-size: 1.1rem; font-weight: 600; padding: 0; margin: 0; line-height: 1.8; }
-.chat-header span { font-size: .7rem; color: var(--muted); }
+.chat-header { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-soft); padding: 1rem 1.2rem; margin-bottom: 1rem; direction: rtl; }
+.chat-header h1 { color: var(--ink); font-size: clamp(1.35rem, 2.5vw, 1.85rem); font-weight: 600; padding: 0; margin: 0; line-height: 1.8; }
 .welcome { text-align: center; padding: 3.5rem 1rem 2rem; }
 .welcome h2, .welcome p { text-align: center; }
 .welcome h2 { font-size: 1.55rem; padding: .5rem 0; }
@@ -40,6 +39,9 @@ button[kind="primary"] p { color: var(--on-accent) !important; }
 [data-testid="stForm"] [data-testid="stFormSubmitButton"] button { height: 44px; min-height: 44px; padding: .3rem .5rem; }
 [data-testid="stForm"] [data-testid="stFormSubmitButton"] p { font-size: .82rem; }
 button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px; }
+/* Sample cards stay neutral after pointer clicks; keyboard focus remains visible. */
+.st-key-sample_questions button:hover, .st-key-sample_questions button:active, .st-key-sample_questions button:focus { background: var(--surface) !important; border-color: var(--border) !important; color: var(--ink) !important; box-shadow: none !important; outline: none !important; }
+.st-key-sample_questions button:focus-visible { outline: 2px solid #808080 !important; outline-offset: 3px; }
 [data-testid="stTextInput"] input { direction: ltr; text-align: left; unicode-bidi: isolate; color: var(--ink); caret-color: var(--accent); }
 [data-testid="stTextInput"] input, [data-testid="stTextInputRootElement"] { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--border) !important; }
 [data-testid="stTextInput"] input { font-size: 16px !important; min-height: 44px; }
@@ -95,6 +97,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 .history-question { display: block; color: var(--ink); font-size: .78rem; line-height: 1.8; overflow-wrap: anywhere; }
 .history-empty { color: var(--muted); padding: .75rem; border: 1px dashed var(--border); border-radius: 9px; font-size: .78rem; line-height: 1.8; }
 .legal-note { color: var(--muted); font-size: .74rem; line-height: 1.9; padding-top: 1rem; border-top: 1px solid var(--border); }
+/* Match the main content gutters without changing the existing mobile composer. */
+@media (min-width: 769px) {
+    [data-testid="stBottomBlockContainer"] { max-width: 900px; width: 100%; padding-inline: 2rem; box-sizing: border-box; }
+}
 @media (max-width: 768px) {
     .block-container, [data-testid="stMainBlockContainer"] { padding: 3.5rem 1rem 6rem; }
     .welcome { padding: 2rem .5rem 1rem; }
