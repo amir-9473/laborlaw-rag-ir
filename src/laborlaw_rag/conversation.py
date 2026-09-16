@@ -18,8 +18,9 @@ def recall_previous(query, questions):
     question = r'(?:سوال|سؤال|پرسش)'
     previous = r'(?:قبلی|پیشین|آخرین|قبلم|قبلیم)'
     recall = re.search(question+r'\s+(?:من\s+)?'+previous, query) or re.search(r'آخرین\s+'+question, query)
-    asks_what = re.search(r'(?:چی|چه|چ(?:ه|ی)\s+چیزی|یادآوری|تکرار)', query)
-    if len(query.split()) <= 16 and recall and asks_what:
+    starts_with_recall = re.search(r'^(?:(?:لطفا|لطفاً|بگو|به من بگو)\s+)?(?:'+question+r'|آخرین\s+'+question+r')\b', query)
+    asks_what = re.search(r'(?:چی|چه)(?:\s+چیزی)?\s+بود[؟?!.\s]*$|(?:چیست|چیه)[؟?!.\s]*$|(?:یادآوری|تکرار)\s*(?:کن|کنید)[؟?!.\s]*$', query)
+    if len(query.split()) <= 16 and starts_with_recall and recall and asks_what:
         return f'پرسش قبلی شما این بود:\n\n«{questions[-1]}»' if questions else 'هنوز پرسش قبلی در این گفتگو ثبت نشده است.'
     if re.search(r'قبل از این.*(?:پرسیدم|سوال کردم|سؤال کردم)',query):
         return f'پرسش قبلی شما این بود:\n\n«{questions[-1]}»' if questions else 'هنوز پرسش قبلی در این گفتگو ثبت نشده است.'

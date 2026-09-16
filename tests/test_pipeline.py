@@ -254,7 +254,7 @@ def test_follow_up_has_one_generation_call_and_previous_details(legal_chunks):
     retriever=SpyRetriever(_hits(legal_chunks))
     llm=StubLLM(DraftAnswer(AnswerStatus.INSUFFICIENT,'',()))
     history=[{'role':'user','content':'ساعت کار عادی در هفته چقدر است؟'},{'role':'assistant','content':'پاسخ قبلی درباره ساعات کار.'}]
-    result=RAGPipeline(retriever,llm).ask('در ادامه سوال قبلی اضافه کاری چطور؟',conversation_history=history)
+    result=RAGPipeline(retriever,llm).ask('در ادامه سوال قبلی اضافه کاری چه شرایطی دارد؟',conversation_history=history)
     assert len(llm.generate_calls)==1 and not llm.contextualize_calls
     assert 'ساعت کار عادی' in llm.generate_calls[0][0] and 'اضافه کار' in llm.generate_calls[0][0]
     assert 'پاسخ قبلی درباره ساعات کار' in llm.generate_calls[0][0]
