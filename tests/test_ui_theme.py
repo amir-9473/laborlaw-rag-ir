@@ -25,13 +25,12 @@ def test_theme_switch_preserves_history_and_credentials():
     app.radio(key='ui_theme').set_value('روشن').run(timeout=10)
     assert any('color-scheme:light' in x.value for x in app.markdown)
 
-def test_timings_collapsed_and_localized():
+def test_timings_horizontal_and_localized():
     app = AppTest.from_file(str(APP))
     app.session_state['messages'] = [{'role': 'assistant', 'content': 'پاسخ مستند',
         'metadata': {'model_name': 'openai/gpt-oss-120b', 'latency_ms': 1234,
                      'timings_ms': {'generation': 987}}}]
     app.run(timeout=10)
     assert not app.exception
-    expander = next(x for x in app.expander if x.label == 'جزئیات زمان پاسخ')
-    assert not expander.proto.expanded
-    assert any('۰٫۹۹' in x.value for x in app.caption)
+    assert any('timings-row' in x.value and '۰٫۹۹' in x.value for x in app.markdown)
+    assert not any(x.label == 'جزئیات زمان پاسخ' for x in app.expander)

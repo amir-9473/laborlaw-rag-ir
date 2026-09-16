@@ -23,7 +23,7 @@ def test_widgets_mask_key_clear_on_provider_change_and_delete():
     app.selectbox(key='personal_provider').select('Google Gemini').run(timeout=10)
     assert app.text_input(key='personal_api_key').value==''
     assert app.text_input(key='personal_model').value==''
-    next(x for x in app.button if x.label=='حذف تنظیمات شخصی').click().run(timeout=10)
+    next(x for x in app.button if x.label=='حذف').click().run(timeout=10)
     assert app.session_state['personal_enabled'] is False
     assert not app.exception
 
@@ -67,5 +67,5 @@ def test_personal_drafts_are_inactive_until_registered_and_clear_deletes_snapsho
     assert app.session_state['personal_saved']['model']=='model-one'
     next(x for x in app.button if x.label=='ثبت').click().run(timeout=10)
     assert app.session_state['personal_saved']['model']=='model-two'
-    next(x for x in app.button if x.label=='حذف تنظیمات شخصی').click().run(timeout=10)
+    next(x for x in app.button if x.label=='حذف').click().run(timeout=10)
     assert 'personal_saved' not in app.session_state and app.session_state['personal_enabled'] is False

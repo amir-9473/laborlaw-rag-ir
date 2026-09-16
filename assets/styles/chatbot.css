@@ -1,4 +1,4 @@
-/* No remote fonts, JavaScript, animations or extra packages. */
+/* Local font and small native UI; no external assets or animation framework. */
 html, body, .stApp, button, input, textarea, select, label, h1, h2, h3, h4, h5, h6, .hero-card, .sidebar-brand,
 [data-testid="stMarkdownContainer"], [data-testid="stCaptionContainer"] { font-family: "Vazirmatn", Tahoma, sans-serif !important; }
 [data-testid="stIconMaterial"], .material-symbols-rounded { font-family: "Material Symbols Rounded", "Material Symbols Outlined" !important; }
@@ -15,10 +15,16 @@ h1, h2, h3, h4, p, label, [data-testid="stCaptionContainer"], [data-testid="stAl
 [data-testid="stMarkdownContainer"] ul, [data-testid="stMarkdownContainer"] ol { padding-right: 1.5rem; padding-left: 0; }
 [data-testid="stMarkdownContainer"] pre, [data-testid="stMarkdownContainer"] code { direction: ltr; text-align: left; unicode-bidi: isolate; }
 [data-testid="stMarkdownContainer"] table { display: block; max-width: 100%; overflow-x: auto; }
-.hero-card { padding: 1.7rem 0; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.hero-badge { display: inline-block; color: var(--accent); font-size: .78rem; margin-bottom: .55rem; }
-.hero-card h1 { color: var(--ink); font-size: clamp(1.5rem, 3vw, 2.05rem); line-height: 1.6; padding: 0; }
-.hero-card p { color: var(--muted); font-size: .92rem; max-width: 620px; margin: .65rem 0 0; }
+.chat-header { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: .5rem; border-bottom: 1px solid var(--border); padding: .25rem 0 1rem; margin-bottom: 1rem; direction: rtl; }
+.chat-header h1 { color: var(--ink); font-size: 1.1rem; font-weight: 600; padding: 0; margin: 0; line-height: 1.8; }
+.chat-header span { font-size: .7rem; color: var(--muted); }
+.welcome { text-align: center; padding: 3.5rem 1rem 2rem; }
+.welcome h2, .welcome p { text-align: center; }
+.welcome h2 { font-size: 1.55rem; padding: .5rem 0; }
+.welcome p { color: var(--muted); font-size: .88rem; }
+.welcome-icon { display: inline-grid; place-items: center; width: 52px; height: 52px; color: var(--accent); background: var(--accent-soft); border-radius: 16px; font-size: 1.7rem; }
+.st-key-sample_questions button { min-height: 72px !important; text-align: right; background: var(--surface); font-size: .82rem; }
+.st-key-sample_questions button p { font-size: .82rem; }
 [data-testid="stSidebar"] { background: var(--surface); border-inline-end: 1px solid var(--border); color: var(--ink); }
 .sidebar-brand { border-bottom: 1px solid var(--border); padding: .6rem 0 1.2rem; margin-bottom: .8rem; }
 .sidebar-brand strong { display: block; color: var(--ink); font-size: 1.02rem; }
@@ -29,8 +35,16 @@ h1, h2, h3, h4, p, label, [data-testid="stCaptionContainer"], [data-testid="stAl
 [data-testid="stExpander"] summary { min-height: 44px; }
 [data-testid="stButton"] button, [data-testid="stFormSubmitButton"] button { min-height: 44px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); padding: .5rem .75rem; white-space: normal; overflow-wrap: anywhere; line-height: 1.6; }
 [data-testid="stButton"] button:hover, [data-testid="stFormSubmitButton"] button:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+[data-testid="stButton"] button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+button[kind="primary"] p { color: var(--on-accent) !important; }
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] button { height: 44px; min-height: 44px; padding: .3rem .5rem; }
+[data-testid="stForm"] [data-testid="stFormSubmitButton"] p { font-size: .82rem; }
 button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px; }
 [data-testid="stTextInput"] input { direction: ltr; text-align: left; unicode-bidi: isolate; color: var(--ink); caret-color: var(--accent); }
+[data-testid="stTextInput"] input, [data-testid="stTextInputRootElement"] { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--border) !important; }
+[data-testid="stTextInput"] input { font-size: 16px !important; min-height: 44px; }
+[data-testid="stSelectbox"] [role="combobox"] { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--border) !important; min-height: 44px; }
+[data-testid="stSelectbox"] span, [data-testid="stSelectbox"] input { color: var(--ink) !important; }
 [data-testid="stTextInput"] [data-baseweb="input"], [data-testid="stTextInput"] [data-baseweb="base-input"], [data-testid="stSelectbox"] [data-baseweb="select"] > div { background: var(--surface-soft); color: var(--ink); border-color: var(--border); border-radius: 9px; }
 [data-testid="stTextInput"] button { color: var(--muted); }
 [data-testid="stSelectbox"] { direction: ltr; }
@@ -42,7 +56,20 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 [data-testid="stChatMessage"] { direction: rtl; text-align: right; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); margin: .8rem 0; padding: 1.1rem; gap: .8rem; min-width: 0; }
 [data-testid="stChatMessageContent"] { min-width: 0; }
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) { background: var(--surface-soft); margin-inline-start: 3rem; }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]), [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarCustom"]) { border-color: transparent; background: transparent; }
 [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] { line-height: 2; }
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p { unicode-bidi: plaintext; }
+[data-testid="stMarkdownContainer"] pre, [data-testid="stMarkdownContainer"] pre * { font-family: Consolas, ui-monospace, monospace !important; }
+[data-testid="stMarkdownContainer"] pre * { color: var(--ink) !important; }
+[data-testid="stCode"] { direction: ltr; text-align: left; }
+[data-testid="stCode"] pre { background: var(--surface-soft); border: 1px solid var(--border); color: var(--ink); max-width: 100%; overflow-x: auto; }
+.timings-row { display: flex; flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: thin; gap: .3rem .65rem; direction: rtl; margin: .3rem 0 .5rem; padding-bottom: .2rem; font-size: .68rem; color: var(--muted); line-height: 1.8; }
+.timing-item { display: inline-flex; flex-shrink: 0; align-items: baseline; gap: .2rem; white-space: nowrap; }
+.timing-item b { font-weight: 400; color: var(--ink); }
+.copy-answer { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; min-height: 44px; padding: .25rem .5rem; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: inherit; font-size: .75rem; cursor: pointer; }
+.copy-answer:hover { background: var(--accent-soft); color: var(--accent); }
+.copy-status { color: var(--muted); font-size: .72rem; margin-inline-start: .5rem; }
+[data-testid="stAppViewContainer"] section { scroll-behavior: smooth; }
 [data-testid="stChatMessage"] [data-testid="stCaptionContainer"] { display: flex; flex-wrap: wrap; max-width: 100%; min-width: 0; padding-top: .65rem; margin-top: .4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .75rem; overflow-wrap: anywhere; }
 [data-testid="stChatMessage"] [data-testid="stCaptionContainer"] p { font-size: .75rem; line-height: 1.9; }
 [data-testid="stChatMessage"] [data-testid="stExpander"] { margin-top: .4rem; }
@@ -65,7 +92,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 .legal-note { color: var(--muted); font-size: .74rem; line-height: 1.9; padding-top: 1rem; border-top: 1px solid var(--border); }
 @media (max-width: 768px) {
     .block-container, [data-testid="stMainBlockContainer"] { padding: 3.5rem 1rem 6rem; }
-    .hero-card { padding: 1rem 0 1.3rem; }
+    .welcome { padding: 2rem .5rem 1rem; }
+    .welcome h2 { font-size: 1.3rem; }
+    .st-key-sample_questions button { min-height: 48px !important; }
     [data-testid="stChatMessage"] { padding: .85rem .7rem; gap: .5rem; }
     [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) { margin-inline-start: 0; }
     [data-testid="stBottomBlockContainer"] { padding-inline: .75rem; padding-bottom: max(.7rem, env(safe-area-inset-bottom)); }

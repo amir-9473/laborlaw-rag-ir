@@ -21,8 +21,8 @@ def render_personal_settings(st):
                 st.text_input('کلید API', type='password', key='personal_api_key')
                 st.text_input('شناسهٔ مدل', key='personal_model', placeholder='شناسهٔ دقیق مدل در پنل ارائه‌دهنده')
                 save_col, delete_col = st.columns(2)
-                submitted = save_col.form_submit_button('ثبت')
-                delete_col.form_submit_button('حذف تنظیمات شخصی', on_click=clear)
+                submitted = save_col.form_submit_button('ثبت', type='primary', use_container_width=True)
+                delete_col.form_submit_button('حذف', on_click=clear, use_container_width=True)
             if submitted:
                 try:
                     client = PersonalLLMClient(st.session_state['personal_provider'], st.session_state.get('personal_api_key',''), st.session_state.get('personal_model',''))
@@ -35,11 +35,7 @@ def render_personal_settings(st):
             if saved:
                 st.caption(f"تنظیمات ثبت‌شده: {saved['provider']} — {saved['model']}")
                 if st.session_state.get('personal_provider') != saved['provider'] or st.session_state.get('personal_model','').strip() != saved['model'] or st.session_state.get('personal_api_key','').strip() != saved['api_key']:
-                    st.info('تغییرات هنوز ثبت نشده‌اند؛ تا زدن دکمهٔ «ثبت»، تنظیمات ثبت‌شدهٔ قبلی استفاده می‌شوند.')
-            else:
-                st.info('پس از وارد کردن کلید و مدل، دکمهٔ «ثبت» را بزنید.')
-            st.caption('کلید فقط در نشست فعلی استفاده می‌شود و در فایل یا پایگاه داده ذخیره نمی‌شود. سؤال و منابع مرتبط از طریق سرور به ارائه‌دهندهٔ انتخابی ارسال می‌شوند؛ هزینه و سهمیه تابع حساب شماست.')
-            st.caption('این تنظیم فقط مدل پاسخ‌گویی را تغییر می‌دهد؛ بازیابی منابع و محدودیت‌های عمومی سایت همچنان برقرارند.')
+                    st.caption('تغییرات ثبت نشده‌اند.')
 
 
 def answer_request(st, get_pipeline, question, **kwargs):
