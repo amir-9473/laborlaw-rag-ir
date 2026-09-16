@@ -52,7 +52,7 @@ def _friendly_error(exc: Exception) -> str:
     """Map internal failures to safe Persian messages."""
 
     from laborlaw_rag.service_errors import friendly_error
-    return friendly_error(exc)
+    return friendly_error(exc, personal=bool(st.session_state.get('personal_enabled', False)))
 
 
 def _render_message(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
@@ -158,6 +158,9 @@ with st.sidebar:
         )
         st.caption("برای پاسخ سریع‌تر، این گزینه را خاموش نگه دارید.")
 
+    from laborlaw_rag.personal_settings import render_personal_settings
+    render_personal_settings(st)
+
     history_slot = st.empty()
     if st.button("🗑 پاک‌کردن تاریخچه گفتگو", use_container_width=True):
         st.session_state.messages = []
@@ -200,7 +203,8 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                 with st.spinner("در حال بررسی منابع قانون کار…"):
                     try:
                         request_started = monotonic()
-                        result = get_pipeline().ask(
+                        from laborlaw_rag.personal_settings import answer_request
+                        result = answer_request(st, get_pipeline,
                             question,
                             use_query_transformation=use_query_transformation,
                             conversation_history=conversation_history,

@@ -2,7 +2,7 @@ import json
 import pytest
 import requests
 from requests.adapters import BaseAdapter
-from laborlaw_rag.service_errors import ExternalServiceError, check_response, friendly_error
+from laborlaw_rag.service_errors import ExternalServiceError, check_response, friendly_error, FREE_QUOTA_MESSAGE
 from laborlaw_rag.services import _session
 
 
@@ -32,7 +32,7 @@ def test_classification(status, body, kind):
 
 def test_unknown_limit_does_not_claim_quota_exhausted():
     with pytest.raises(ExternalServiceError) as e: check_response(response(429, {}))
-    assert 'مشخص نکرده' in friendly_error(e.value)
+    assert friendly_error(e.value) != FREE_QUOTA_MESSAGE
 
 
 def test_provider_secrets_never_displayed():
@@ -44,7 +44,7 @@ def test_provider_secrets_never_displayed():
     assert secret not in friendly_error(RuntimeError(secret))
 
 
-@pytest.mark.parametrize('cause,kind_text', [(requests.Timeout('secret'), 'timeout'), (requests.ConnectionError('secret'), 'اتصال')])
+@pytest.mark.parametrize('cause,kind_text', [(requests.Timeout('secret'), 'طول کشید'), (requests.ConnectionError('secret'), 'اتصال')])
 def test_network_errors(cause, kind_text):
     exc = ExternalServiceError('request failed')
     exc.__cause__ = cause
@@ -66,3 +66,13 @@ def test_actual_session_hook_preserves_429():
 def test_success_response_unchanged():
     r = response(200, {'choices': [{'message': {'content': 'ok'}}]})
     assert check_response(r) is r
+
+
+def test_quota_messages_are_user_facing_and_scope_correct():
+    e = ExternalServiceError('secret',kind='quota_exhausted',provider='OpenRouter',status=429,retry_after=50)
+    assert friendly_error(e) == FREE_QUOTA_MESSAGE
+    assert 'حساب شخصی' in friendly_error(e,personal=True)
+    assert 'رایگان' not in friendly_error(e,personal=True)
+    assert '429' not in friendly_error(e)
+    assert 'سرویس:' not in friendly_error(e)
+    assert 'secret' not in friendly_error(e)
