@@ -4,9 +4,8 @@ html, body, .stApp, button, input, textarea, select, label, h1, h2, h3, h4, h5, 
 [data-testid="stIconMaterial"], .material-symbols-rounded { font-family: "Material Symbols Rounded", "Material Symbols Outlined" !important; }
 .stApp, [data-testid="stAppViewContainer"], [data-testid="stBottom"], [data-testid="stBottom"] > div, [data-testid="stBottomBlockContainer"], [data-testid="stHeader"] { background: var(--page-bg) !important; color: var(--ink); }
 [data-testid="stMain"], [data-testid="stSidebar"] { direction: rtl; }
-.block-container { max-width: 900px; padding: 4.5rem 2rem 6rem; }
-[data-testid="stToolbar"] { display: none; }
-[data-testid="stExpandSidebarButton"] button, [data-testid="stSidebarCollapseButton"] button { color: var(--ink); background: var(--surface); min-height: 44px; min-width: 44px; }
+.block-container, [data-testid="stMainBlockContainer"] { max-width: 900px; padding: 4.5rem 2rem 6rem; }
+[data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapseButton"] button { color: var(--ink); background: var(--surface); min-height: 44px; min-width: 44px; }
 h1, h2, h3, h4, p, label, [data-testid="stCaptionContainer"], [data-testid="stAlert"], [data-testid="stMarkdownContainer"] { direction: rtl; text-align: right; color: var(--ink); }
 [data-testid="stCaptionContainer"] p { color: var(--muted) !important; opacity: 1 !important; }
 [data-testid="stMarkdownContainer"] { overflow-wrap: anywhere; line-height: 1.9; }
@@ -63,7 +62,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus
 .history-empty { color: var(--muted); padding: .75rem; border: 1px dashed var(--border); border-radius: 9px; font-size: .78rem; line-height: 1.8; }
 .legal-note { color: var(--muted); font-size: .74rem; line-height: 1.9; padding-top: 1rem; border-top: 1px solid var(--border); }
 @media (max-width: 768px) {
-    .block-container { padding: 3.5rem 1rem 6rem; }
+    .block-container, [data-testid="stMainBlockContainer"] { padding: 3.5rem 1rem 6rem; }
     .hero-card { padding: 1rem 0 1.3rem; }
     [data-testid="stChatMessage"] { padding: .85rem .7rem; gap: .5rem; }
     [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) { margin-inline-start: 0; }
