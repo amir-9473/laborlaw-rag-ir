@@ -8,6 +8,8 @@ html, body, .stApp, button, input, textarea, select, label, h1, h2, h3, h4, h5, 
 [data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapseButton"] button { color: var(--ink); background: var(--surface); min-height: 44px; min-width: 44px; }
 h1, h2, h3, h4, p, label, [data-testid="stCaptionContainer"], [data-testid="stAlert"], [data-testid="stMarkdownContainer"] { direction: rtl; text-align: right; color: var(--ink); }
 [data-testid="stCaptionContainer"] p { color: var(--muted) !important; opacity: 1 !important; }
+[data-testid="stCaptionContainer"] { opacity: 1 !important; }
+[data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"], [data-testid="stSidebarCollapseButton"] [data-testid="stIconMaterial"] { color: var(--ink) !important; }
 [data-testid="stMarkdownContainer"] { overflow-wrap: anywhere; line-height: 1.9; }
 [data-testid="stMarkdownContainer"] a { color: var(--accent); text-underline-offset: 3px; }
 [data-testid="stMarkdownContainer"] ul, [data-testid="stMarkdownContainer"] ol { padding-right: 1.5rem; padding-left: 0; }
