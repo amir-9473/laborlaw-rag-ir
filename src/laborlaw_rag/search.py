@@ -8,6 +8,7 @@ import logging
 import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 import numpy as np
@@ -285,29 +286,47 @@ class HybridRetriever:
             for index in ordered[: self.config.candidate_k]
         ]
 
-    def retrieve(self, queries: list[str], normalized_query: str) -> list[SearchHit]:
+    def retrieve(
+        self,
+        queries: list[str],
+        normalized_query: str,
+        timings_ms: dict[str, float] | None = None,
+    ) -> list[SearchHit]:
         """Retrieve from all query variants, then rerank candidates once."""
         unique_queries = list(dict.fromkeys(query for query in queries if query.strip()))
         if not unique_queries:
             return []
+        started = perf_counter()
         embeddings = self.jina.embed(unique_queries)
+        embedded = perf_counter()
         dense_lists = self.store.ranked_indexes(embeddings, self.config.dense_k)
         sparse_lists = [self._sparse_rank(query) for query in unique_queries]
         candidates = self._fuse([*dense_lists, *sparse_lists])
+        fused = perf_counter()
+        if timings_ms is not None:
+            timings_ms["jina_embedding"] = round((embedded - started) * 1000, 2)
+            timings_ms["local_search_and_fusion"] = round((fused - embedded) * 1000, 2)
         if not candidates:
             return []
         fallback = [hit for hit in candidates if hit.fusion_score >= self.config.min_fusion_score][
             : self.config.final_k
         ]
         if not self.config.use_reranker:
+            if timings_ms is not None:
+                timings_ms["jina_rerank"] = 0.0
             return fallback
         try:
+            rerank_started = perf_counter()
             ranked = self.jina.rerank(
                 normalized_query,
                 [hit.chunk for hit in candidates],
                 self.config.final_k,
             )
+            if timings_ms is not None:
+                timings_ms["jina_rerank"] = round((perf_counter() - rerank_started) * 1000, 2)
         except ExternalServiceError:
+            if timings_ms is not None:
+                timings_ms["jina_rerank"] = round((perf_counter() - rerank_started) * 1000, 2)
             logger.warning("Reranking failed; using filtered hybrid candidates.")
             return fallback
         return [

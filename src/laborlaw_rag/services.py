@@ -5,7 +5,8 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
-from threading import Lock
+from contextlib import nullcontext
+from threading import local
 from typing import Any
 
 import requests
@@ -22,11 +23,11 @@ from .service_errors import ExternalServiceError, check_response
 def _session() -> requests.Session:
     session = requests.Session()
     retry = Retry(
-        total=1,
+        total=0,
         backoff_factor=0.5,
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=frozenset({"POST"}),
-        respect_retry_after_header=True,
+        respect_retry_after_header=False,
         raise_on_status=False,
     )
     session.mount("https://", HTTPAdapter(max_retries=retry))
@@ -53,13 +54,26 @@ def _extract_json(text: str) -> dict[str, Any]:
     return value
 
 
-class JinaClient:
+class ThreadSessionClient:
+    """Keep connection pools per thread, without serializing unrelated users."""
+
+    @property
+    def session(self) -> requests.Session:
+        if self._provided_session is not None:
+            return self._provided_session
+        if not hasattr(self._local, "session"):
+            self._local.session = _session()
+        return self._local.session
+
+
+class JinaClient(ThreadSessionClient):
     """Embeddings and reranking through one configured client."""
 
     def __init__(self, settings: Settings, session: requests.Session | None = None) -> None:
         self.settings = settings
-        self.session = session or _session()
-        self._lock = Lock()
+        self._provided_session = session
+        self._local = local()
+        self._lock = nullcontext()
 
     @property
     def _headers(self) -> dict[str, str]:
@@ -77,10 +91,15 @@ class JinaClient:
                     url,
                     headers=self._headers,
                     json=payload,
-                    timeout=self.settings.request_timeout,
+                    timeout=(5, min(self.settings.request_timeout, 30)),
                 )
                 response.raise_for_status()
                 data = response.json()
+        except requests.Timeout as exc:
+            raise ExternalServiceError("Jina request timed out.") from exc
+        except requests.HTTPError as exc:
+            status = getattr(exc.response, "status_code", "provider")
+            raise ExternalServiceError(f"Jina HTTP {status}.") from exc
         except (requests.RequestException, ValueError) as exc:
             raise ExternalServiceError("Jina request failed.") from exc
         if not isinstance(data, dict):
@@ -150,14 +169,15 @@ class DraftAnswer:
     evidence: tuple[tuple[str, str], ...] = ()
 
 
-class OpenRouterClient:
+class OpenRouterClient(ThreadSessionClient):
     """Query transformation and grounded generation through one LLM client."""
 
     def __init__(self, settings: Settings, session: requests.Session | None = None) -> None:
         self.settings = settings
         self._groq_session = session
-        self.session = session or _session()
-        self._lock = Lock()
+        self._provided_session = session
+        self._local = local()
+        self._lock = nullcontext()
 
     @property
     def model_name(self) -> str:
@@ -182,6 +202,8 @@ class OpenRouterClient:
             "model": self.settings.llm_model,
             "temperature": temperature,
             "max_tokens": max_tokens,
+            "reasoning": {"enabled": False},
+            "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -196,11 +218,19 @@ class OpenRouterClient:
                         "Content-Type": "application/json",
                     },
                     json=payload,
-                    timeout=self.settings.request_timeout,
+                    timeout=(5, min(self.settings.request_timeout, 30)),
                 )
                 response.raise_for_status()
                 data = response.json()
+                if data.get("error"):
+                    code = data["error"].get("code", "provider")
+                    raise ExternalServiceError(f"OpenRouter HTTP {code}.")
                 content = data["choices"][0]["message"]["content"]
+        except requests.Timeout as exc:
+            raise ExternalServiceError("OpenRouter request timed out.") from exc
+        except requests.HTTPError as exc:
+            status = getattr(exc.response, "status_code", "provider")
+            raise ExternalServiceError(f"OpenRouter HTTP {status}.") from exc
         except (requests.RequestException, ValueError, KeyError, IndexError, TypeError) as exc:
             raise ExternalServiceError("LLM request failed.") from exc
         if isinstance(content, list):
@@ -278,6 +308,8 @@ class OpenRouterClient:
 8) برای insufficient و out_of_scope متن پاسخ، source_ids و evidence را خالی بگذارید.
 9) فهرست منابع پایانی نسازید؛ سامانه آن را اضافه می‌کند.
 10) فقط JSON معتبر و بدون کدبلاک برگردانید.
+11) برای یک پرسش کوتاه فقط پاسخ مستقیم در یک یا دو جمله بدهید؛ توضیح ماده‌های جانبی، استثناهای نامرتبط و فرمولِ درخواست‌نشده را اضافه نکنید. اگر متن کامل مواد خواسته شده، مفاد مرتبط را کامل بیان کنید.
+12) هر جمله را فقط به منبعی ارجاع دهید که همان جمله را پشتیبانی می‌کند؛ همهٔ منابع را به همهٔ جمله‌ها نچسبانید. تمام متن پاسخ باید فارسی باشد.
 
 نمونهٔ شکل پاسخ:
 «مزد ماهانه باید در پایان ماه پرداخت شود. [SOURCE_1]

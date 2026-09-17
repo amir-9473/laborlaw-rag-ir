@@ -17,6 +17,7 @@ venv/
 env/
 .env
 .streamlit/secrets.toml
+compose.override.yaml
 
 # Editors and notebooks
 .vscode/

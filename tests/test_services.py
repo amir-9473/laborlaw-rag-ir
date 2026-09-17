@@ -36,7 +36,7 @@ def test_jina_embedding_contract_preserves_input_order(settings) -> None:
         "input": ["پرسش نخست", "پرسش دوم"],
     }
     assert call["headers"]["Authorization"] == "Bearer jina-test-secret"
-    assert call["timeout"] == 7.5
+    assert call["timeout"] == (5, 7.5)
 
 
 def test_jina_batches_documents_without_reordering(settings) -> None:
@@ -114,12 +114,14 @@ def test_openrouter_completion_contract(settings) -> None:
         "model": settings.llm_model,
         "temperature": 0.2,
         "max_tokens": 123,
+        "reasoning": {"enabled": False},
+        "response_format": {"type": "json_object"},
         "messages": [
             {"role": "system", "content": "system"},
             {"role": "user", "content": "user"},
         ],
     }
-    assert call["timeout"] == settings.request_timeout
+    assert call["timeout"] == (5, settings.request_timeout)
 
 
 def test_openrouter_joins_text_content_blocks(settings) -> None:

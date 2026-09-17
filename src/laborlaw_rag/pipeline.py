@@ -236,7 +236,11 @@ class RAGPipeline:
         )
         warnings.extend(preparation_warnings)
         prepared = perf_counter()
-        hits = self.retriever.retrieve(queries, rerank_query(normalized))
+        retrieval_timings: dict[str, float] = {}
+        if isinstance(self.retriever, HybridRetriever):
+            hits = self.retriever.retrieve(queries, rerank_query(normalized), timings_ms=retrieval_timings)
+        else:
+            hits = self.retriever.retrieve(queries, rerank_query(normalized))
         retrieved = perf_counter()
         context, context_hits = self._build_context(hits)
         draft = self.llm.generate_answer(generation_question(initial_query, bounded_history), context, self.config)
@@ -259,6 +263,7 @@ class RAGPipeline:
             citations=tuple(citations),
             final_output=final_output,
             timings_ms={
+                **retrieval_timings,
                 "query_preparation": round((prepared - started) * 1000, 2),
                 "retrieval": round((retrieved - prepared) * 1000, 2),
                 "generation": round((generated - retrieved) * 1000, 2),
