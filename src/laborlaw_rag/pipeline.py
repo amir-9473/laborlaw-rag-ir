@@ -17,6 +17,7 @@ from .search import (
     tokenize_persian,
 )
 from .services import DraftAnswer, ExternalServiceError, JinaClient, OpenRouterClient
+from .conversation import recent_questions, recall_previous, resolve_followup, generation_question
 
 OUT_OF_SCOPE_MESSAGE = (
     "این پرسش خارج از حوزهٔ قانون کار ایران است؛ بنابراین بر اساس این مجموعه "
@@ -144,8 +145,13 @@ class RAGPipeline:
         """Load local artifacts and configure external clients once."""
         settings = settings or Settings.from_env()
         config = config or RAGConfig.from_env()
-        if not settings.jina_api_key or not settings.openrouter_api_key:
+        if not settings.jina_api_key:
             raise RuntimeError("Required provider credentials are not configured.")
+        if settings.llm_provider not in {"groq", "openrouter"}:
+            raise ExternalServiceError("Invalid LLM_PROVIDER.", kind="configuration")
+        key = settings.groq_api_key if settings.llm_provider == "groq" else settings.openrouter_api_key
+        if not key:
+            raise ExternalServiceError("Provider API key is not configured.", kind="configuration")
         chunks = load_chunks(settings.chunks_path, settings.source_url)
         jina = JinaClient(settings)
         retriever = HybridRetriever.from_artifacts(chunks, jina, settings, config)
@@ -187,6 +193,10 @@ class RAGPipeline:
         started = perf_counter()
         validated_question = self._validate_question(question)
         initial_query = normalize_query(validated_question)
+        questions = recent_questions(conversation_history, self.config.memory_max_turns, self.config.memory_max_chars)
+        recalled = recall_previous(initial_query, questions)
+        if recalled is not None:
+            return self._internal_result(validated_question, initial_query, recalled, AnswerStatus.ANSWER, started)
         if _IDENTITY_QUERY.search(initial_query):
             return self._internal_result(
                 validated_question,
@@ -210,20 +220,7 @@ class RAGPipeline:
 
         warnings: list[str] = []
         bounded_history = self._bounded_history(conversation_history)
-        resolved_query = initial_query
-        if bounded_history:
-            try:
-                contextualized = normalize_query(
-                    self.llm.contextualize_query(initial_query, bounded_history)
-                )
-                if not contextualized or len(contextualized) > 2_000:
-                    raise ExternalServiceError("The contextualized query is invalid.")
-                resolved_query = contextualized
-            except ExternalServiceError:
-                warnings.append(
-                    "Conversation context resolution failed; "
-                    "the current question was used unchanged."
-                )
+        resolved_query = resolve_followup(initial_query, questions, _has_labor_signal)
 
         if _is_clearly_out_of_scope(resolved_query):
             return self._internal_result(
@@ -242,7 +239,7 @@ class RAGPipeline:
         hits = self.retriever.retrieve(queries, rerank_query(normalized))
         retrieved = perf_counter()
         context, context_hits = self._build_context(hits)
-        draft = self.llm.generate_answer(normalized, context, self.config)
+        draft = self.llm.generate_answer(generation_question(initial_query, bounded_history), context, self.config)
         generated = perf_counter()
         status, answer, citations = self._ground(draft, context_hits, normalized)
         final_output = self._format_output(answer, citations)

@@ -39,6 +39,8 @@ class Settings:
     jina_reranker_url: str
     openrouter_url: str
     request_timeout: float
+    groq_api_key: str | None = None
+    llm_provider: str = "openrouter"
 
     @classmethod
     def from_env(cls, env_file: Path | None = None) -> Settings:
@@ -58,13 +60,15 @@ class Settings:
             embedding_query_task=os.getenv("EMBEDDING_QUERY_TASK", "retrieval.query"),
             embedding_document_task=os.getenv("EMBEDDING_DOCUMENT_TASK", "retrieval.passage"),
             reranker_model=os.getenv("RERANKER_MODEL", "jina-reranker-v2-base-multilingual"),
-            llm_model=os.getenv("LLM_MODEL", "qwen/qwen3-8b"),
+            llm_model=os.getenv("LLM_MODEL", "openai/gpt-oss-120b"),
             jina_embedding_url=os.getenv("JINA_EMBEDDING_URL", "https://api.jina.ai/v1/embeddings"),
             jina_reranker_url=os.getenv("JINA_RERANKER_URL", "https://api.jina.ai/v1/rerank"),
             openrouter_url=os.getenv(
                 "OPENROUTER_URL", "https://openrouter.ai/api/v1/chat/completions"
             ),
             request_timeout=float(os.getenv("REQUEST_TIMEOUT", "90")),
+            groq_api_key=os.getenv("GROQ_API_KEY") or None,
+            llm_provider=os.getenv("LLM_PROVIDER", "groq").strip().lower(),
         )
 
 

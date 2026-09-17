@@ -234,6 +234,49 @@ The `.env` and `.streamlit/secrets.toml` files contain secrets and must not be c
 
 ## Project structure
 
+### Streamlit chat UI
+
+Run the existing UI without a separate Node/React build:
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m streamlit run streamlit_app.py
+```
+
+`streamlit_app.py` owns the native chat input, welcome/sample questions and sidebar.
+`src/laborlaw_rag/ui.py` supplies cached local Vazirmatn/CSS, compact timing rows,
+bounded session-only conversations and small clipboard/accessibility components.
+`assets/styles/chatbot.css` supplies light/dark palettes, RTL layout and responsive
+styles. `personal_settings.py` renders the compact optional-provider form; its
+credential routing and validation are unchanged. API routes and RAG are unchanged.
+
+Sample questions fill the composer without making an API call. Enter sends;
+Shift+Enter inserts a newline. Native Streamlit input grows automatically. On
+versions supporting `submit_mode`, the composer disables while processing.
+Answers and native Markdown code blocks have copy actions (clipboard requires
+HTTPS or localhost and browser permission). Older Streamlit versions without v2
+components fall back to a copyable plain-text code panel. Recent Streamlit is
+recommended for the full native UX; no additional frontend dependencies are used.
+
+The mobile sidebar uses Streamlit's native drawer. Theme and up to 10 conversations
+(120 messages each) exist only in the current browser session, not a database;
+refreshing/reconnecting can end the session. New chat does not reset demo quotas
+or modify personal credentials. Personal keys stay in the current session and
+are not included in saved conversations. Questions/sources reach the selected
+provider through the server; its own costs and quota apply.
+
+Markdown remains sanitized by Streamlit: generated text is never injected into
+trusted component HTML/JS. Mixed Persian/English prose uses bidirectional isolation;
+code is LTR/monospace and wide tables/code scroll inside their containers.
+Scrolling uses native Streamlit behavior with CSS smooth scrolling (disabled for
+reduced-motion preference); it is not a custom virtualized React timeline.
+React would be appropriate only for precise independent scroll anchoring,
+token-stream controls, persistent account-backed conversations or fully custom
+composer interactions. None are required for this lightweight redesign.
+
+UI tests are in `tests/test_chat_ui.py`, `tests/test_ui_theme.py` and
+`tests/test_personal_ui.py`; run `python -m pytest -o addopts='' -q`.
+
 ```text
 laborlaw-rag-ir/
 ├── src/laborlaw_rag/   # data, retrieval, services, pipeline, and API

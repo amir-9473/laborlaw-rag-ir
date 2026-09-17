@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import inspect
 import os
 import re
 from hmac import compare_digest
@@ -12,12 +13,15 @@ from typing import Any
 import streamlit as st
 
 from laborlaw_rag.models import to_persian_digits
-from laborlaw_rag.ui import history_html, page_css
+from laborlaw_rag.ui import (history_html, page_css, timings_html, copy_answer,
+                             new_conversation, open_conversation, accessible_chrome)
 
 logger = logging.getLogger(__name__)
 SECRET_KEYS = (
     "JINA_API_KEY",
     "OPENROUTER_API_KEY",
+    "GROQ_API_KEY",
+    "LLM_PROVIDER",
     "LLM_MODEL",
     "DEMO_ACCESS_CODE",
     "DEMO_MIN_REQUEST_INTERVAL",
@@ -51,25 +55,16 @@ def get_pipeline() -> Any:
 def _friendly_error(exc: Exception) -> str:
     """Map internal failures to safe Persian messages."""
 
-    if isinstance(exc, FileNotFoundError):
-        return (
-            "فایل‌های داده یا نمایهٔ بازیابی در دسترس نیستند. "
-            "ابتدا مراحل آماده‌سازی داده و ساخت نمایه را اجرا کنید."
-        )
-    if isinstance(exc, RuntimeError):
-        return (
-            "سرویس پاسخ‌گویی در حال حاضر در دسترس نیست. "
-            "کلیدهای JINA_API_KEY و OPENROUTER_API_KEY و تنظیمات سرویس را بررسی کنید."
-        )
-    return "پردازش پرسش با خطا روبه‌رو شد. لطفاً کمی بعد دوباره تلاش کنید."
+    from laborlaw_rag.service_errors import friendly_error
+    return friendly_error(exc, personal=bool(st.session_state.get('personal_enabled', False)))
 
 
-def _render_message(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
+def _render_message(role: str, content: str, metadata: dict[str, Any] | None = None, copy_key: str = 'copy_latest') -> None:
     """Render trusted UI chrome and model Markdown separately."""
 
-    avatar = "👤" if role == "user" else "⚖️"
+    avatar = None if role == "user" else ":material/balance:"
     with st.chat_message(role, avatar=avatar):
-        _render_content(role, content, metadata)
+        _render_content(role, content, metadata, copy_key)
 
 
 def _split_answer_sources(content: str) -> tuple[str, list[str]]:
@@ -89,7 +84,7 @@ def _split_answer_sources(content: str) -> tuple[str, list[str]]:
     return answer, references
 
 
-def _render_content(role: str, content: str, metadata: dict[str, Any] | None = None) -> None:
+def _render_content(role: str, content: str, metadata: dict[str, Any] | None = None, copy_key: str = 'copy_latest') -> None:
     """Render each citation in its own visual row while keeping Markdown safe."""
 
     if role != "assistant":
@@ -108,6 +103,10 @@ def _render_content(role: str, content: str, metadata: dict[str, Any] | None = N
         latency_ms = max(float(metadata.get("latency_ms") or 0), 0)
         latency = to_persian_digits(f"{latency_ms / 1_000:.2f}").replace(".", "٫")
         st.caption(f"مدل پاسخ‌گو: {model_label}  •  زمان کل پاسخ: {latency} ثانیه")
+        timings = metadata.get("timings_ms") or {}
+        if timings:
+            st.markdown(timings_html(timings), unsafe_allow_html=True)
+    copy_answer(st, content, copy_key)
 
 
 def _enforce_demo_access() -> None:
@@ -143,9 +142,9 @@ st.set_page_config(
     page_title="دستیار قانون کار ایران",
     page_icon="⚖️",
     layout="centered",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
-st.markdown(page_css(), unsafe_allow_html=True)
+st.markdown(page_css("dark" if st.session_state.get("ui_theme") == "تاریک" else "light"), unsafe_allow_html=True)
 _configure_cloud_secrets()
 _enforce_demo_access()
 
@@ -154,23 +153,29 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
     st.markdown(
-        '<div class="sidebar-brand"><strong>⚖️ دستیار قانون کار</strong>'
-        "<span>پاسخ مستند بر پایهٔ مواد و تبصره‌های قانون کار ایران</span></div>",
+        '<div class="sidebar-brand"><strong>⚖ دستیار قانون کار</strong></div>',
         unsafe_allow_html=True,
     )
-    st.markdown('<div class="sidebar-section-title">تنظیمات پاسخ</div>', unsafe_allow_html=True)
-    with st.container(border=True):
+    st.button("گفت‌وگوی جدید", icon=":material/add:", type='primary', use_container_width=True,
+              on_click=new_conversation, args=(st.session_state,))
+    for index, chat in enumerate(st.session_state.get('ui_conversations', [])):
+        st.button(chat['title'], key=f'ui_chat_{index}', icon=':material/chat_bubble_outline:',
+                  use_container_width=True, on_click=open_conversation, args=(st.session_state, index))
+    with st.expander('تنظیمات', icon=':material/settings:', expanded=False):
+        st.radio("ظاهر برنامه", ("روشن", "تاریک"), horizontal=True, key="ui_theme")
         use_query_transformation = st.toggle(
             "بازنویسی هوشمند پرسش",
             value=False,
             help=("ممکن است بازیابی را بهتر کند، اما یک فراخوانی مدل و زمان بیشتری نیاز دارد."),
         )
-        st.caption("برای پاسخ سریع‌تر، این گزینه را خاموش نگه دارید.")
+        if st.button("پاک‌کردن تاریخچه گفتگو", icon=':material/delete_outline:', use_container_width=True):
+            st.session_state.messages = []
+            st.rerun()
+
+    from laborlaw_rag.personal_settings import render_personal_settings
+    render_personal_settings(st)
 
     history_slot = st.empty()
-    if st.button("🗑 پاک‌کردن تاریخچه گفتگو", use_container_width=True):
-        st.session_state.messages = []
-        st.rerun()
 
     st.markdown(
         '<p class="legal-note">این ابزار برای اطلاع‌رسانی عمومی است و '
@@ -179,27 +184,34 @@ with st.sidebar:
     )
 
 st.markdown(
-    '<section class="hero-card"><span class="hero-badge">پرسش و پاسخ مستند</span>'
-    "<h1>دستیار هوشمند قانون کار ایران</h1>"
-    "<p>پرسش خود را مطرح کنید تا پاسخ فقط بر پایهٔ مواد، تبصره‌ها و منابع موجود "
-    "ارائه شود.</p></section>",
+    '<header class="chat-header"><h1>دستیار هوشمند قانون کار</h1></header>',
     unsafe_allow_html=True,
 )
 
 if not st.session_state.messages:
-    st.info("برای شروع، پرسش خود را دربارهٔ قانون کار در کادر پایین بنویسید.", icon="💬")
+    st.markdown('<section class="welcome"><span class="welcome-icon" aria-hidden="true">⚖</span><h2>چطور می‌توانم کمک کنم؟</h2><p>دربارهٔ حقوق، قرارداد و شرایط کار بپرسید.</p></section>', unsafe_allow_html=True)
+    samples = ('ساعت کار عادی در هفته چقدر است؟', 'شرایط پرداخت اضافه‌کاری چیست؟', 'مرخصی استحقاقی سالانه چقدر است؟')
+    def fill_sample(text):
+        st.session_state['chat_prompt'] = text
+    with st.container(key='sample_questions'):
+        for col, sample in zip(st.columns(3), samples):
+            col.button(sample, key=f'sample_{samples.index(sample)}', use_container_width=True,
+                       on_click=fill_sample, args=(sample,))
 
-for message in st.session_state.messages:
-    _render_message(message["role"], message["content"], message.get("metadata"))
+for index, message in enumerate(st.session_state.messages):
+    _render_message(message["role"], message["content"], message.get("metadata"), f'copy_answer_{index}')
 
-if question := st.chat_input("پرسش خود را دربارهٔ قانون کار بنویسید…"):
+chat_options = {'key': 'chat_prompt', 'max_chars': 2000}
+if 'submit_mode' in inspect.signature(st.chat_input).parameters:
+    chat_options['submit_mode'] = 'disable'
+if question := st.chat_input("پرسش خود را دربارهٔ قانون کار بنویسید…", **chat_options):
     question = question.strip()
     if question:
         conversation_history = list(st.session_state.messages)
         st.session_state.messages.append({"role": "user", "content": question})
         _render_message("user", question)
 
-        with st.chat_message("assistant", avatar="⚖️"):
+        with st.chat_message("assistant", avatar=":material/balance:"):
             response_metadata = None
             limit_message = _request_limit_message()
             if limit_message:
@@ -209,7 +221,8 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                 with st.spinner("در حال بررسی منابع قانون کار…"):
                     try:
                         request_started = monotonic()
-                        result = get_pipeline().ask(
+                        from laborlaw_rag.personal_settings import answer_request
+                        result = answer_request(st, get_pipeline,
                             question,
                             use_query_transformation=use_query_transformation,
                             conversation_history=conversation_history,
@@ -218,6 +231,7 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                         response_metadata = {
                             "model_name": result.model_name,
                             "latency_ms": round((monotonic() - request_started) * 1_000, 2),
+                            "timings_ms": result.timings_ms,
                         }
                     except Exception as exc:
                         logger.exception("Streamlit RAG request failed.")
@@ -225,7 +239,7 @@ if question := st.chat_input("پرسش خود را دربارهٔ قانون ک�
                         st.error(output)
                     else:
                         # final_output keeps numbered citations below the answer.
-                        _render_content("assistant", output, response_metadata)
+                        _render_content("assistant", output, response_metadata, f'copy_answer_{len(st.session_state.messages)}')
 
         assistant_message = {"role": "assistant", "content": output}
         if response_metadata:
@@ -241,3 +255,5 @@ with history_slot.container():
         unsafe_allow_html=True,
     )
     st.markdown(history_html(st.session_state.messages), unsafe_allow_html=True)
+
+accessible_chrome(st)
